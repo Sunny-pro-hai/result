@@ -1,0 +1,1430 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ultimate Result Dashboard</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+}
+
+h1 { text-align: center; }
+
+input, select {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    border: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #334155;
+}
+
+th { background: #1e293b; }
+
+tr:hover { background: #1e293b; }
+
+.container { padding: 20px; }
+</style>
+
+</head>
+
+<body>
+
+<h1>🔥 Ultimate Bihar Board Dashboard</h1>
+
+<div class="container">
+
+<input type="text" id="search" placeholder="Search Name..." onkeyup="applyAll()">
+
+<select id="divisionFilter" onchange="applyAll()">
+<option value="">All Division</option>
+<option>1st Division</option>
+<option>2nd Division</option>
+<option>3rd Division</option>
+<option>Fail</option>
+</select>
+
+<select id="genderFilter" onchange="applyAll()">
+<option value="">All Gender</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+
+<select id="subjectFilter" onchange="applyAll()">
+<option value="">All Subjects</option>
+<option value="MATHEMATICS">Mathematics</option>
+<option value="ENGLISH">English</option>
+<option value="SCIENCE">Science</option>
+<option value="SOCIAL SCIENCE">Social Science</option>
+<option value="M.I.L. HINDI">Hindi</option>
+<option value="S.I.L. SANSKRIT">Sanskrit</option>
+</select>
+
+<input type="number" id="minMarks" placeholder="Min Marks" onkeyup="applyAll()">
+<input type="number" id="maxMarks" placeholder="Max Marks" onkeyup="applyAll()">
+
+<!-- 🔥 SORT -->
+<select id="sortOption" onchange="applyAll()">
+<option value="">No Sorting</option>
+
+<option value="total_desc">Total High → Low</option>
+<option value="total_asc">Total Low → High</option>
+
+<option value="math_desc">Math High → Low</option>
+<option value="math_asc">Math Low → High</option>
+
+<option value="eng_desc">English High → Low</option>
+<option value="eng_asc">English Low → High</option>
+
+<option value="sci_desc">Science High → Low</option>
+<option value="sci_asc">Science Low → High</option>
+
+<option value="sst_desc">Social Science High → Low</option>
+<option value="sst_asc">Social Science Low → High</option>
+
+<option value="hindi_desc">Hindi High → Low</option>
+<option value="hindi_asc">Hindi Low → High</option>
+
+<option value="sanskrit_desc">Sanskrit High → Low</option>
+<option value="sanskrit_asc">Sanskrit Low → High</option>
+
+</select>
+
+<table id="table">
+<thead>
+<tr>
+<th>Roll</th>
+<th>Name</th>
+<th>Gender</th>
+<th>Father</th>
+<th>School</th>
+<th>Total</th>
+<th>Division</th>
+<th>Subjects</th>
+</tr>
+</thead>
+
+<tbody>
+
+    <tr data-total="166" data-subjects="MATHEMATICS:30|SCIENCE:30|SOCIAL SCIENCE:39|ENGLISH:21|S.I.L. SANSKRIT:32|M.I.L. HINDI:35|">
+        <td>2600001</td>
+        <td>RANJU KUMARI</td>
+        <td>Female</td>
+        <td>RAVINDRA RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>166</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>SCIENCE (30)<br>SOCIAL SCIENCE (39)<br>ENGLISH (21)<br>S.I.L. SANSKRIT (32)<br>M.I.L. HINDI (35)<br></td>
+    </tr>
+    
+    <tr data-total="243" data-subjects="ENGLISH:36|S.I.L. SANSKRIT:51|SOCIAL SCIENCE:49|M.I.L. HINDI:53|MATHEMATICS:30|SCIENCE:60|">
+        <td>2600002</td>
+        <td>NISHU KUMARI</td>
+        <td>Female</td>
+        <td>SHANKAR PANDIT</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>243</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (36)<br>S.I.L. SANSKRIT (51)<br>SOCIAL SCIENCE (49)<br>M.I.L. HINDI (53)<br>MATHEMATICS (30)<br>SCIENCE (60)<br></td>
+    </tr>
+    
+    <tr data-total="149" data-subjects="M.I.L. HINDI:34|SCIENCE:28|SOCIAL SCIENCE:31|ENGLISH:16|S.I.L. SANSKRIT:40|MATHEMATICS:16|">
+        <td>2600003</td>
+        <td>MEENA KUMARI</td>
+        <td>Female</td>
+        <td>SURENDRA CHAUDHARY</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>149</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (34)<br>SCIENCE (28)<br>SOCIAL SCIENCE (31)<br>ENGLISH (16)<br>S.I.L. SANSKRIT (40)<br>MATHEMATICS (16)<br></td>
+    </tr>
+    
+    <tr data-total="176" data-subjects="S.I.L. SANSKRIT:53|M.I.L. HINDI:44|SOCIAL SCIENCE:33|MATHEMATICS:11|ENGLISH:23|SCIENCE:35|">
+        <td>2600004</td>
+        <td>SITAPATI KUMARI</td>
+        <td>Female</td>
+        <td>KRISHAN BIND</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>176</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (53)<br>M.I.L. HINDI (44)<br>SOCIAL SCIENCE (33)<br>MATHEMATICS (11)<br>ENGLISH (23)<br>SCIENCE (35)<br></td>
+    </tr>
+    
+    <tr data-total="254" data-subjects="SOCIAL SCIENCE:47|MATHEMATICS:30|ENGLISH:49|S.I.L. SANSKRIT:64|M.I.L. HINDI:70|SCIENCE:43|">
+        <td>2600005</td>
+        <td>SONAMATI KUMARI</td>
+        <td>Female</td>
+        <td>SUNILBIND</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>254</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (47)<br>MATHEMATICS (30)<br>ENGLISH (49)<br>S.I.L. SANSKRIT (64)<br>M.I.L. HINDI (70)<br>SCIENCE (43)<br></td>
+    </tr>
+    
+    <tr data-total="211" data-subjects="SCIENCE:36|S.I.L. SANSKRIT:54|MATHEMATICS:30|M.I.L. HINDI:52|ENGLISH:39|SOCIAL SCIENCE:39|">
+        <td>2600006</td>
+        <td>SALONI KUMARI</td>
+        <td>Female</td>
+        <td>AKHILESH PRASAD</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>211</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (36)<br>S.I.L. SANSKRIT (54)<br>MATHEMATICS (30)<br>M.I.L. HINDI (52)<br>ENGLISH (39)<br>SOCIAL SCIENCE (39)<br></td>
+    </tr>
+    
+    <tr data-total="171" data-subjects="SCIENCE:33|S.I.L. SANSKRIT:34|MATHEMATICS:30|SOCIAL SCIENCE:41|M.I.L. HINDI:33|ENGLISH:21|">
+        <td>2600007</td>
+        <td>TARA KUMARI</td>
+        <td>Female</td>
+        <td>UDAY RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>171</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (33)<br>S.I.L. SANSKRIT (34)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (41)<br>M.I.L. HINDI (33)<br>ENGLISH (21)<br></td>
+    </tr>
+    
+    <tr data-total="291" data-subjects="S.I.L. SANSKRIT:70|SCIENCE:65|SOCIAL SCIENCE:52|MATHEMATICS:36|M.I.L. HINDI:68|ENGLISH:40|">
+        <td>2600008</td>
+        <td>SALONI KUMARI</td>
+        <td>Female</td>
+        <td>JITENDRA KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>291</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (70)<br>SCIENCE (65)<br>SOCIAL SCIENCE (52)<br>MATHEMATICS (36)<br>M.I.L. HINDI (68)<br>ENGLISH (40)<br></td>
+    </tr>
+    
+    <tr data-total="201" data-subjects="MATHEMATICS:30|SOCIAL SCIENCE:48|ENGLISH:19|SCIENCE:37|S.I.L. SANSKRIT:42|M.I.L. HINDI:44|">
+        <td>2600009</td>
+        <td>JAYMALA KUMARI</td>
+        <td>Female</td>
+        <td>SUJIT SAW</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>201</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>SOCIAL SCIENCE (48)<br>ENGLISH (19)<br>SCIENCE (37)<br>S.I.L. SANSKRIT (42)<br>M.I.L. HINDI (44)<br></td>
+    </tr>
+    
+    <tr data-total="145" data-subjects="ENGLISH:17|SOCIAL SCIENCE:32|S.I.L. SANSKRIT:31|M.I.L. HINDI:39|MATHEMATICS:11|SCIENCE:32|">
+        <td>2600010</td>
+        <td>SUHANI KUMARI</td>
+        <td>Female</td>
+        <td>ASHOK DAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>145</td>
+        <td>Fail</td>
+        <td>ENGLISH (17)<br>SOCIAL SCIENCE (32)<br>S.I.L. SANSKRIT (31)<br>M.I.L. HINDI (39)<br>MATHEMATICS (11)<br>SCIENCE (32)<br></td>
+    </tr>
+    
+    <tr data-total="135" data-subjects="S.I.L. SANSKRIT:29|SOCIAL SCIENCE:33|ENGLISH:15|SCIENCE:33|M.I.L. HINDI:22|MATHEMATICS:18|">
+        <td>2600011</td>
+        <td>RAGINI KUMARI</td>
+        <td>Female</td>
+        <td>PAPPU SHARMA</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>135</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (29)<br>SOCIAL SCIENCE (33)<br>ENGLISH (15)<br>SCIENCE (33)<br>M.I.L. HINDI (22)<br>MATHEMATICS (18)<br></td>
+    </tr>
+    
+    <tr data-total="241" data-subjects="SCIENCE:41|S.I.L. SANSKRIT:60|SOCIAL SCIENCE:48|ENGLISH:41|M.I.L. HINDI:57|MATHEMATICS:35|">
+        <td>2600012</td>
+        <td>AABHA KUMARI</td>
+        <td>Female</td>
+        <td>AMIT KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>241</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (41)<br>S.I.L. SANSKRIT (60)<br>SOCIAL SCIENCE (48)<br>ENGLISH (41)<br>M.I.L. HINDI (57)<br>MATHEMATICS (35)<br></td>
+    </tr>
+    
+    <tr data-total="245" data-subjects="MATHEMATICS:30|M.I.L. HINDI:66|SCIENCE:42|S.I.L. SANSKRIT:65|ENGLISH:35|SOCIAL SCIENCE:42|">
+        <td>2600013</td>
+        <td>PRIYA KUMARI</td>
+        <td>Female</td>
+        <td>UMESH PRASAD</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>245</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (30)<br>M.I.L. HINDI (66)<br>SCIENCE (42)<br>S.I.L. SANSKRIT (65)<br>ENGLISH (35)<br>SOCIAL SCIENCE (42)<br></td>
+    </tr>
+    
+    <tr data-total="196" data-subjects="SCIENCE:36|ENGLISH:31|MATHEMATICS:30|SOCIAL SCIENCE:44|M.I.L. HINDI:36|S.I.L. SANSKRIT:50|">
+        <td>2600014</td>
+        <td>NAJMA KHATUN</td>
+        <td>Male</td>
+        <td>MD MUSTKIM</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>196</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (36)<br>ENGLISH (31)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (44)<br>M.I.L. HINDI (36)<br>S.I.L. SANSKRIT (50)<br></td>
+    </tr>
+    
+    <tr data-total="324" data-subjects="ENGLISH:55|M.I.L. HINDI:78|SCIENCE:59|S.I.L. SANSKRIT:72|SOCIAL SCIENCE:55|MATHEMATICS:60|">
+        <td>2600015</td>
+        <td>PRIYA KUMARI</td>
+        <td>Female</td>
+        <td>RAMAKANT KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>324</td>
+        <td>1st Division</td>
+        <td>ENGLISH (55)<br>M.I.L. HINDI (78)<br>SCIENCE (59)<br>S.I.L. SANSKRIT (72)<br>SOCIAL SCIENCE (55)<br>MATHEMATICS (60)<br></td>
+    </tr>
+    
+    <tr data-total="183" data-subjects="M.I.L. HINDI:35|S.I.L. SANSKRIT:52|MATHEMATICS:13|SOCIAL SCIENCE:43|SCIENCE:40|ENGLISH:35|">
+        <td>2600016</td>
+        <td>SHWETA KUMARI</td>
+        <td>Female</td>
+        <td>VINOD MANJHI</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>183</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (35)<br>S.I.L. SANSKRIT (52)<br>MATHEMATICS (13)<br>SOCIAL SCIENCE (43)<br>SCIENCE (40)<br>ENGLISH (35)<br></td>
+    </tr>
+    
+    <tr data-total="232" data-subjects="S.I.L. SANSKRIT:50|SCIENCE:44|ENGLISH:52|MATHEMATICS:30|SOCIAL SCIENCE:52|M.I.L. HINDI:56|">
+        <td>2600017</td>
+        <td>PRATIMA KUMARI</td>
+        <td>Female</td>
+        <td>KUNDAN SAW</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>232</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (50)<br>SCIENCE (44)<br>ENGLISH (52)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (52)<br>M.I.L. HINDI (56)<br></td>
+    </tr>
+    
+    <tr data-total="304" data-subjects="ENGLISH:56|M.I.L. HINDI:72|SOCIAL SCIENCE:61|S.I.L. SANSKRIT:64|SCIENCE:62|MATHEMATICS:45|">
+        <td>2600018</td>
+        <td>KHUSHBU KUMARI</td>
+        <td>Female</td>
+        <td>UPENDRA PASVAN</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>304</td>
+        <td>1st Division</td>
+        <td>ENGLISH (56)<br>M.I.L. HINDI (72)<br>SOCIAL SCIENCE (61)<br>S.I.L. SANSKRIT (64)<br>SCIENCE (62)<br>MATHEMATICS (45)<br></td>
+    </tr>
+    
+    <tr data-total="200" data-subjects="MATHEMATICS:30|SOCIAL SCIENCE:52|M.I.L. HINDI:37|S.I.L. SANSKRIT:40|ENGLISH:34|SCIENCE:41|">
+        <td>2600019</td>
+        <td>ASHA KUMARI</td>
+        <td>Female</td>
+        <td>DHANANJAY MANJHI</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>200</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>SOCIAL SCIENCE (52)<br>M.I.L. HINDI (37)<br>S.I.L. SANSKRIT (40)<br>ENGLISH (34)<br>SCIENCE (41)<br></td>
+    </tr>
+    
+    <tr data-total="240" data-subjects="SOCIAL SCIENCE:52|S.I.L. SANSKRIT:59|MATHEMATICS:30|SCIENCE:34|ENGLISH:41|M.I.L. HINDI:65|">
+        <td>2600020</td>
+        <td>VARSHA KUMARI</td>
+        <td>Female</td>
+        <td>KUNAL THAKUR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>240</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (52)<br>S.I.L. SANSKRIT (59)<br>MATHEMATICS (30)<br>SCIENCE (34)<br>ENGLISH (41)<br>M.I.L. HINDI (65)<br></td>
+    </tr>
+    
+    <tr data-total="226" data-subjects="S.I.L. SANSKRIT:55|SCIENCE:30|M.I.L. HINDI:52|SOCIAL SCIENCE:52|MATHEMATICS:37|ENGLISH:22|">
+        <td>2600021</td>
+        <td>KAJAL KUMARI</td>
+        <td>Female</td>
+        <td>SANTOSH KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>226</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (55)<br>SCIENCE (30)<br>M.I.L. HINDI (52)<br>SOCIAL SCIENCE (52)<br>MATHEMATICS (37)<br>ENGLISH (22)<br></td>
+    </tr>
+    
+    <tr data-total="252" data-subjects="S.I.L. SANSKRIT:58|SCIENCE:43|SOCIAL SCIENCE:59|MATHEMATICS:30|ENGLISH:21|M.I.L. HINDI:62|">
+        <td>2600022</td>
+        <td>NEHA KUMARI</td>
+        <td>Female</td>
+        <td>MOHAN KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>252</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (58)<br>SCIENCE (43)<br>SOCIAL SCIENCE (59)<br>MATHEMATICS (30)<br>ENGLISH (21)<br>M.I.L. HINDI (62)<br></td>
+    </tr>
+    
+    <tr data-total="366" data-subjects="M.I.L. HINDI:81|MATHEMATICS:75|S.I.L. SANSKRIT:72|SCIENCE:74|ENGLISH:43|SOCIAL SCIENCE:64|">
+        <td>2600023</td>
+        <td>SALONI KUMARI</td>
+        <td>Female</td>
+        <td>SANJAY KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>366</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (81)<br>MATHEMATICS (75)<br>S.I.L. SANSKRIT (72)<br>SCIENCE (74)<br>ENGLISH (43)<br>SOCIAL SCIENCE (64)<br></td>
+    </tr>
+    
+    <tr data-total="208" data-subjects="M.I.L. HINDI:39|SOCIAL SCIENCE:51|ENGLISH:27|SCIENCE:41|S.I.L. SANSKRIT:47|MATHEMATICS:30|">
+        <td>2600024</td>
+        <td>PRATIMA KUMARI</td>
+        <td>Female</td>
+        <td>BHUSHAN RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>208</td>
+        <td>3rd Division</td>
+        <td>M.I.L. HINDI (39)<br>SOCIAL SCIENCE (51)<br>ENGLISH (27)<br>SCIENCE (41)<br>S.I.L. SANSKRIT (47)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="162" data-subjects="MATHEMATICS:30|SCIENCE:33|S.I.L. SANSKRIT:36|M.I.L. HINDI:21|SOCIAL SCIENCE:42|ENGLISH:17|">
+        <td>2600025</td>
+        <td>MADHU KUMARI</td>
+        <td>Female</td>
+        <td>SHAILESH KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>162</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (30)<br>SCIENCE (33)<br>S.I.L. SANSKRIT (36)<br>M.I.L. HINDI (21)<br>SOCIAL SCIENCE (42)<br>ENGLISH (17)<br></td>
+    </tr>
+    
+    <tr data-total="153" data-subjects="M.I.L. HINDI:34|SOCIAL SCIENCE:34|SCIENCE:33|MATHEMATICS:13|S.I.L. SANSKRIT:39|ENGLISH:25|">
+        <td>2600026</td>
+        <td>JULLI KUMARI</td>
+        <td>Female</td>
+        <td>LATE RAMASHRAY YADAV</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>153</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (34)<br>SOCIAL SCIENCE (34)<br>SCIENCE (33)<br>MATHEMATICS (13)<br>S.I.L. SANSKRIT (39)<br>ENGLISH (25)<br></td>
+    </tr>
+    
+    <tr data-total="204" data-subjects="SCIENCE:34|SOCIAL SCIENCE:44|MATHEMATICS:30|S.I.L. SANSKRIT:56|ENGLISH:26|M.I.L. HINDI:40|">
+        <td>2600027</td>
+        <td>SWEETY KUMARI</td>
+        <td>Female</td>
+        <td>ARVIND RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>204</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (34)<br>SOCIAL SCIENCE (44)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (56)<br>ENGLISH (26)<br>M.I.L. HINDI (40)<br></td>
+    </tr>
+    
+    <tr data-total="248" data-subjects="ENGLISH:28|MATHEMATICS:30|S.I.L. SANSKRIT:67|SCIENCE:51|M.I.L. HINDI:55|SOCIAL SCIENCE:45|">
+        <td>2600028</td>
+        <td>GULBANO PRWIN</td>
+        <td>Male</td>
+        <td>MD NASHIR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>248</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (28)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (67)<br>SCIENCE (51)<br>M.I.L. HINDI (55)<br>SOCIAL SCIENCE (45)<br></td>
+    </tr>
+    
+    <tr data-total="136" data-subjects="SCIENCE:28|M.I.L. HINDI:39|ENGLISH:18|SOCIAL SCIENCE:27|MATHEMATICS:19|S.I.L. SANSKRIT:23|">
+        <td>2600029</td>
+        <td>SITA KUMARI</td>
+        <td>Female</td>
+        <td>RAMESHWAR PASWAN</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>136</td>
+        <td>Fail</td>
+        <td>SCIENCE (28)<br>M.I.L. HINDI (39)<br>ENGLISH (18)<br>SOCIAL SCIENCE (27)<br>MATHEMATICS (19)<br>S.I.L. SANSKRIT (23)<br></td>
+    </tr>
+    
+    <tr data-total="302" data-subjects="SCIENCE:59|M.I.L. HINDI:72|SOCIAL SCIENCE:59|S.I.L. SANSKRIT:65|ENGLISH:38|MATHEMATICS:47|">
+        <td>2600030</td>
+        <td>BABLI KUMARI</td>
+        <td>Female</td>
+        <td>JITENDRA KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>302</td>
+        <td>1st Division</td>
+        <td>SCIENCE (59)<br>M.I.L. HINDI (72)<br>SOCIAL SCIENCE (59)<br>S.I.L. SANSKRIT (65)<br>ENGLISH (38)<br>MATHEMATICS (47)<br></td>
+    </tr>
+    
+    <tr data-total="392" data-subjects="SOCIAL SCIENCE:82|MATHEMATICS:81|ENGLISH:45|S.I.L. SANSKRIT:79|SCIENCE:73|M.I.L. HINDI:77|">
+        <td>2600031</td>
+        <td>DAULI KUMARI</td>
+        <td>Female</td>
+        <td>APPU RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>392</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (82)<br>MATHEMATICS (81)<br>ENGLISH (45)<br>S.I.L. SANSKRIT (79)<br>SCIENCE (73)<br>M.I.L. HINDI (77)<br></td>
+    </tr>
+    
+    <tr data-total="439" data-subjects="SOCIAL SCIENCE:85|ENGLISH:66|SCIENCE:85|MATHEMATICS:96|S.I.L. SANSKRIT:85|M.I.L. HINDI:88|">
+        <td>2600032</td>
+        <td>SUPRIYA KUMARI</td>
+        <td>Female</td>
+        <td>SOMNATH PRASAD SINGH</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>439</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (85)<br>ENGLISH (66)<br>SCIENCE (85)<br>MATHEMATICS (96)<br>S.I.L. SANSKRIT (85)<br>M.I.L. HINDI (88)<br></td>
+    </tr>
+    
+    <tr data-total="155" data-subjects="SCIENCE:41|ENGLISH:21|M.I.L. HINDI:38|S.I.L. SANSKRIT:24|MATHEMATICS:18|SOCIAL SCIENCE:34|">
+        <td>2600033</td>
+        <td>JYOTI KUMARI</td>
+        <td>Female</td>
+        <td>DHIRENDRA RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>155</td>
+        <td>Fail</td>
+        <td>SCIENCE (41)<br>ENGLISH (21)<br>M.I.L. HINDI (38)<br>S.I.L. SANSKRIT (24)<br>MATHEMATICS (18)<br>SOCIAL SCIENCE (34)<br></td>
+    </tr>
+    
+    <tr data-total="346" data-subjects="SOCIAL SCIENCE:57|MATHEMATICS:86|S.I.L. SANSKRIT:70|SCIENCE:57|ENGLISH:39|M.I.L. HINDI:76|">
+        <td>2600034</td>
+        <td>NANDANI KUMARI</td>
+        <td>Female</td>
+        <td>KUNAL YADAV</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>346</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (57)<br>MATHEMATICS (86)<br>S.I.L. SANSKRIT (70)<br>SCIENCE (57)<br>ENGLISH (39)<br>M.I.L. HINDI (76)<br></td>
+    </tr>
+    
+    <tr data-total="243" data-subjects="M.I.L. HINDI:44|ENGLISH:39|SCIENCE:42|MATHEMATICS:30|S.I.L. SANSKRIT:59|SOCIAL SCIENCE:68|">
+        <td>2600035</td>
+        <td>SANA PRAVEEN</td>
+        <td>Male</td>
+        <td>MD SAJID ALAM</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>243</td>
+        <td>2nd Division</td>
+        <td>M.I.L. HINDI (44)<br>ENGLISH (39)<br>SCIENCE (42)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (59)<br>SOCIAL SCIENCE (68)<br></td>
+    </tr>
+    
+    <tr data-total="214" data-subjects="M.I.L. HINDI:39|SOCIAL SCIENCE:52|ENGLISH:42|MATHEMATICS:30|S.I.L. SANSKRIT:47|SCIENCE:46|">
+        <td>2600036</td>
+        <td>RUCHI KUMARI</td>
+        <td>Female</td>
+        <td>LALENDRA MAHTO</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>214</td>
+        <td>3rd Division</td>
+        <td>M.I.L. HINDI (39)<br>SOCIAL SCIENCE (52)<br>ENGLISH (42)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (47)<br>SCIENCE (46)<br></td>
+    </tr>
+    
+    <tr data-total="238" data-subjects="MATHEMATICS:30|ENGLISH:46|S.I.L. SANSKRIT:49|M.I.L. HINDI:55|SCIENCE:51|SOCIAL SCIENCE:53|">
+        <td>2600037</td>
+        <td>MONI KUMARI</td>
+        <td>Female</td>
+        <td>NATHUNI BIND</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>238</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (30)<br>ENGLISH (46)<br>S.I.L. SANSKRIT (49)<br>M.I.L. HINDI (55)<br>SCIENCE (51)<br>SOCIAL SCIENCE (53)<br></td>
+    </tr>
+    
+    <tr data-total="370" data-subjects="S.I.L. SANSKRIT:70|ENGLISH:67|SCIENCE:81|M.I.L. HINDI:83|MATHEMATICS:76|SOCIAL SCIENCE:60|">
+        <td>2600038</td>
+        <td>RAJ LAXMI</td>
+        <td>Male</td>
+        <td>DILIP KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>370</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (70)<br>ENGLISH (67)<br>SCIENCE (81)<br>M.I.L. HINDI (83)<br>MATHEMATICS (76)<br>SOCIAL SCIENCE (60)<br></td>
+    </tr>
+    
+    <tr data-total="362" data-subjects="SCIENCE:73|MATHEMATICS:61|M.I.L. HINDI:79|SOCIAL SCIENCE:72|ENGLISH:47|S.I.L. SANSKRIT:77|">
+        <td>2600039</td>
+        <td>ALPA KUMARI</td>
+        <td>Female</td>
+        <td>KAMDEV KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>362</td>
+        <td>1st Division</td>
+        <td>SCIENCE (73)<br>MATHEMATICS (61)<br>M.I.L. HINDI (79)<br>SOCIAL SCIENCE (72)<br>ENGLISH (47)<br>S.I.L. SANSKRIT (77)<br></td>
+    </tr>
+    
+    <tr data-total="169" data-subjects="SCIENCE:39|ENGLISH:21|M.I.L. HINDI:32|MATHEMATICS:13|SOCIAL SCIENCE:43|S.I.L. SANSKRIT:42|">
+        <td>2600040</td>
+        <td>DIPIKA KUMARI</td>
+        <td>Female</td>
+        <td>SANJAY MANJHI</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>169</td>
+        <td>Fail</td>
+        <td>SCIENCE (39)<br>ENGLISH (21)<br>M.I.L. HINDI (32)<br>MATHEMATICS (13)<br>SOCIAL SCIENCE (43)<br>S.I.L. SANSKRIT (42)<br></td>
+    </tr>
+    
+    <tr data-total="265" data-subjects="ENGLISH:42|SOCIAL SCIENCE:62|SCIENCE:46|MATHEMATICS:31|M.I.L. HINDI:53|S.I.L. SANSKRIT:73|">
+        <td>2600041</td>
+        <td>PAMMI KUMARI</td>
+        <td>Female</td>
+        <td>SHYAMDEV PASWAN</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>265</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (42)<br>SOCIAL SCIENCE (62)<br>SCIENCE (46)<br>MATHEMATICS (31)<br>M.I.L. HINDI (53)<br>S.I.L. SANSKRIT (73)<br></td>
+    </tr>
+    
+    <tr data-total="252" data-subjects="MATHEMATICS:32|S.I.L. SANSKRIT:61|M.I.L. HINDI:55|ENGLISH:36|SCIENCE:51|SOCIAL SCIENCE:53|">
+        <td>2600042</td>
+        <td>RITU KUMARI</td>
+        <td>Female</td>
+        <td>SHAMBHU KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>252</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (32)<br>S.I.L. SANSKRIT (61)<br>M.I.L. HINDI (55)<br>ENGLISH (36)<br>SCIENCE (51)<br>SOCIAL SCIENCE (53)<br></td>
+    </tr>
+    
+    <tr data-total="232" data-subjects="MATHEMATICS:30|SCIENCE:41|ENGLISH:37|SOCIAL SCIENCE:54|M.I.L. HINDI:51|S.I.L. SANSKRIT:56|">
+        <td>2600043</td>
+        <td>SARSWATI KUMARI</td>
+        <td>Female</td>
+        <td>DUKHAN SAW</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>232</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (30)<br>SCIENCE (41)<br>ENGLISH (37)<br>SOCIAL SCIENCE (54)<br>M.I.L. HINDI (51)<br>S.I.L. SANSKRIT (56)<br></td>
+    </tr>
+    
+    <tr data-total="357" data-subjects="ENGLISH:48|MATHEMATICS:62|M.I.L. HINDI:73|SCIENCE:71|SOCIAL SCIENCE:67|S.I.L. SANSKRIT:84|">
+        <td>2600044</td>
+        <td>SANJANA KUMARI</td>
+        <td>Female</td>
+        <td>DAYANAND KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>357</td>
+        <td>1st Division</td>
+        <td>ENGLISH (48)<br>MATHEMATICS (62)<br>M.I.L. HINDI (73)<br>SCIENCE (71)<br>SOCIAL SCIENCE (67)<br>S.I.L. SANSKRIT (84)<br></td>
+    </tr>
+    
+    <tr data-total="216" data-subjects="MATHEMATICS:30|M.I.L. HINDI:40|S.I.L. SANSKRIT:55|SCIENCE:49|ENGLISH:34|SOCIAL SCIENCE:42|">
+        <td>2600045</td>
+        <td>SIMPI KUMARI</td>
+        <td>Female</td>
+        <td>KAMENDRA BIND</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>216</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>M.I.L. HINDI (40)<br>S.I.L. SANSKRIT (55)<br>SCIENCE (49)<br>ENGLISH (34)<br>SOCIAL SCIENCE (42)<br></td>
+    </tr>
+    
+    <tr data-total="267" data-subjects="M.I.L. HINDI:65|SOCIAL SCIENCE:49|MATHEMATICS:34|SCIENCE:48|S.I.L. SANSKRIT:71|ENGLISH:55|">
+        <td>2600046</td>
+        <td>SAPNA KUMARI</td>
+        <td>Female</td>
+        <td>RAJU SAW</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>267</td>
+        <td>2nd Division</td>
+        <td>M.I.L. HINDI (65)<br>SOCIAL SCIENCE (49)<br>MATHEMATICS (34)<br>SCIENCE (48)<br>S.I.L. SANSKRIT (71)<br>ENGLISH (55)<br></td>
+    </tr>
+    
+    <tr data-total="174" data-subjects="MATHEMATICS:30|SOCIAL SCIENCE:40|ENGLISH:33|SCIENCE:32|S.I.L. SANSKRIT:35|M.I.L. HINDI:37|">
+        <td>2600047</td>
+        <td>GUDIYA KUMARI</td>
+        <td>Female</td>
+        <td>DIPU MISTRI</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>174</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>SOCIAL SCIENCE (40)<br>ENGLISH (33)<br>SCIENCE (32)<br>S.I.L. SANSKRIT (35)<br>M.I.L. HINDI (37)<br></td>
+    </tr>
+    
+    <tr data-total="152" data-subjects="M.I.L. HINDI:29|SCIENCE:34|ENGLISH:14|SOCIAL SCIENCE:29|MATHEMATICS:18|S.I.L. SANSKRIT:42|">
+        <td>2600048</td>
+        <td>SAMMA PRAVEEN</td>
+        <td>Male</td>
+        <td>MD NAUSAD</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>152</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (29)<br>SCIENCE (34)<br>ENGLISH (14)<br>SOCIAL SCIENCE (29)<br>MATHEMATICS (18)<br>S.I.L. SANSKRIT (42)<br></td>
+    </tr>
+    
+    <tr data-total="242" data-subjects="S.I.L. SANSKRIT:61|MATHEMATICS:32|M.I.L. HINDI:51|ENGLISH:34|SCIENCE:42|SOCIAL SCIENCE:56|">
+        <td>2600049</td>
+        <td>RANI KUMARI</td>
+        <td>Female</td>
+        <td>MUKESH KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>242</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (61)<br>MATHEMATICS (32)<br>M.I.L. HINDI (51)<br>ENGLISH (34)<br>SCIENCE (42)<br>SOCIAL SCIENCE (56)<br></td>
+    </tr>
+    
+    <tr data-total="301" data-subjects="SCIENCE:60|MATHEMATICS:30|M.I.L. HINDI:67|SOCIAL SCIENCE:73|S.I.L. SANSKRIT:71|ENGLISH:42|">
+        <td>2600050</td>
+        <td>RINKI KUMARI</td>
+        <td>Female</td>
+        <td>RAVINDRA PANDIT</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>301</td>
+        <td>1st Division</td>
+        <td>SCIENCE (60)<br>MATHEMATICS (30)<br>M.I.L. HINDI (67)<br>SOCIAL SCIENCE (73)<br>S.I.L. SANSKRIT (71)<br>ENGLISH (42)<br></td>
+    </tr>
+    
+    <tr data-total="149" data-subjects="SCIENCE:26|SOCIAL SCIENCE:45|M.I.L. HINDI:32|ENGLISH:16|S.I.L. SANSKRIT:29|MATHEMATICS:17|">
+        <td>2600051</td>
+        <td>REENA KUMARI</td>
+        <td>Female</td>
+        <td>PRABHU CHAUDHARI</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>149</td>
+        <td>Fail</td>
+        <td>SCIENCE (26)<br>SOCIAL SCIENCE (45)<br>M.I.L. HINDI (32)<br>ENGLISH (16)<br>S.I.L. SANSKRIT (29)<br>MATHEMATICS (17)<br></td>
+    </tr>
+    
+    <tr data-total="356" data-subjects="SCIENCE:68|S.I.L. SANSKRIT:79|ENGLISH:53|M.I.L. HINDI:76|MATHEMATICS:73|SOCIAL SCIENCE:60|">
+        <td>2600052</td>
+        <td>TANNU</td>
+        <td>Male</td>
+        <td>RAGHVENDER KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>356</td>
+        <td>1st Division</td>
+        <td>SCIENCE (68)<br>S.I.L. SANSKRIT (79)<br>ENGLISH (53)<br>M.I.L. HINDI (76)<br>MATHEMATICS (73)<br>SOCIAL SCIENCE (60)<br></td>
+    </tr>
+    
+    <tr data-total="324" data-subjects="SOCIAL SCIENCE:76|MATHEMATICS:32|M.I.L. HINDI:77|ENGLISH:55|S.I.L. SANSKRIT:78|SCIENCE:61|">
+        <td>2600053</td>
+        <td>FALAK PARVEEN</td>
+        <td>Male</td>
+        <td>MD SHAKIL AHAMAD</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>324</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (76)<br>MATHEMATICS (32)<br>M.I.L. HINDI (77)<br>ENGLISH (55)<br>S.I.L. SANSKRIT (78)<br>SCIENCE (61)<br></td>
+    </tr>
+    
+    <tr data-total="319" data-subjects="ENGLISH:56|M.I.L. HINDI:73|S.I.L. SANSKRIT:76|SOCIAL SCIENCE:67|SCIENCE:62|MATHEMATICS:41|">
+        <td>2600054</td>
+        <td>JUHI KUMARI</td>
+        <td>Female</td>
+        <td>RAMASHRAY YADAV</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>319</td>
+        <td>1st Division</td>
+        <td>ENGLISH (56)<br>M.I.L. HINDI (73)<br>S.I.L. SANSKRIT (76)<br>SOCIAL SCIENCE (67)<br>SCIENCE (62)<br>MATHEMATICS (41)<br></td>
+    </tr>
+    
+    <tr data-total="339" data-subjects="M.I.L. HINDI:68|ENGLISH:53|SCIENCE:66|S.I.L. SANSKRIT:71|MATHEMATICS:74|SOCIAL SCIENCE:60|">
+        <td>2600055</td>
+        <td>SIMPI KUMARI</td>
+        <td>Female</td>
+        <td>MISHRI KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>339</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (68)<br>ENGLISH (53)<br>SCIENCE (66)<br>S.I.L. SANSKRIT (71)<br>MATHEMATICS (74)<br>SOCIAL SCIENCE (60)<br></td>
+    </tr>
+    
+    <tr data-total="349" data-subjects="MATHEMATICS:72|ENGLISH:55|SOCIAL SCIENCE:62|S.I.L. SANSKRIT:71|M.I.L. HINDI:73|SCIENCE:71|">
+        <td>2600056</td>
+        <td>CHANDANI KUMARI</td>
+        <td>Female</td>
+        <td>MUKESH KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>349</td>
+        <td>1st Division</td>
+        <td>MATHEMATICS (72)<br>ENGLISH (55)<br>SOCIAL SCIENCE (62)<br>S.I.L. SANSKRIT (71)<br>M.I.L. HINDI (73)<br>SCIENCE (71)<br></td>
+    </tr>
+    
+    <tr data-total="130" data-subjects="M.I.L. HINDI:24|MATHEMATICS:12|SCIENCE:35|S.I.L. SANSKRIT:30|SOCIAL SCIENCE:29|ENGLISH:25|">
+        <td>2600057</td>
+        <td>SUNITA KUMARI</td>
+        <td>Female</td>
+        <td>ANNU SAW</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>130</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (24)<br>MATHEMATICS (12)<br>SCIENCE (35)<br>S.I.L. SANSKRIT (30)<br>SOCIAL SCIENCE (29)<br>ENGLISH (25)<br></td>
+    </tr>
+    
+    <tr data-total="135" data-subjects="S.I.L. SANSKRIT:33|ENGLISH:12|MATHEMATICS:12|SCIENCE:31|M.I.L. HINDI:22|SOCIAL SCIENCE:37|">
+        <td>2600058</td>
+        <td>SIMRAN KHATOON</td>
+        <td>Male</td>
+        <td>MD TASLEEM</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>135</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (33)<br>ENGLISH (12)<br>MATHEMATICS (12)<br>SCIENCE (31)<br>M.I.L. HINDI (22)<br>SOCIAL SCIENCE (37)<br></td>
+    </tr>
+    
+    <tr data-total="142" data-subjects="M.I.L. HINDI:27|S.I.L. SANSKRIT:29|SCIENCE:32|MATHEMATICS:17|ENGLISH:29|SOCIAL SCIENCE:37|">
+        <td>2600059</td>
+        <td>ANNU KUMARI</td>
+        <td>Female</td>
+        <td>ANIL CHOUDHARY</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>142</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (27)<br>S.I.L. SANSKRIT (29)<br>SCIENCE (32)<br>MATHEMATICS (17)<br>ENGLISH (29)<br>SOCIAL SCIENCE (37)<br></td>
+    </tr>
+    
+    <tr data-total="361" data-subjects="M.I.L. HINDI:71|MATHEMATICS:73|S.I.L. SANSKRIT:79|SOCIAL SCIENCE:64|SCIENCE:74|ENGLISH:29|">
+        <td>2600060</td>
+        <td>SURAJ KUMAR</td>
+        <td>Male</td>
+        <td>JAYRAM YADAV</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>361</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (71)<br>MATHEMATICS (73)<br>S.I.L. SANSKRIT (79)<br>SOCIAL SCIENCE (64)<br>SCIENCE (74)<br>ENGLISH (29)<br></td>
+    </tr>
+    
+    <tr data-total="170" data-subjects="SOCIAL SCIENCE:36|M.I.L. HINDI:49|ENGLISH:29|SCIENCE:36|S.I.L. SANSKRIT:37|MATHEMATICS:12|">
+        <td>2600061</td>
+        <td>VIRENDRA KUMAR</td>
+        <td>Male</td>
+        <td>AKHILESH CHAUDHARY</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>170</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (36)<br>M.I.L. HINDI (49)<br>ENGLISH (29)<br>SCIENCE (36)<br>S.I.L. SANSKRIT (37)<br>MATHEMATICS (12)<br></td>
+    </tr>
+    
+    <tr data-total="112" data-subjects="S.I.L. SANSKRIT:16|M.I.L. HINDI:22|MATHEMATICS:11|SOCIAL SCIENCE:32|ENGLISH:17|SCIENCE:31|">
+        <td>2600062</td>
+        <td>LAKSHMAN PANDIT</td>
+        <td>Male</td>
+        <td>MADAN PANDIT</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>112</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (16)<br>M.I.L. HINDI (22)<br>MATHEMATICS (11)<br>SOCIAL SCIENCE (32)<br>ENGLISH (17)<br>SCIENCE (31)<br></td>
+    </tr>
+    
+    <tr data-total="228" data-subjects="S.I.L. SANSKRIT:41|M.I.L. HINDI:53|SOCIAL SCIENCE:54|ENGLISH:31|MATHEMATICS:30|SCIENCE:50|">
+        <td>2600063</td>
+        <td>SUBHAM RAJ</td>
+        <td>Male</td>
+        <td>PAPPU KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>228</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (41)<br>M.I.L. HINDI (53)<br>SOCIAL SCIENCE (54)<br>ENGLISH (31)<br>MATHEMATICS (30)<br>SCIENCE (50)<br></td>
+    </tr>
+    
+    <tr data-total="393" data-subjects="MATHEMATICS:76|S.I.L. SANSKRIT:86|SOCIAL SCIENCE:67|ENGLISH:41|M.I.L. HINDI:82|SCIENCE:82|">
+        <td>2600064</td>
+        <td>MAHIL KUMAR</td>
+        <td>Male</td>
+        <td>SATYENDRA KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>393</td>
+        <td>1st Division</td>
+        <td>MATHEMATICS (76)<br>S.I.L. SANSKRIT (86)<br>SOCIAL SCIENCE (67)<br>ENGLISH (41)<br>M.I.L. HINDI (82)<br>SCIENCE (82)<br></td>
+    </tr>
+    
+    <tr data-total="140" data-subjects="ENGLISH:19|MATHEMATICS:3|SCIENCE:42|SOCIAL SCIENCE:30|S.I.L. SANSKRIT:32|M.I.L. HINDI:33|">
+        <td>2600065</td>
+        <td>SAURAV KUMAR</td>
+        <td>Male</td>
+        <td>SATYENDRA PASWAN</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>140</td>
+        <td>Fail</td>
+        <td>ENGLISH (19)<br>MATHEMATICS (3)<br>SCIENCE (42)<br>SOCIAL SCIENCE (30)<br>S.I.L. SANSKRIT (32)<br>M.I.L. HINDI (33)<br></td>
+    </tr>
+    
+    <tr data-total="221" data-subjects="S.I.L. SANSKRIT:42|SOCIAL SCIENCE:45|SCIENCE:53|M.I.L. HINDI:51|ENGLISH:23|MATHEMATICS:30|">
+        <td>2600066</td>
+        <td>VISHWAJEET KUMAR</td>
+        <td>Male</td>
+        <td>BINOD MAHTO</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>221</td>
+        <td>3rd Division</td>
+        <td>S.I.L. SANSKRIT (42)<br>SOCIAL SCIENCE (45)<br>SCIENCE (53)<br>M.I.L. HINDI (51)<br>ENGLISH (23)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="225" data-subjects="MATHEMATICS:32|S.I.L. SANSKRIT:48|ENGLISH:30|SCIENCE:56|M.I.L. HINDI:51|SOCIAL SCIENCE:36|">
+        <td>2600067</td>
+        <td>RAJESH KUMAR</td>
+        <td>Male</td>
+        <td>JVAHIR CHAUDHARI</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>225</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (32)<br>S.I.L. SANSKRIT (48)<br>ENGLISH (30)<br>SCIENCE (56)<br>M.I.L. HINDI (51)<br>SOCIAL SCIENCE (36)<br></td>
+    </tr>
+    
+    <tr data-total="252" data-subjects="SOCIAL SCIENCE:54|SCIENCE:60|M.I.L. HINDI:59|S.I.L. SANSKRIT:49|ENGLISH:42|MATHEMATICS:30|">
+        <td>2600068</td>
+        <td>SHAMA PARVEEN</td>
+        <td>Male</td>
+        <td>JAKIR MIYA</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>252</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (54)<br>SCIENCE (60)<br>M.I.L. HINDI (59)<br>S.I.L. SANSKRIT (49)<br>ENGLISH (42)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="158" data-subjects="MATHEMATICS:17|SCIENCE:38|ENGLISH:32|S.I.L. SANSKRIT:45|SOCIAL SCIENCE:31|M.I.L. HINDI:27|">
+        <td>2600069</td>
+        <td>GOLU KUMAR</td>
+        <td>Male</td>
+        <td>SURAJ PANDIT</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>158</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (17)<br>SCIENCE (38)<br>ENGLISH (32)<br>S.I.L. SANSKRIT (45)<br>SOCIAL SCIENCE (31)<br>M.I.L. HINDI (27)<br></td>
+    </tr>
+    
+    <tr data-total="337" data-subjects="M.I.L. HINDI:79|ENGLISH:39|MATHEMATICS:48|S.I.L. SANSKRIT:70|SOCIAL SCIENCE:68|SCIENCE:72|">
+        <td>2600070</td>
+        <td>RAJA KUMAR</td>
+        <td>Male</td>
+        <td>MANOJ KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>337</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (79)<br>ENGLISH (39)<br>MATHEMATICS (48)<br>S.I.L. SANSKRIT (70)<br>SOCIAL SCIENCE (68)<br>SCIENCE (72)<br></td>
+    </tr>
+    
+    <tr data-total="334" data-subjects="M.I.L. HINDI:74|MATHEMATICS:53|SOCIAL SCIENCE:70|ENGLISH:38|S.I.L. SANSKRIT:66|SCIENCE:71|">
+        <td>2600071</td>
+        <td>MD MAHTAB</td>
+        <td>Male</td>
+        <td>MD MUMTAJ</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>334</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (74)<br>MATHEMATICS (53)<br>SOCIAL SCIENCE (70)<br>ENGLISH (38)<br>S.I.L. SANSKRIT (66)<br>SCIENCE (71)<br></td>
+    </tr>
+    
+    <tr data-total="203" data-subjects="SOCIAL SCIENCE:38|S.I.L. SANSKRIT:47|M.I.L. HINDI:37|SCIENCE:51|MATHEMATICS:30|ENGLISH:35|">
+        <td>2600072</td>
+        <td>SUNNY KUMAR</td>
+        <td>Male</td>
+        <td>VIJAY PASWAN</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>203</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (38)<br>S.I.L. SANSKRIT (47)<br>M.I.L. HINDI (37)<br>SCIENCE (51)<br>MATHEMATICS (30)<br>ENGLISH (35)<br></td>
+    </tr>
+    
+    <tr data-total="135" data-subjects="SOCIAL SCIENCE:33|MATHEMATICS:10|ENGLISH:25|SCIENCE:29|S.I.L. SANSKRIT:26|M.I.L. HINDI:37|">
+        <td>2600073</td>
+        <td>AKASH KUMAR</td>
+        <td>Male</td>
+        <td>JANARDHAN RAM</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>135</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (33)<br>MATHEMATICS (10)<br>ENGLISH (25)<br>SCIENCE (29)<br>S.I.L. SANSKRIT (26)<br>M.I.L. HINDI (37)<br></td>
+    </tr>
+    
+    <tr data-total="260" data-subjects="S.I.L. SANSKRIT:57|MATHEMATICS:36|SOCIAL SCIENCE:45|ENGLISH:36|M.I.L. HINDI:62|SCIENCE:60|">
+        <td>2600074</td>
+        <td>GAUTAM KUMAR</td>
+        <td>Male</td>
+        <td>RAKESH RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>260</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (57)<br>MATHEMATICS (36)<br>SOCIAL SCIENCE (45)<br>ENGLISH (36)<br>M.I.L. HINDI (62)<br>SCIENCE (60)<br></td>
+    </tr>
+    
+    <tr data-total="327" data-subjects="M.I.L. HINDI:77|S.I.L. SANSKRIT:60|SOCIAL SCIENCE:58|MATHEMATICS:58|ENGLISH:38|SCIENCE:74|">
+        <td>2600075</td>
+        <td>MD IRFAN</td>
+        <td>Male</td>
+        <td>MD MINTU</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>327</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (77)<br>S.I.L. SANSKRIT (60)<br>SOCIAL SCIENCE (58)<br>MATHEMATICS (58)<br>ENGLISH (38)<br>SCIENCE (74)<br></td>
+    </tr>
+    
+    <tr data-total="244" data-subjects="S.I.L. SANSKRIT:45|SCIENCE:60|SOCIAL SCIENCE:48|M.I.L. HINDI:61|MATHEMATICS:30|ENGLISH:34|">
+        <td>2600076</td>
+        <td>RADHESHYAM KUMAR</td>
+        <td>Male</td>
+        <td>SANJAY YADAV</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>244</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (45)<br>SCIENCE (60)<br>SOCIAL SCIENCE (48)<br>M.I.L. HINDI (61)<br>MATHEMATICS (30)<br>ENGLISH (34)<br></td>
+    </tr>
+    
+    <tr data-total="225" data-subjects="M.I.L. HINDI:54|MATHEMATICS:30|SOCIAL SCIENCE:47|ENGLISH:33|SCIENCE:50|S.I.L. SANSKRIT:42|">
+        <td>2600077</td>
+        <td>RANJIT KUMAR</td>
+        <td>Male</td>
+        <td>RAMJI PASWAN</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>225</td>
+        <td>2nd Division</td>
+        <td>M.I.L. HINDI (54)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (47)<br>ENGLISH (33)<br>SCIENCE (50)<br>S.I.L. SANSKRIT (42)<br></td>
+    </tr>
+    
+    <tr data-total="133" data-subjects="S.I.L. SANSKRIT:25|SOCIAL SCIENCE:36|SCIENCE:31|M.I.L. HINDI:27|ENGLISH:22|MATHEMATICS:14|">
+        <td>2600078</td>
+        <td>SUJIT KUMAR</td>
+        <td>Male</td>
+        <td>LAL BABU PANDIT</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>133</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (25)<br>SOCIAL SCIENCE (36)<br>SCIENCE (31)<br>M.I.L. HINDI (27)<br>ENGLISH (22)<br>MATHEMATICS (14)<br></td>
+    </tr>
+    
+    <tr data-total="161" data-subjects="ENGLISH:39|M.I.L. HINDI:36|SOCIAL SCIENCE:46|SCIENCE:39|S.I.L. SANSKRIT:26|MATHEMATICS:14|">
+        <td>2600079</td>
+        <td>SURAJ KUMAR</td>
+        <td>Male</td>
+        <td>RAJU VISHWAKARMA</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>161</td>
+        <td>Fail</td>
+        <td>ENGLISH (39)<br>M.I.L. HINDI (36)<br>SOCIAL SCIENCE (46)<br>SCIENCE (39)<br>S.I.L. SANSKRIT (26)<br>MATHEMATICS (14)<br></td>
+    </tr>
+    
+    <tr data-total="257" data-subjects="MATHEMATICS:38|S.I.L. HINDI:69|ENGLISH:60|SOCIAL SCIENCE:51|M.I.L. URDU:36|SCIENCE:63|">
+        <td>2600080</td>
+        <td>ADIL ALAM</td>
+        <td>Male</td>
+        <td>MD ABDUL HANAN</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>257</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (38)<br>S.I.L. HINDI (69)<br>ENGLISH (60)<br>SOCIAL SCIENCE (51)<br>M.I.L. URDU (36)<br>SCIENCE (63)<br></td>
+    </tr>
+    
+    <tr data-total="276" data-subjects="ENGLISH:48|MATHEMATICS:36|SCIENCE:62|M.I.L. HINDI:74|S.I.L. SANSKRIT:48|SOCIAL SCIENCE:56|">
+        <td>2600081</td>
+        <td>RAHISH KUMAR</td>
+        <td>Male</td>
+        <td>MANOJ KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>276</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (48)<br>MATHEMATICS (36)<br>SCIENCE (62)<br>M.I.L. HINDI (74)<br>S.I.L. SANSKRIT (48)<br>SOCIAL SCIENCE (56)<br></td>
+    </tr>
+    
+    <tr data-total="216" data-subjects="MATHEMATICS:30|SOCIAL SCIENCE:40|S.I.L. SANSKRIT:38|SCIENCE:47|ENGLISH:37|M.I.L. HINDI:61|">
+        <td>2600082</td>
+        <td>MUNNA KUMAR</td>
+        <td>Male</td>
+        <td>ASHOK SAW</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>216</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>SOCIAL SCIENCE (40)<br>S.I.L. SANSKRIT (38)<br>SCIENCE (47)<br>ENGLISH (37)<br>M.I.L. HINDI (61)<br></td>
+    </tr>
+    
+    <tr data-total="151" data-subjects="SCIENCE:34|S.I.L. SANSKRIT:24|SOCIAL SCIENCE:41|MATHEMATICS:17|M.I.L. HINDI:35|ENGLISH:31|">
+        <td>2600083</td>
+        <td>SUNNY KUMAR</td>
+        <td>Male</td>
+        <td>SHRAWAN RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>151</td>
+        <td>Fail</td>
+        <td>SCIENCE (34)<br>S.I.L. SANSKRIT (24)<br>SOCIAL SCIENCE (41)<br>MATHEMATICS (17)<br>M.I.L. HINDI (35)<br>ENGLISH (31)<br></td>
+    </tr>
+    
+    <tr data-total="271" data-subjects="S.I.L. SANSKRIT:58|MATHEMATICS:48|M.I.L. HINDI:69|SOCIAL SCIENCE:45|SCIENCE:51|ENGLISH:40|">
+        <td>2600084</td>
+        <td>SAURABH KUMAR</td>
+        <td>Male</td>
+        <td>GANESH VISHWAKARMA</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>271</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (58)<br>MATHEMATICS (48)<br>M.I.L. HINDI (69)<br>SOCIAL SCIENCE (45)<br>SCIENCE (51)<br>ENGLISH (40)<br></td>
+    </tr>
+    
+    <tr data-total="125" data-subjects="ENGLISH:34|S.I.L. SANSKRIT:12|M.I.L. HINDI:23|MATHEMATICS:15|SCIENCE:35|SOCIAL SCIENCE:40|">
+        <td>2600085</td>
+        <td>NITISH KUMAR</td>
+        <td>Male</td>
+        <td>SUDHIR MAHTO</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>125</td>
+        <td>Fail</td>
+        <td>ENGLISH (34)<br>S.I.L. SANSKRIT (12)<br>M.I.L. HINDI (23)<br>MATHEMATICS (15)<br>SCIENCE (35)<br>SOCIAL SCIENCE (40)<br></td>
+    </tr>
+    
+    <tr data-total="229" data-subjects="ENGLISH:42|M.I.L. HINDI:53|SOCIAL SCIENCE:45|SCIENCE:47|S.I.L. SANSKRIT:46|MATHEMATICS:38|">
+        <td>2600086</td>
+        <td>ROHIT KUMAR</td>
+        <td>Male</td>
+        <td>ANNU SAW</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>229</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (42)<br>M.I.L. HINDI (53)<br>SOCIAL SCIENCE (45)<br>SCIENCE (47)<br>S.I.L. SANSKRIT (46)<br>MATHEMATICS (38)<br></td>
+    </tr>
+    
+    <tr data-total="281" data-subjects="SCIENCE:56|SOCIAL SCIENCE:56|S.I.L. SANSKRIT:63|MATHEMATICS:30|ENGLISH:47|M.I.L. HINDI:76|">
+        <td>2600087</td>
+        <td>RAVISHANKAR KUMAR</td>
+        <td>Male</td>
+        <td>AKHILESH CHAUDHARY</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>281</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (56)<br>SOCIAL SCIENCE (56)<br>S.I.L. SANSKRIT (63)<br>MATHEMATICS (30)<br>ENGLISH (47)<br>M.I.L. HINDI (76)<br></td>
+    </tr>
+    
+    <tr data-total="233" data-subjects="S.I.L. SANSKRIT:41|M.I.L. HINDI:57|MATHEMATICS:33|ENGLISH:43|SCIENCE:54|SOCIAL SCIENCE:48|">
+        <td>2600088</td>
+        <td>AKASH KUMAR</td>
+        <td>Male</td>
+        <td>RINKU KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>233</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (41)<br>M.I.L. HINDI (57)<br>MATHEMATICS (33)<br>ENGLISH (43)<br>SCIENCE (54)<br>SOCIAL SCIENCE (48)<br></td>
+    </tr>
+    
+    <tr data-total="192" data-subjects="M.I.L. HINDI:42|MATHEMATICS:30|SCIENCE:40|S.I.L. SANSKRIT:33|SOCIAL SCIENCE:47|ENGLISH:27|">
+        <td>2600089</td>
+        <td>ABHISEK KUMAR</td>
+        <td>Male</td>
+        <td>MANORANJAN KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>192</td>
+        <td>3rd Division</td>
+        <td>M.I.L. HINDI (42)<br>MATHEMATICS (30)<br>SCIENCE (40)<br>S.I.L. SANSKRIT (33)<br>SOCIAL SCIENCE (47)<br>ENGLISH (27)<br></td>
+    </tr>
+    
+    <tr data-total="387" data-subjects="M.I.L. HINDI:85|SCIENCE:74|SOCIAL SCIENCE:63|MATHEMATICS:87|ENGLISH:63|S.I.L. SANSKRIT:78|">
+        <td>2600090</td>
+        <td>AKASH KUMAR</td>
+        <td>Male</td>
+        <td>PRAVEEN KUMAR SHARMA</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>387</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (85)<br>SCIENCE (74)<br>SOCIAL SCIENCE (63)<br>MATHEMATICS (87)<br>ENGLISH (63)<br>S.I.L. SANSKRIT (78)<br></td>
+    </tr>
+    
+    <tr data-total="318" data-subjects="S.I.L. SANSKRIT:71|SOCIAL SCIENCE:55|ENGLISH:49|MATHEMATICS:52|M.I.L. HINDI:70|SCIENCE:70|">
+        <td>2600091</td>
+        <td>GOVINDA KUMAR</td>
+        <td>Male</td>
+        <td>BASANT PASWAN</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>318</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (71)<br>SOCIAL SCIENCE (55)<br>ENGLISH (49)<br>MATHEMATICS (52)<br>M.I.L. HINDI (70)<br>SCIENCE (70)<br></td>
+    </tr>
+    
+    <tr data-total="214" data-subjects="SOCIAL SCIENCE:48|M.I.L. HINDI:43|MATHEMATICS:30|SCIENCE:47|ENGLISH:31|S.I.L. SANSKRIT:46|">
+        <td>2600092</td>
+        <td>ASHISH KUMAR</td>
+        <td>Male</td>
+        <td>RAMLAKHAN YADAV</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>214</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (48)<br>M.I.L. HINDI (43)<br>MATHEMATICS (30)<br>SCIENCE (47)<br>ENGLISH (31)<br>S.I.L. SANSKRIT (46)<br></td>
+    </tr>
+    
+    <tr data-total="277" data-subjects="SCIENCE:64|MATHEMATICS:53|SOCIAL SCIENCE:43|M.I.L. HINDI:56|S.I.L. SANSKRIT:61|ENGLISH:30|">
+        <td>2600093</td>
+        <td>SANNI KUMAR</td>
+        <td>Male</td>
+        <td>SATISH KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>277</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (64)<br>MATHEMATICS (53)<br>SOCIAL SCIENCE (43)<br>M.I.L. HINDI (56)<br>S.I.L. SANSKRIT (61)<br>ENGLISH (30)<br></td>
+    </tr>
+    
+    <tr data-total="251" data-subjects="MATHEMATICS:30|M.I.L. HINDI:59|SCIENCE:71|ENGLISH:42|SOCIAL SCIENCE:46|S.I.L. SANSKRIT:45|">
+        <td>2600094</td>
+        <td>DIPANSHU KUMAR</td>
+        <td>Male</td>
+        <td>KRISHAN DEV SAW</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>251</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (30)<br>M.I.L. HINDI (59)<br>SCIENCE (71)<br>ENGLISH (42)<br>SOCIAL SCIENCE (46)<br>S.I.L. SANSKRIT (45)<br></td>
+    </tr>
+    
+    <tr data-total="323" data-subjects="M.I.L. HINDI:81|MATHEMATICS:63|SCIENCE:61|SOCIAL SCIENCE:56|ENGLISH:50|S.I.L. SANSKRIT:62|">
+        <td>2600095</td>
+        <td>SHIVAM KUMAR</td>
+        <td>Male</td>
+        <td>VINAY KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>323</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (81)<br>MATHEMATICS (63)<br>SCIENCE (61)<br>SOCIAL SCIENCE (56)<br>ENGLISH (50)<br>S.I.L. SANSKRIT (62)<br></td>
+    </tr>
+    
+    <tr data-total="340" data-subjects="S.I.L. SANSKRIT:74|ENGLISH:46|SOCIAL SCIENCE:62|MATHEMATICS:61|M.I.L. HINDI:72|SCIENCE:71|">
+        <td>2600096</td>
+        <td>PHANTUSH KUMAR</td>
+        <td>Male</td>
+        <td>JAIPAL SAW</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>340</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (74)<br>ENGLISH (46)<br>SOCIAL SCIENCE (62)<br>MATHEMATICS (61)<br>M.I.L. HINDI (72)<br>SCIENCE (71)<br></td>
+    </tr>
+    
+    <tr data-total="398" data-subjects="SOCIAL SCIENCE:69|S.I.L. SANSKRIT:77|MATHEMATICS:76|M.I.L. HINDI:84|ENGLISH:33|SCIENCE:92|">
+        <td>2600097</td>
+        <td>SAHIL KUMAR</td>
+        <td>Male</td>
+        <td>SATYENDRA KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>398</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (69)<br>S.I.L. SANSKRIT (77)<br>MATHEMATICS (76)<br>M.I.L. HINDI (84)<br>ENGLISH (33)<br>SCIENCE (92)<br></td>
+    </tr>
+    
+    <tr data-total="345" data-subjects="M.I.L. HINDI:78|MATHEMATICS:40|ENGLISH:48|SOCIAL SCIENCE:65|S.I.L. SANSKRIT:77|SCIENCE:85|">
+        <td>2600098</td>
+        <td>ANIL KUMAR</td>
+        <td>Male</td>
+        <td>SUNIL CHAUDHARY</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>345</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (78)<br>MATHEMATICS (40)<br>ENGLISH (48)<br>SOCIAL SCIENCE (65)<br>S.I.L. SANSKRIT (77)<br>SCIENCE (85)<br></td>
+    </tr>
+    
+    <tr data-total="336" data-subjects="SOCIAL SCIENCE:61|S.I.L. SANSKRIT:67|M.I.L. HINDI:76|SCIENCE:86|ENGLISH:40|MATHEMATICS:46|">
+        <td>2600099</td>
+        <td>SANNI KUMAR</td>
+        <td>Male</td>
+        <td>SURYADEV RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>336</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (61)<br>S.I.L. SANSKRIT (67)<br>M.I.L. HINDI (76)<br>SCIENCE (86)<br>ENGLISH (40)<br>MATHEMATICS (46)<br></td>
+    </tr>
+    
+    <tr data-total="188" data-subjects="SCIENCE:44|S.I.L. SANSKRIT:36|M.I.L. HINDI:52|ENGLISH:30|SOCIAL SCIENCE:43|MATHEMATICS:13|">
+        <td>2600100</td>
+        <td>SHANKAR KUMAR</td>
+        <td>Male</td>
+        <td>NIRANJAN KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>188</td>
+        <td>Fail</td>
+        <td>SCIENCE (44)<br>S.I.L. SANSKRIT (36)<br>M.I.L. HINDI (52)<br>ENGLISH (30)<br>SOCIAL SCIENCE (43)<br>MATHEMATICS (13)<br></td>
+    </tr>
+    
+    <tr data-total="272" data-subjects="SCIENCE:74|MATHEMATICS:30|S.I.L. SANSKRIT:60|M.I.L. HINDI:62|ENGLISH:26|SOCIAL SCIENCE:46|">
+        <td>2600101</td>
+        <td>SHIVAM KUMAR</td>
+        <td>Male</td>
+        <td>PAPPU BHAGAT</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>272</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (74)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (60)<br>M.I.L. HINDI (62)<br>ENGLISH (26)<br>SOCIAL SCIENCE (46)<br></td>
+    </tr>
+    
+    <tr data-total="385" data-subjects="S.I.L. SANSKRIT:79|SCIENCE:85|SOCIAL SCIENCE:61|ENGLISH:62|M.I.L. HINDI:88|MATHEMATICS:72|">
+        <td>2600102</td>
+        <td>SHASHI KUMAR</td>
+        <td>Male</td>
+        <td>NITISH KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>385</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (79)<br>SCIENCE (85)<br>SOCIAL SCIENCE (61)<br>ENGLISH (62)<br>M.I.L. HINDI (88)<br>MATHEMATICS (72)<br></td>
+    </tr>
+    
+    <tr data-total="325" data-subjects="SOCIAL SCIENCE:60|ENGLISH:31|M.I.L. HINDI:79|MATHEMATICS:45|S.I.L. SANSKRIT:62|SCIENCE:79|">
+        <td>2600103</td>
+        <td>SUDHANSHU KUMAR</td>
+        <td>Male</td>
+        <td>SUBODH KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>325</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (60)<br>ENGLISH (31)<br>M.I.L. HINDI (79)<br>MATHEMATICS (45)<br>S.I.L. SANSKRIT (62)<br>SCIENCE (79)<br></td>
+    </tr>
+    
+    <tr data-total="379" data-subjects="SOCIAL SCIENCE:73|MATHEMATICS:53|S.I.L. SANSKRIT:79|ENGLISH:51|SCIENCE:92|M.I.L. HINDI:82|">
+        <td>2600104</td>
+        <td>MONU KUMAR</td>
+        <td>Male</td>
+        <td>AJAY KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>379</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (73)<br>MATHEMATICS (53)<br>S.I.L. SANSKRIT (79)<br>ENGLISH (51)<br>SCIENCE (92)<br>M.I.L. HINDI (82)<br></td>
+    </tr>
+    
+    <tr data-total="307" data-subjects="ENGLISH:53|M.I.L. HINDI:71|MATHEMATICS:45|SCIENCE:69|SOCIAL SCIENCE:59|S.I.L. SANSKRIT:63|">
+        <td>2600105</td>
+        <td>RAVI KUMAR</td>
+        <td>Male</td>
+        <td>TUNTUN KUMAR</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>307</td>
+        <td>1st Division</td>
+        <td>ENGLISH (53)<br>M.I.L. HINDI (71)<br>MATHEMATICS (45)<br>SCIENCE (69)<br>SOCIAL SCIENCE (59)<br>S.I.L. SANSKRIT (63)<br></td>
+    </tr>
+    
+    <tr data-total="276" data-subjects="SOCIAL SCIENCE:48|M.I.L. HINDI:70|SCIENCE:74|MATHEMATICS:30|S.I.L. SANSKRIT:54|ENGLISH:41|">
+        <td>2600106</td>
+        <td>MUNCHUN KUMAR</td>
+        <td>Male</td>
+        <td>HIRA RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>276</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (48)<br>M.I.L. HINDI (70)<br>SCIENCE (74)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (54)<br>ENGLISH (41)<br></td>
+    </tr>
+    
+    <tr data-total="340" data-subjects="MATHEMATICS:47|SCIENCE:79|S.I.L. SANSKRIT:71|SOCIAL SCIENCE:68|ENGLISH:45|M.I.L. HINDI:75|">
+        <td>2600107</td>
+        <td>SHASHI KUMAR</td>
+        <td>Male</td>
+        <td>MAHENDRA RAM</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>340</td>
+        <td>1st Division</td>
+        <td>MATHEMATICS (47)<br>SCIENCE (79)<br>S.I.L. SANSKRIT (71)<br>SOCIAL SCIENCE (68)<br>ENGLISH (45)<br>M.I.L. HINDI (75)<br></td>
+    </tr>
+    
+    <tr data-total="204" data-subjects="M.I.L. HINDI:50|MATHEMATICS:30|S.I.L. SANSKRIT:31|ENGLISH:31|SOCIAL SCIENCE:35|SCIENCE:58|">
+        <td>2600108</td>
+        <td>RAJNISH KUMAR</td>
+        <td>Male</td>
+        <td>LALAN YADAV</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>204</td>
+        <td>3rd Division</td>
+        <td>M.I.L. HINDI (50)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (31)<br>ENGLISH (31)<br>SOCIAL SCIENCE (35)<br>SCIENCE (58)<br></td>
+    </tr>
+    
+    <tr data-total="151" data-subjects="MATHEMATICS:13|M.I.L. HINDI:23|SCIENCE:40|ENGLISH:22|S.I.L. SANSKRIT:37|SOCIAL SCIENCE:38|">
+        <td>2600109</td>
+        <td>SINTU KUMAR</td>
+        <td>Male</td>
+        <td>AKHILESH RAVIDAS</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>151</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (13)<br>M.I.L. HINDI (23)<br>SCIENCE (40)<br>ENGLISH (22)<br>S.I.L. SANSKRIT (37)<br>SOCIAL SCIENCE (38)<br></td>
+    </tr>
+    
+    <tr data-total="175" data-subjects="SCIENCE:65|M.I.L. HINDI:27|MATHEMATICS:11|ENGLISH:34|S.I.L. SANSKRIT:31|SOCIAL SCIENCE:41|">
+        <td>2600110</td>
+        <td>SANTOSH KUMAR</td>
+        <td>Male</td>
+        <td>SATYENDRA YADAV</td>
+        <td>UTKRAMIT UCHCHA MADHAYMIK VIDYALAYA, KEWRA</td>
+        <td>175</td>
+        <td>Fail</td>
+        <td>SCIENCE (65)<br>M.I.L. HINDI (27)<br>MATHEMATICS (11)<br>ENGLISH (34)<br>S.I.L. SANSKRIT (31)<br>SOCIAL SCIENCE (41)<br></td>
+    </tr>
+    
+</tbody>
+</table>
+
+</div>
+
+<script>
+function getSubjectMarks(subjectsData, subjectName) {
+    let subjects = subjectsData.split("|");
+    for (let s of subjects) {
+        if (!s) continue;
+        let parts = s.split(":");
+        if (parts[0] === subjectName) {
+            return parseInt(parts[1]) || 0;
+        }
+    }
+    return 0;
+}
+
+function applyAll() {
+
+    let search = document.getElementById("search").value.toLowerCase();
+    let division = document.getElementById("divisionFilter").value;
+    let gender = document.getElementById("genderFilter").value;
+    let subject = document.getElementById("subjectFilter").value;
+    let minMarks = document.getElementById("minMarks").value;
+    let maxMarks = document.getElementById("maxMarks").value;
+    let sortOption = document.getElementById("sortOption").value;
+
+    let tbody = document.querySelector("#table tbody");
+    let rows = Array.from(tbody.querySelectorAll("tr"));
+
+    // FILTER
+    rows.forEach(row => {
+        let name = row.cells[1].innerText.toLowerCase();
+        let div = row.cells[6].innerText;
+        let gen = row.cells[2].innerText;
+        let subjectsData = row.getAttribute("data-subjects");
+
+        let show = true;
+
+        if (search && !name.includes(search)) show = false;
+        if (division && div !== division) show = false;
+        if (gender && gen !== gender) show = false;
+
+        if (subject) {
+            let marks = getSubjectMarks(subjectsData, subject);
+            if ((minMarks && marks < minMarks) || (maxMarks && marks > maxMarks)) {
+                show = false;
+            }
+        }
+
+        row.style.display = show ? "" : "none";
+    });
+
+    // SORT
+    let visibleRows = rows.filter(r => r.style.display !== "none");
+
+    visibleRows.sort((a, b) => {
+
+        let totalA = parseInt(a.getAttribute("data-total"));
+        let totalB = parseInt(b.getAttribute("data-total"));
+
+        let subA = a.getAttribute("data-subjects");
+        let subB = b.getAttribute("data-subjects");
+
+        switch(sortOption) {
+
+            case "total_desc": return totalB - totalA;
+            case "total_asc": return totalA - totalB;
+
+            case "math_desc": return getSubjectMarks(subB,"MATHEMATICS") - getSubjectMarks(subA,"MATHEMATICS");
+            case "math_asc": return getSubjectMarks(subA,"MATHEMATICS") - getSubjectMarks(subB,"MATHEMATICS");
+
+            case "eng_desc": return getSubjectMarks(subB,"ENGLISH") - getSubjectMarks(subA,"ENGLISH");
+            case "eng_asc": return getSubjectMarks(subA,"ENGLISH") - getSubjectMarks(subB,"ENGLISH");
+
+            case "sci_desc": return getSubjectMarks(subB,"SCIENCE") - getSubjectMarks(subA,"SCIENCE");
+            case "sci_asc": return getSubjectMarks(subA,"SCIENCE") - getSubjectMarks(subB,"SCIENCE");
+
+            case "sst_desc": return getSubjectMarks(subB,"SOCIAL SCIENCE") - getSubjectMarks(subA,"SOCIAL SCIENCE");
+            case "sst_asc": return getSubjectMarks(subA,"SOCIAL SCIENCE") - getSubjectMarks(subB,"SOCIAL SCIENCE");
+
+            case "hindi_desc": return getSubjectMarks(subB,"M.I.L. HINDI") - getSubjectMarks(subA,"M.I.L. HINDI");
+            case "hindi_asc": return getSubjectMarks(subA,"M.I.L. HINDI") - getSubjectMarks(subB,"M.I.L. HINDI");
+
+            case "sanskrit_desc": return getSubjectMarks(subB,"S.I.L. SANSKRIT") - getSubjectMarks(subA,"S.I.L. SANSKRIT");
+            case "sanskrit_asc": return getSubjectMarks(subA,"S.I.L. SANSKRIT") - getSubjectMarks(subB,"S.I.L. SANSKRIT");
+
+        }
+
+        return 0;
+    });
+
+    visibleRows.forEach(row => tbody.appendChild(row));
+}
+</script>
+
+</body>
+</html>

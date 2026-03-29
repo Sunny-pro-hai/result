@@ -1,0 +1,1463 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ultimate Result Dashboard</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+}
+
+h1 { text-align: center; }
+
+input, select {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    border: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #334155;
+}
+
+th { background: #1e293b; }
+
+tr:hover { background: #1e293b; }
+
+.container { padding: 20px; }
+</style>
+
+</head>
+
+<body>
+
+<h1>🔥 Ultimate Bihar Board Dashboard</h1>
+
+<div class="container">
+
+<input type="text" id="search" placeholder="Search Name..." onkeyup="applyAll()">
+
+<select id="divisionFilter" onchange="applyAll()">
+<option value="">All Division</option>
+<option>1st Division</option>
+<option>2nd Division</option>
+<option>3rd Division</option>
+<option>Fail</option>
+</select>
+
+<select id="genderFilter" onchange="applyAll()">
+<option value="">All Gender</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+
+<select id="subjectFilter" onchange="applyAll()">
+<option value="">All Subjects</option>
+<option value="MATHEMATICS">Mathematics</option>
+<option value="ENGLISH">English</option>
+<option value="SCIENCE">Science</option>
+<option value="SOCIAL SCIENCE">Social Science</option>
+<option value="M.I.L. HINDI">Hindi</option>
+<option value="S.I.L. SANSKRIT">Sanskrit</option>
+</select>
+
+<input type="number" id="minMarks" placeholder="Min Marks" onkeyup="applyAll()">
+<input type="number" id="maxMarks" placeholder="Max Marks" onkeyup="applyAll()">
+
+<!-- 🔥 SORT -->
+<select id="sortOption" onchange="applyAll()">
+<option value="">No Sorting</option>
+
+<option value="total_desc">Total High → Low</option>
+<option value="total_asc">Total Low → High</option>
+
+<option value="math_desc">Math High → Low</option>
+<option value="math_asc">Math Low → High</option>
+
+<option value="eng_desc">English High → Low</option>
+<option value="eng_asc">English Low → High</option>
+
+<option value="sci_desc">Science High → Low</option>
+<option value="sci_asc">Science Low → High</option>
+
+<option value="sst_desc">Social Science High → Low</option>
+<option value="sst_asc">Social Science Low → High</option>
+
+<option value="hindi_desc">Hindi High → Low</option>
+<option value="hindi_asc">Hindi Low → High</option>
+
+<option value="sanskrit_desc">Sanskrit High → Low</option>
+<option value="sanskrit_asc">Sanskrit Low → High</option>
+
+</select>
+
+<table id="table">
+<thead>
+<tr>
+<th>Roll</th>
+<th>Name</th>
+<th>Gender</th>
+<th>Father</th>
+<th>School</th>
+<th>Total</th>
+<th>Division</th>
+<th>Subjects</th>
+</tr>
+</thead>
+
+<tbody>
+
+    <tr data-total="369" data-subjects="M.I.L. HINDI:75|SOCIAL SCIENCE:81|S.I.L. SANSKRIT:79|SCIENCE:74|ENGLISH:51|MATHEMATICS:60|">
+        <td>2600001</td>
+        <td>ADITI KUMARI</td>
+        <td>Female</td>
+        <td>GANESH PRASAD</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>369</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (75)<br>SOCIAL SCIENCE (81)<br>S.I.L. SANSKRIT (79)<br>SCIENCE (74)<br>ENGLISH (51)<br>MATHEMATICS (60)<br></td>
+    </tr>
+    
+    <tr data-total="206" data-subjects="SCIENCE:30|S.I.L. SANSKRIT:49|SOCIAL SCIENCE:47|MATHEMATICS:30|ENGLISH:45|M.I.L. HINDI:50|">
+        <td>2600002</td>
+        <td>ARCHANA KUMARI</td>
+        <td>Female</td>
+        <td>AJAY GIRI</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>206</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (30)<br>S.I.L. SANSKRIT (49)<br>SOCIAL SCIENCE (47)<br>MATHEMATICS (30)<br>ENGLISH (45)<br>M.I.L. HINDI (50)<br></td>
+    </tr>
+    
+    <tr data-total="206" data-subjects="SCIENCE:45|S.I.L. SANSKRIT:43|M.I.L. HINDI:55|SOCIAL SCIENCE:33|MATHEMATICS:30|ENGLISH:43|">
+        <td>2600003</td>
+        <td>KHUSHBU KUMARI</td>
+        <td>Female</td>
+        <td>MITHALESH CHAUDHARY</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>206</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (45)<br>S.I.L. SANSKRIT (43)<br>M.I.L. HINDI (55)<br>SOCIAL SCIENCE (33)<br>MATHEMATICS (30)<br>ENGLISH (43)<br></td>
+    </tr>
+    
+    <tr data-total="361" data-subjects="S.I.L. SANSKRIT:80|MATHEMATICS:64|SCIENCE:66|SOCIAL SCIENCE:75|M.I.L. HINDI:76|ENGLISH:59|">
+        <td>2600004</td>
+        <td>AKRITI SAHANI</td>
+        <td>Male</td>
+        <td>DHARMENDRA KEWAT</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>361</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (80)<br>MATHEMATICS (64)<br>SCIENCE (66)<br>SOCIAL SCIENCE (75)<br>M.I.L. HINDI (76)<br>ENGLISH (59)<br></td>
+    </tr>
+    
+    <tr data-total="404" data-subjects="S.I.L. SANSKRIT:82|M.I.L. HINDI:86|SCIENCE:73|SOCIAL SCIENCE:79|ENGLISH:68|MATHEMATICS:84|">
+        <td>2600005</td>
+        <td>SRISHTI KUMARI</td>
+        <td>Female</td>
+        <td>DHANANJAY KUMAR SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>404</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (82)<br>M.I.L. HINDI (86)<br>SCIENCE (73)<br>SOCIAL SCIENCE (79)<br>ENGLISH (68)<br>MATHEMATICS (84)<br></td>
+    </tr>
+    
+    <tr data-total="194" data-subjects="SOCIAL SCIENCE:38|MATHEMATICS:30|ENGLISH:40|M.I.L. HINDI:37|SCIENCE:37|S.I.L. SANSKRIT:52|">
+        <td>2600006</td>
+        <td>MUSKAN KUMARI</td>
+        <td>Female</td>
+        <td>RANJIT GIRI</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>194</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (38)<br>MATHEMATICS (30)<br>ENGLISH (40)<br>M.I.L. HINDI (37)<br>SCIENCE (37)<br>S.I.L. SANSKRIT (52)<br></td>
+    </tr>
+    
+    <tr data-total="121" data-subjects="M.I.L. HINDI:24|SOCIAL SCIENCE:30|MATHEMATICS:16|S.I.L. SANSKRIT:24|ENGLISH:13|SCIENCE:27|">
+        <td>2600007</td>
+        <td>RADHA KUMARI</td>
+        <td>Female</td>
+        <td>PINTU CHAUDHARY</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>121</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (24)<br>SOCIAL SCIENCE (30)<br>MATHEMATICS (16)<br>S.I.L. SANSKRIT (24)<br>ENGLISH (13)<br>SCIENCE (27)<br></td>
+    </tr>
+    
+    <tr data-total="128" data-subjects="ENGLISH:34|MATHEMATICS:15|S.I.L. SANSKRIT:20|SCIENCE:27|M.I.L. HINDI:33|SOCIAL SCIENCE:33|">
+        <td>2600008</td>
+        <td>PUSHPA KUMARI</td>
+        <td>Female</td>
+        <td>MANOJ PANDIT</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>128</td>
+        <td>Fail</td>
+        <td>ENGLISH (34)<br>MATHEMATICS (15)<br>S.I.L. SANSKRIT (20)<br>SCIENCE (27)<br>M.I.L. HINDI (33)<br>SOCIAL SCIENCE (33)<br></td>
+    </tr>
+    
+    <tr data-total="193" data-subjects="MATHEMATICS:30|S.I.L. SANSKRIT:36|SOCIAL SCIENCE:34|M.I.L. HINDI:52|SCIENCE:41|ENGLISH:27|">
+        <td>2600009</td>
+        <td>MUNI KUMARI</td>
+        <td>Female</td>
+        <td>HIRA LAL MAHTO</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>193</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>S.I.L. SANSKRIT (36)<br>SOCIAL SCIENCE (34)<br>M.I.L. HINDI (52)<br>SCIENCE (41)<br>ENGLISH (27)<br></td>
+    </tr>
+    
+    <tr data-total="179" data-subjects="ENGLISH:31|M.I.L. HINDI:44|S.I.L. SANSKRIT:30|MATHEMATICS:30|SOCIAL SCIENCE:38|SCIENCE:37|">
+        <td>2600010</td>
+        <td>SUHANI KUMARI</td>
+        <td>Female</td>
+        <td>SONU KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>179</td>
+        <td>3rd Division</td>
+        <td>ENGLISH (31)<br>M.I.L. HINDI (44)<br>S.I.L. SANSKRIT (30)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (38)<br>SCIENCE (37)<br></td>
+    </tr>
+    
+    <tr data-total="240" data-subjects="SOCIAL SCIENCE:47|SCIENCE:36|MATHEMATICS:43|S.I.L. SANSKRIT:52|M.I.L. HINDI:62|ENGLISH:35|">
+        <td>2600011</td>
+        <td>PINKI KUMARI</td>
+        <td>Female</td>
+        <td>UMESH RAM</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>240</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (47)<br>SCIENCE (36)<br>MATHEMATICS (43)<br>S.I.L. SANSKRIT (52)<br>M.I.L. HINDI (62)<br>ENGLISH (35)<br></td>
+    </tr>
+    
+    <tr data-total="133" data-subjects="S.I.L. SANSKRIT:34|MATHEMATICS:8|SCIENCE:33|M.I.L. HINDI:23|SOCIAL SCIENCE:35|ENGLISH:19|">
+        <td>2600012</td>
+        <td>KAJAL KUMARI</td>
+        <td>Female</td>
+        <td>NIRANJAN PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>133</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (34)<br>MATHEMATICS (8)<br>SCIENCE (33)<br>M.I.L. HINDI (23)<br>SOCIAL SCIENCE (35)<br>ENGLISH (19)<br></td>
+    </tr>
+    
+    <tr data-total="174" data-subjects="S.I.L. SANSKRIT:39|SOCIAL SCIENCE:42|MATHEMATICS:30|M.I.L. HINDI:30|SCIENCE:33|ENGLISH:23|">
+        <td>2600013</td>
+        <td>ANJANI KUMARI</td>
+        <td>Female</td>
+        <td>SAHDEV PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>174</td>
+        <td>3rd Division</td>
+        <td>S.I.L. SANSKRIT (39)<br>SOCIAL SCIENCE (42)<br>MATHEMATICS (30)<br>M.I.L. HINDI (30)<br>SCIENCE (33)<br>ENGLISH (23)<br></td>
+    </tr>
+    
+    <tr data-total="108" data-subjects="SOCIAL SCIENCE:23|ENGLISH:24|S.I.L. SANSKRIT:13|MATHEMATICS:13|M.I.L. HINDI:33|SCIENCE:26|">
+        <td>2600014</td>
+        <td>ARCHANA KUMARI</td>
+        <td>Female</td>
+        <td>LAVLESH KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>108</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (23)<br>ENGLISH (24)<br>S.I.L. SANSKRIT (13)<br>MATHEMATICS (13)<br>M.I.L. HINDI (33)<br>SCIENCE (26)<br></td>
+    </tr>
+    
+    <tr data-total="32" data-subjects="SOCIAL SCIENCE:15|SCIENCE:17|M.I.L. HINDI:0|S.I.L. SANSKRIT:0|MATHEMATICS:0|ENGLISH:0|">
+        <td>2600015</td>
+        <td>BHUMI</td>
+        <td>Male</td>
+        <td>PRAMOD KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>32</td>
+        <td>FAIL</td>
+        <td>SOCIAL SCIENCE (15)<br>SCIENCE (17)<br>M.I.L. HINDI (0)<br>S.I.L. SANSKRIT (0)<br>MATHEMATICS (0)<br>ENGLISH (0)<br></td>
+    </tr>
+    
+    <tr data-total="260" data-subjects="SCIENCE:55|M.I.L. HINDI:71|S.I.L. SANSKRIT:56|ENGLISH:61|SOCIAL SCIENCE:48|MATHEMATICS:30|">
+        <td>2600016</td>
+        <td>KUMKUM KUMARI</td>
+        <td>Female</td>
+        <td>SANTU CHAUDHARY</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>260</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (55)<br>M.I.L. HINDI (71)<br>S.I.L. SANSKRIT (56)<br>ENGLISH (61)<br>SOCIAL SCIENCE (48)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="204" data-subjects="SCIENCE:45|S.I.L. SANSKRIT:45|ENGLISH:33|M.I.L. HINDI:40|SOCIAL SCIENCE:41|MATHEMATICS:33|">
+        <td>2600017</td>
+        <td>VIBHA KUMARI</td>
+        <td>Female</td>
+        <td>KAMALESH SAW</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>204</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (45)<br>S.I.L. SANSKRIT (45)<br>ENGLISH (33)<br>M.I.L. HINDI (40)<br>SOCIAL SCIENCE (41)<br>MATHEMATICS (33)<br></td>
+    </tr>
+    
+    <tr data-total="204" data-subjects="M.I.L. HINDI:46|S.I.L. SANSKRIT:37|SOCIAL SCIENCE:48|MATHEMATICS:30|SCIENCE:43|ENGLISH:47|">
+        <td>2600018</td>
+        <td>CHHOTI KUMARI</td>
+        <td>Female</td>
+        <td>RAKESH KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>204</td>
+        <td>3rd Division</td>
+        <td>M.I.L. HINDI (46)<br>S.I.L. SANSKRIT (37)<br>SOCIAL SCIENCE (48)<br>MATHEMATICS (30)<br>SCIENCE (43)<br>ENGLISH (47)<br></td>
+    </tr>
+    
+    <tr data-total="234" data-subjects="ENGLISH:58|SOCIAL SCIENCE:56|S.I.L. SANSKRIT:48|SCIENCE:45|MATHEMATICS:34|M.I.L. HINDI:51|">
+        <td>2600019</td>
+        <td>ARCHANA KUMARI</td>
+        <td>Female</td>
+        <td>UDAY KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>234</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (58)<br>SOCIAL SCIENCE (56)<br>S.I.L. SANSKRIT (48)<br>SCIENCE (45)<br>MATHEMATICS (34)<br>M.I.L. HINDI (51)<br></td>
+    </tr>
+    
+    <tr data-total="35" data-subjects="M.I.L. HINDI:0|ENGLISH:0|MATHEMATICS:0|SCIENCE:18|S.I.L. SANSKRIT:0|SOCIAL SCIENCE:17|">
+        <td>2600020</td>
+        <td>MEERA KUMARI</td>
+        <td>Female</td>
+        <td>KAMLESH KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>35</td>
+        <td>FAIL</td>
+        <td>M.I.L. HINDI (0)<br>ENGLISH (0)<br>MATHEMATICS (0)<br>SCIENCE (18)<br>S.I.L. SANSKRIT (0)<br>SOCIAL SCIENCE (17)<br></td>
+    </tr>
+    
+    <tr data-total="172" data-subjects="SOCIAL SCIENCE:38|M.I.L. HINDI:35|SCIENCE:33|S.I.L. SANSKRIT:36|ENGLISH:41|MATHEMATICS:30|">
+        <td>2600021</td>
+        <td>ANISHA KUMARI</td>
+        <td>Female</td>
+        <td>SUJIT KUMAR YADAV</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>172</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (38)<br>M.I.L. HINDI (35)<br>SCIENCE (33)<br>S.I.L. SANSKRIT (36)<br>ENGLISH (41)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="212" data-subjects="SOCIAL SCIENCE:36|M.I.L. HINDI:47|ENGLISH:41|S.I.L. SANSKRIT:51|SCIENCE:48|MATHEMATICS:30|">
+        <td>2600022</td>
+        <td>DIMPAL KUMARI</td>
+        <td>Female</td>
+        <td>DHANJAY THAKUR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>212</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (36)<br>M.I.L. HINDI (47)<br>ENGLISH (41)<br>S.I.L. SANSKRIT (51)<br>SCIENCE (48)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="161" data-subjects="SCIENCE:42|MATHEMATICS:18|SOCIAL SCIENCE:47|S.I.L. SANSKRIT:31|M.I.L. HINDI:23|ENGLISH:27|">
+        <td>2600023</td>
+        <td>PRIYANKA KUMARI</td>
+        <td>Female</td>
+        <td>BHARAT PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>161</td>
+        <td>Fail</td>
+        <td>SCIENCE (42)<br>MATHEMATICS (18)<br>SOCIAL SCIENCE (47)<br>S.I.L. SANSKRIT (31)<br>M.I.L. HINDI (23)<br>ENGLISH (27)<br></td>
+    </tr>
+    
+    <tr data-total="234" data-subjects="MATHEMATICS:30|SOCIAL SCIENCE:53|SCIENCE:53|ENGLISH:51|S.I.L. SANSKRIT:44|M.I.L. HINDI:54|">
+        <td>2600024</td>
+        <td>RAGNI KUMARI</td>
+        <td>Female</td>
+        <td>ABHAY KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>234</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (30)<br>SOCIAL SCIENCE (53)<br>SCIENCE (53)<br>ENGLISH (51)<br>S.I.L. SANSKRIT (44)<br>M.I.L. HINDI (54)<br></td>
+    </tr>
+    
+    <tr data-total="167" data-subjects="SCIENCE:32|SOCIAL SCIENCE:43|MATHEMATICS:30|M.I.L. HINDI:30|S.I.L. SANSKRIT:32|ENGLISH:24|">
+        <td>2600025</td>
+        <td>MENKA KUMARI</td>
+        <td>Female</td>
+        <td>MAHENDRA PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>167</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (32)<br>SOCIAL SCIENCE (43)<br>MATHEMATICS (30)<br>M.I.L. HINDI (30)<br>S.I.L. SANSKRIT (32)<br>ENGLISH (24)<br></td>
+    </tr>
+    
+    <tr data-total="115" data-subjects="ENGLISH:17|SOCIAL SCIENCE:47|S.I.L. SANSKRIT:18|MATHEMATICS:12|SCIENCE:26|M.I.L. HINDI:12|">
+        <td>2600026</td>
+        <td>BHARTI KUMARI</td>
+        <td>Female</td>
+        <td>SURENDRA CHAUDHARY</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>115</td>
+        <td>Fail</td>
+        <td>ENGLISH (17)<br>SOCIAL SCIENCE (47)<br>S.I.L. SANSKRIT (18)<br>MATHEMATICS (12)<br>SCIENCE (26)<br>M.I.L. HINDI (12)<br></td>
+    </tr>
+    
+    <tr data-total="273" data-subjects="MATHEMATICS:30|M.I.L. HINDI:72|ENGLISH:53|S.I.L. SANSKRIT:56|SCIENCE:52|SOCIAL SCIENCE:63|">
+        <td>2600027</td>
+        <td>KOMAL KUMARI</td>
+        <td>Female</td>
+        <td>RAJIV KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>273</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (30)<br>M.I.L. HINDI (72)<br>ENGLISH (53)<br>S.I.L. SANSKRIT (56)<br>SCIENCE (52)<br>SOCIAL SCIENCE (63)<br></td>
+    </tr>
+    
+    <tr data-total="175" data-subjects="SCIENCE:39|SOCIAL SCIENCE:46|S.I.L. SANSKRIT:30|ENGLISH:23|MATHEMATICS:30|M.I.L. HINDI:30|">
+        <td>2600028</td>
+        <td>MUNNI KUMARI</td>
+        <td>Female</td>
+        <td>PRAMOD PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>175</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (39)<br>SOCIAL SCIENCE (46)<br>S.I.L. SANSKRIT (30)<br>ENGLISH (23)<br>MATHEMATICS (30)<br>M.I.L. HINDI (30)<br></td>
+    </tr>
+    
+    <tr data-total="437" data-subjects="ENGLISH:84|SCIENCE:89|M.I.L. HINDI:84|S.I.L. SANSKRIT:93|MATHEMATICS:84|SOCIAL SCIENCE:87|">
+        <td>2600029</td>
+        <td>MUSKAN KUMARI</td>
+        <td>Female</td>
+        <td>BHUSHAN SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>437</td>
+        <td>1st Division</td>
+        <td>ENGLISH (84)<br>SCIENCE (89)<br>M.I.L. HINDI (84)<br>S.I.L. SANSKRIT (93)<br>MATHEMATICS (84)<br>SOCIAL SCIENCE (87)<br></td>
+    </tr>
+    
+    <tr data-total="128" data-subjects="SCIENCE:28|SOCIAL SCIENCE:30|S.I.L. SANSKRIT:24|MATHEMATICS:15|M.I.L. HINDI:31|ENGLISH:21|">
+        <td>2600030</td>
+        <td>MAMTA KUMARI</td>
+        <td>Female</td>
+        <td>DAVESH KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>128</td>
+        <td>Fail</td>
+        <td>SCIENCE (28)<br>SOCIAL SCIENCE (30)<br>S.I.L. SANSKRIT (24)<br>MATHEMATICS (15)<br>M.I.L. HINDI (31)<br>ENGLISH (21)<br></td>
+    </tr>
+    
+    <tr data-total="160" data-subjects="MATHEMATICS:18|SCIENCE:29|SOCIAL SCIENCE:60|ENGLISH:26|M.I.L. HINDI:32|S.I.L. SANSKRIT:21|">
+        <td>2600031</td>
+        <td>DOULI KUMARI</td>
+        <td>Female</td>
+        <td>AJAY RAY</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>160</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (18)<br>SCIENCE (29)<br>SOCIAL SCIENCE (60)<br>ENGLISH (26)<br>M.I.L. HINDI (32)<br>S.I.L. SANSKRIT (21)<br></td>
+    </tr>
+    
+    <tr data-total="139" data-subjects="SOCIAL SCIENCE:34|M.I.L. HINDI:38|MATHEMATICS:20|S.I.L. SANSKRIT:16|ENGLISH:18|SCIENCE:31|">
+        <td>2600032</td>
+        <td>GUDIYA KUMARI</td>
+        <td>Female</td>
+        <td>SUDHIR MAHTO</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>139</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (34)<br>M.I.L. HINDI (38)<br>MATHEMATICS (20)<br>S.I.L. SANSKRIT (16)<br>ENGLISH (18)<br>SCIENCE (31)<br></td>
+    </tr>
+    
+    <tr data-total="248" data-subjects="S.I.L. SANSKRIT:55|MATHEMATICS:31|SCIENCE:51|M.I.L. HINDI:64|ENGLISH:61|SOCIAL SCIENCE:47|">
+        <td>2600033</td>
+        <td>ANITA KUMARI</td>
+        <td>Female</td>
+        <td>UPENDRA PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>248</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (55)<br>MATHEMATICS (31)<br>SCIENCE (51)<br>M.I.L. HINDI (64)<br>ENGLISH (61)<br>SOCIAL SCIENCE (47)<br></td>
+    </tr>
+    
+    <tr data-total="157" data-subjects="ENGLISH:31|M.I.L. HINDI:29|MATHEMATICS:15|S.I.L. SANSKRIT:30|SOCIAL SCIENCE:46|SCIENCE:37|">
+        <td>2600034</td>
+        <td>MUSKAN KUMARI</td>
+        <td>Female</td>
+        <td>BIJENDRA MANJHI</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>157</td>
+        <td>Fail</td>
+        <td>ENGLISH (31)<br>M.I.L. HINDI (29)<br>MATHEMATICS (15)<br>S.I.L. SANSKRIT (30)<br>SOCIAL SCIENCE (46)<br>SCIENCE (37)<br></td>
+    </tr>
+    
+    <tr data-total="254" data-subjects="S.I.L. SANSKRIT:55|SOCIAL SCIENCE:62|MATHEMATICS:30|ENGLISH:41|SCIENCE:56|M.I.L. HINDI:51|">
+        <td>2600035</td>
+        <td>PRIYA KUMARI</td>
+        <td>Female</td>
+        <td>MUKESH CHAUDHARY</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>254</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (55)<br>SOCIAL SCIENCE (62)<br>MATHEMATICS (30)<br>ENGLISH (41)<br>SCIENCE (56)<br>M.I.L. HINDI (51)<br></td>
+    </tr>
+    
+    <tr data-total="346" data-subjects="ENGLISH:67|MATHEMATICS:59|SCIENCE:67|S.I.L. SANSKRIT:76|M.I.L. HINDI:70|SOCIAL SCIENCE:74|">
+        <td>2600036</td>
+        <td>PUJA KUMARI</td>
+        <td>Female</td>
+        <td>SANTOSH SAW</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>346</td>
+        <td>1st Division</td>
+        <td>ENGLISH (67)<br>MATHEMATICS (59)<br>SCIENCE (67)<br>S.I.L. SANSKRIT (76)<br>M.I.L. HINDI (70)<br>SOCIAL SCIENCE (74)<br></td>
+    </tr>
+    
+    <tr data-total="255" data-subjects="S.I.L. SANSKRIT:58|SCIENCE:41|M.I.L. HINDI:72|MATHEMATICS:30|ENGLISH:43|SOCIAL SCIENCE:54|">
+        <td>2600037</td>
+        <td>NISHA KUMARI</td>
+        <td>Female</td>
+        <td>ARVIND CHAUHAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>255</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (58)<br>SCIENCE (41)<br>M.I.L. HINDI (72)<br>MATHEMATICS (30)<br>ENGLISH (43)<br>SOCIAL SCIENCE (54)<br></td>
+    </tr>
+    
+    <tr data-total="195" data-subjects="ENGLISH:46|SOCIAL SCIENCE:43|S.I.L. SANSKRIT:40|SCIENCE:33|MATHEMATICS:30|M.I.L. HINDI:49|">
+        <td>2600038</td>
+        <td>ANNU KUMARI</td>
+        <td>Female</td>
+        <td>SHAILESH KUMAR SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>195</td>
+        <td>3rd Division</td>
+        <td>ENGLISH (46)<br>SOCIAL SCIENCE (43)<br>S.I.L. SANSKRIT (40)<br>SCIENCE (33)<br>MATHEMATICS (30)<br>M.I.L. HINDI (49)<br></td>
+    </tr>
+    
+    <tr data-total="169" data-subjects="S.I.L. SANSKRIT:38|ENGLISH:42|SOCIAL SCIENCE:31|M.I.L. HINDI:34|MATHEMATICS:30|SCIENCE:36|">
+        <td>2600039</td>
+        <td>SANJU KUMARI</td>
+        <td>Female</td>
+        <td>KAUSHAL KUMAR SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>169</td>
+        <td>3rd Division</td>
+        <td>S.I.L. SANSKRIT (38)<br>ENGLISH (42)<br>SOCIAL SCIENCE (31)<br>M.I.L. HINDI (34)<br>MATHEMATICS (30)<br>SCIENCE (36)<br></td>
+    </tr>
+    
+    <tr data-total="348" data-subjects="SCIENCE:75|M.I.L. HINDI:75|S.I.L. SANSKRIT:67|SOCIAL SCIENCE:75|ENGLISH:49|MATHEMATICS:56|">
+        <td>2600040</td>
+        <td>GUNJA KUMARI</td>
+        <td>Female</td>
+        <td>SUNIL KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>348</td>
+        <td>1st Division</td>
+        <td>SCIENCE (75)<br>M.I.L. HINDI (75)<br>S.I.L. SANSKRIT (67)<br>SOCIAL SCIENCE (75)<br>ENGLISH (49)<br>MATHEMATICS (56)<br></td>
+    </tr>
+    
+    <tr data-total="215" data-subjects="MATHEMATICS:30|SOCIAL SCIENCE:55|S.I.L. SANSKRIT:41|M.I.L. HINDI:52|ENGLISH:48|SCIENCE:37|">
+        <td>2600041</td>
+        <td>RIYA KUMARI</td>
+        <td>Female</td>
+        <td>NAND PRAKASH SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>215</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>SOCIAL SCIENCE (55)<br>S.I.L. SANSKRIT (41)<br>M.I.L. HINDI (52)<br>ENGLISH (48)<br>SCIENCE (37)<br></td>
+    </tr>
+    
+    <tr data-total="273" data-subjects="SOCIAL SCIENCE:68|M.I.L. HINDI:62|S.I.L. SANSKRIT:57|ENGLISH:52|MATHEMATICS:35|SCIENCE:51|">
+        <td>2600042</td>
+        <td>KOMAL KUMARI</td>
+        <td>Female</td>
+        <td>SANTOSH SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>273</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (68)<br>M.I.L. HINDI (62)<br>S.I.L. SANSKRIT (57)<br>ENGLISH (52)<br>MATHEMATICS (35)<br>SCIENCE (51)<br></td>
+    </tr>
+    
+    <tr data-total="232" data-subjects="SCIENCE:46|ENGLISH:59|M.I.L. HINDI:51|SOCIAL SCIENCE:41|S.I.L. SANSKRIT:47|MATHEMATICS:47|">
+        <td>2600043</td>
+        <td>KAJAL KUMARI</td>
+        <td>Female</td>
+        <td>SANKAR PANDIT</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>232</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (46)<br>ENGLISH (59)<br>M.I.L. HINDI (51)<br>SOCIAL SCIENCE (41)<br>S.I.L. SANSKRIT (47)<br>MATHEMATICS (47)<br></td>
+    </tr>
+    
+    <tr data-total="282" data-subjects="ENGLISH:64|MATHEMATICS:53|M.I.L. HINDI:60|SCIENCE:54|SOCIAL SCIENCE:51|S.I.L. SANSKRIT:64|">
+        <td>2600044</td>
+        <td>SNEH LATA</td>
+        <td>Male</td>
+        <td>JOHN MAICHEL</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>282</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (64)<br>MATHEMATICS (53)<br>M.I.L. HINDI (60)<br>SCIENCE (54)<br>SOCIAL SCIENCE (51)<br>S.I.L. SANSKRIT (64)<br></td>
+    </tr>
+    
+    <tr data-total="133" data-subjects="SOCIAL SCIENCE:35|SCIENCE:32|S.I.L. SANSKRIT:27|ENGLISH:29|M.I.L. HINDI:25|MATHEMATICS:14|">
+        <td>2600045</td>
+        <td>ANJANI KUMARI</td>
+        <td>Female</td>
+        <td>SANJAY YADAV</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>133</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (35)<br>SCIENCE (32)<br>S.I.L. SANSKRIT (27)<br>ENGLISH (29)<br>M.I.L. HINDI (25)<br>MATHEMATICS (14)<br></td>
+    </tr>
+    
+    <tr data-total="269" data-subjects="SOCIAL SCIENCE:53|ENGLISH:61|S.I.L. SANSKRIT:62|MATHEMATICS:30|SCIENCE:52|M.I.L. HINDI:72|">
+        <td>2600046</td>
+        <td>SHALU KUMARI</td>
+        <td>Female</td>
+        <td>BHARAT SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>269</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (53)<br>ENGLISH (61)<br>S.I.L. SANSKRIT (62)<br>MATHEMATICS (30)<br>SCIENCE (52)<br>M.I.L. HINDI (72)<br></td>
+    </tr>
+    
+    <tr data-total="212" data-subjects="S.I.L. SANSKRIT:41|ENGLISH:37|MATHEMATICS:30|M.I.L. HINDI:49|SCIENCE:34|SOCIAL SCIENCE:58|">
+        <td>2600047</td>
+        <td>JYOTI KUMARI</td>
+        <td>Female</td>
+        <td>RAMESH SAW</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>212</td>
+        <td>3rd Division</td>
+        <td>S.I.L. SANSKRIT (41)<br>ENGLISH (37)<br>MATHEMATICS (30)<br>M.I.L. HINDI (49)<br>SCIENCE (34)<br>SOCIAL SCIENCE (58)<br></td>
+    </tr>
+    
+    <tr data-total="194" data-subjects="ENGLISH:36|SOCIAL SCIENCE:49|MATHEMATICS:30|SCIENCE:38|M.I.L. HINDI:44|S.I.L. SANSKRIT:33|">
+        <td>2600048</td>
+        <td>KHUSHI KUMARI</td>
+        <td>Female</td>
+        <td>HAVESH KEWAT</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>194</td>
+        <td>3rd Division</td>
+        <td>ENGLISH (36)<br>SOCIAL SCIENCE (49)<br>MATHEMATICS (30)<br>SCIENCE (38)<br>M.I.L. HINDI (44)<br>S.I.L. SANSKRIT (33)<br></td>
+    </tr>
+    
+    <tr data-total="334" data-subjects="ENGLISH:70|SCIENCE:59|M.I.L. HINDI:85|SOCIAL SCIENCE:69|MATHEMATICS:44|S.I.L. SANSKRIT:77|">
+        <td>2600049</td>
+        <td>AMISHA KUMARI</td>
+        <td>Female</td>
+        <td>SUJIT KUMAR YADAV</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>334</td>
+        <td>1st Division</td>
+        <td>ENGLISH (70)<br>SCIENCE (59)<br>M.I.L. HINDI (85)<br>SOCIAL SCIENCE (69)<br>MATHEMATICS (44)<br>S.I.L. SANSKRIT (77)<br></td>
+    </tr>
+    
+    <tr data-total="279" data-subjects="SCIENCE:47|MATHEMATICS:30|SOCIAL SCIENCE:63|M.I.L. HINDI:69|ENGLISH:57|S.I.L. SANSKRIT:70|">
+        <td>2600050</td>
+        <td>ALKA KUMARI</td>
+        <td>Female</td>
+        <td>SHAILENDRA SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>279</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (47)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (63)<br>M.I.L. HINDI (69)<br>ENGLISH (57)<br>S.I.L. SANSKRIT (70)<br></td>
+    </tr>
+    
+    <tr data-total="359" data-subjects="M.I.L. HINDI:81|ENGLISH:51|S.I.L. SANSKRIT:74|MATHEMATICS:81|SCIENCE:56|SOCIAL SCIENCE:67|">
+        <td>2600051</td>
+        <td>TANU KUMARI</td>
+        <td>Female</td>
+        <td>KAPILDEV KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>359</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (81)<br>ENGLISH (51)<br>S.I.L. SANSKRIT (74)<br>MATHEMATICS (81)<br>SCIENCE (56)<br>SOCIAL SCIENCE (67)<br></td>
+    </tr>
+    
+    <tr data-total="180" data-subjects="MATHEMATICS:13|S.I.L. SANSKRIT:47|SCIENCE:39|ENGLISH:37|SOCIAL SCIENCE:48|M.I.L. HINDI:33|">
+        <td>2600052</td>
+        <td>KAJAL KUMARI</td>
+        <td>Female</td>
+        <td>NAGENDRA KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>180</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (13)<br>S.I.L. SANSKRIT (47)<br>SCIENCE (39)<br>ENGLISH (37)<br>SOCIAL SCIENCE (48)<br>M.I.L. HINDI (33)<br></td>
+    </tr>
+    
+    <tr data-total="183" data-subjects="ENGLISH:45|SOCIAL SCIENCE:49|M.I.L. HINDI:34|SCIENCE:51|S.I.L. SANSKRIT:39|MATHEMATICS:10|">
+        <td>2600053</td>
+        <td>SHIVANI KUMARI</td>
+        <td>Female</td>
+        <td>BAIJU KUMAR SAH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>183</td>
+        <td>Fail</td>
+        <td>ENGLISH (45)<br>SOCIAL SCIENCE (49)<br>M.I.L. HINDI (34)<br>SCIENCE (51)<br>S.I.L. SANSKRIT (39)<br>MATHEMATICS (10)<br></td>
+    </tr>
+    
+    <tr data-total="231" data-subjects="ENGLISH:35|SCIENCE:58|MATHEMATICS:30|SOCIAL SCIENCE:49|M.I.L. HINDI:52|S.I.L. SANSKRIT:42|">
+        <td>2600054</td>
+        <td>SWATI KUMARI</td>
+        <td>Female</td>
+        <td>RAMESH KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>231</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (35)<br>SCIENCE (58)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (49)<br>M.I.L. HINDI (52)<br>S.I.L. SANSKRIT (42)<br></td>
+    </tr>
+    
+    <tr data-total="109" data-subjects="MATHEMATICS:12|M.I.L. HINDI:23|SCIENCE:30|SOCIAL SCIENCE:23|S.I.L. SANSKRIT:21|ENGLISH:21|">
+        <td>2600055</td>
+        <td>SHARDHA KUMARI</td>
+        <td>Female</td>
+        <td>RAM PUJAN CHAUHAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>109</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (12)<br>M.I.L. HINDI (23)<br>SCIENCE (30)<br>SOCIAL SCIENCE (23)<br>S.I.L. SANSKRIT (21)<br>ENGLISH (21)<br></td>
+    </tr>
+    
+    <tr data-total="119" data-subjects="SOCIAL SCIENCE:34|MATHEMATICS:12|S.I.L. SANSKRIT:25|M.I.L. HINDI:17|SCIENCE:31|ENGLISH:27|">
+        <td>2600056</td>
+        <td>SUHANI KUMARI</td>
+        <td>Female</td>
+        <td>JITENDRA MAHTO</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>119</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (34)<br>MATHEMATICS (12)<br>S.I.L. SANSKRIT (25)<br>M.I.L. HINDI (17)<br>SCIENCE (31)<br>ENGLISH (27)<br></td>
+    </tr>
+    
+    <tr data-total="111" data-subjects="SOCIAL SCIENCE:27|S.I.L. SANSKRIT:17|MATHEMATICS:12|SCIENCE:25|M.I.L. HINDI:30|ENGLISH:7|">
+        <td>2600057</td>
+        <td>MUNNA KUMAR</td>
+        <td>Male</td>
+        <td>SUSHIL PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>111</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (27)<br>S.I.L. SANSKRIT (17)<br>MATHEMATICS (12)<br>SCIENCE (25)<br>M.I.L. HINDI (30)<br>ENGLISH (7)<br></td>
+    </tr>
+    
+    <tr data-total="183" data-subjects="SOCIAL SCIENCE:46|S.I.L. SANSKRIT:32|MATHEMATICS:30|SCIENCE:45|ENGLISH:23|M.I.L. HINDI:30|">
+        <td>2600058</td>
+        <td>ANSH RAJ</td>
+        <td>Male</td>
+        <td>RAJAN SAW</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>183</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (46)<br>S.I.L. SANSKRIT (32)<br>MATHEMATICS (30)<br>SCIENCE (45)<br>ENGLISH (23)<br>M.I.L. HINDI (30)<br></td>
+    </tr>
+    
+    <tr data-total="451" data-subjects="ENGLISH:50|S.I.L. SANSKRIT:76|MATHEMATICS:98|SCIENCE:96|M.I.L. HINDI:90|SOCIAL SCIENCE:91|">
+        <td>2600059</td>
+        <td>AMIT KUMAR</td>
+        <td>Male</td>
+        <td>GORAKH PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>451</td>
+        <td>1st Division</td>
+        <td>ENGLISH (50)<br>S.I.L. SANSKRIT (76)<br>MATHEMATICS (98)<br>SCIENCE (96)<br>M.I.L. HINDI (90)<br>SOCIAL SCIENCE (91)<br></td>
+    </tr>
+    
+    <tr data-total="287" data-subjects="S.I.L. SANSKRIT:56|M.I.L. HINDI:58|SCIENCE:75|SOCIAL SCIENCE:63|MATHEMATICS:35|ENGLISH:47|">
+        <td>2600060</td>
+        <td>RISHU KUMAR</td>
+        <td>Male</td>
+        <td>INDU BHUSHAN SHARMA</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>287</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (56)<br>M.I.L. HINDI (58)<br>SCIENCE (75)<br>SOCIAL SCIENCE (63)<br>MATHEMATICS (35)<br>ENGLISH (47)<br></td>
+    </tr>
+    
+    <tr data-total="201" data-subjects="SOCIAL SCIENCE:53|MATHEMATICS:30|M.I.L. HINDI:30|ENGLISH:17|S.I.L. SANSKRIT:33|SCIENCE:55|">
+        <td>2600061</td>
+        <td>SANDIP KUMAR</td>
+        <td>Male</td>
+        <td>SUBHASH TIWARI</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>201</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (53)<br>MATHEMATICS (30)<br>M.I.L. HINDI (30)<br>ENGLISH (17)<br>S.I.L. SANSKRIT (33)<br>SCIENCE (55)<br></td>
+    </tr>
+    
+    <tr data-total="300" data-subjects="S.I.L. SANSKRIT:56|MATHEMATICS:60|M.I.L. HINDI:58|SCIENCE:62|SOCIAL SCIENCE:59|ENGLISH:41|">
+        <td>2600062</td>
+        <td>MANISH KUMAR</td>
+        <td>Male</td>
+        <td>SANTOSH PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>300</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (56)<br>MATHEMATICS (60)<br>M.I.L. HINDI (58)<br>SCIENCE (62)<br>SOCIAL SCIENCE (59)<br>ENGLISH (41)<br></td>
+    </tr>
+    
+    <tr data-total="235" data-subjects="SCIENCE:63|ENGLISH:24|SOCIAL SCIENCE:56|MATHEMATICS:30|M.I.L. HINDI:46|S.I.L. SANSKRIT:40|">
+        <td>2600063</td>
+        <td>AMARJEET KUMAR</td>
+        <td>Male</td>
+        <td>BAIJU SAW</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>235</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (63)<br>ENGLISH (24)<br>SOCIAL SCIENCE (56)<br>MATHEMATICS (30)<br>M.I.L. HINDI (46)<br>S.I.L. SANSKRIT (40)<br></td>
+    </tr>
+    
+    <tr data-total="288" data-subjects="ENGLISH:29|MATHEMATICS:31|M.I.L. HINDI:62|S.I.L. SANSKRIT:58|SCIENCE:72|SOCIAL SCIENCE:65|">
+        <td>2600064</td>
+        <td>VISHAL KUMAR</td>
+        <td>Male</td>
+        <td>PINTU PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>288</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (29)<br>MATHEMATICS (31)<br>M.I.L. HINDI (62)<br>S.I.L. SANSKRIT (58)<br>SCIENCE (72)<br>SOCIAL SCIENCE (65)<br></td>
+    </tr>
+    
+    <tr data-total="316" data-subjects="SCIENCE:77|S.I.L. SANSKRIT:67|MATHEMATICS:48|M.I.L. HINDI:61|SOCIAL SCIENCE:63|ENGLISH:28|">
+        <td>2600065</td>
+        <td>GAUTAM KUMAR</td>
+        <td>Male</td>
+        <td>SANJAY RAVIDAS</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>316</td>
+        <td>1st Division</td>
+        <td>SCIENCE (77)<br>S.I.L. SANSKRIT (67)<br>MATHEMATICS (48)<br>M.I.L. HINDI (61)<br>SOCIAL SCIENCE (63)<br>ENGLISH (28)<br></td>
+    </tr>
+    
+    <tr data-total="327" data-subjects="S.I.L. SANSKRIT:63|MATHEMATICS:50|SOCIAL SCIENCE:64|SCIENCE:83|ENGLISH:56|M.I.L. HINDI:67|">
+        <td>2600066</td>
+        <td>SANJEEV KUMAR</td>
+        <td>Male</td>
+        <td>SHATRUDHAN KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>327</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (63)<br>MATHEMATICS (50)<br>SOCIAL SCIENCE (64)<br>SCIENCE (83)<br>ENGLISH (56)<br>M.I.L. HINDI (67)<br></td>
+    </tr>
+    
+    <tr data-total="245" data-subjects="ENGLISH:26|SOCIAL SCIENCE:50|SCIENCE:70|S.I.L. SANSKRIT:49|M.I.L. HINDI:46|MATHEMATICS:30|">
+        <td>2600067</td>
+        <td>VISHAL KUMAR</td>
+        <td>Male</td>
+        <td>VINOD PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>245</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (26)<br>SOCIAL SCIENCE (50)<br>SCIENCE (70)<br>S.I.L. SANSKRIT (49)<br>M.I.L. HINDI (46)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="162" data-subjects="SOCIAL SCIENCE:31|SCIENCE:40|M.I.L. HINDI:30|ENGLISH:16|S.I.L. SANSKRIT:31|MATHEMATICS:30|">
+        <td>2600068</td>
+        <td>DEEPAK KUMAR</td>
+        <td>Male</td>
+        <td>SUNIL RAVIDAS</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>162</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (31)<br>SCIENCE (40)<br>M.I.L. HINDI (30)<br>ENGLISH (16)<br>S.I.L. SANSKRIT (31)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="300" data-subjects="ENGLISH:31|S.I.L. SANSKRIT:48|MATHEMATICS:33|SCIENCE:78|M.I.L. HINDI:65|SOCIAL SCIENCE:74|">
+        <td>2600069</td>
+        <td>RAJNISH KUMAR</td>
+        <td>Male</td>
+        <td>HARDEV RAVIDAS</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>300</td>
+        <td>1st Division</td>
+        <td>ENGLISH (31)<br>S.I.L. SANSKRIT (48)<br>MATHEMATICS (33)<br>SCIENCE (78)<br>M.I.L. HINDI (65)<br>SOCIAL SCIENCE (74)<br></td>
+    </tr>
+    
+    <tr data-total="251" data-subjects="ENGLISH:33|MATHEMATICS:38|SCIENCE:64|M.I.L. HINDI:44|SOCIAL SCIENCE:58|S.I.L. SANSKRIT:47|">
+        <td>2600070</td>
+        <td>VIKKY KUMAR</td>
+        <td>Male</td>
+        <td>SAGINA RAY</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>251</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (33)<br>MATHEMATICS (38)<br>SCIENCE (64)<br>M.I.L. HINDI (44)<br>SOCIAL SCIENCE (58)<br>S.I.L. SANSKRIT (47)<br></td>
+    </tr>
+    
+    <tr data-total="284" data-subjects="M.I.L. HINDI:52|SCIENCE:69|S.I.L. SANSKRIT:62|SOCIAL SCIENCE:60|MATHEMATICS:41|ENGLISH:41|">
+        <td>2600071</td>
+        <td>AMAN KUMAR</td>
+        <td>Male</td>
+        <td>SANJAY PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>284</td>
+        <td>2nd Division</td>
+        <td>M.I.L. HINDI (52)<br>SCIENCE (69)<br>S.I.L. SANSKRIT (62)<br>SOCIAL SCIENCE (60)<br>MATHEMATICS (41)<br>ENGLISH (41)<br></td>
+    </tr>
+    
+    <tr data-total="394" data-subjects="M.I.L. HINDI:78|S.I.L. SANSKRIT:71|ENGLISH:59|MATHEMATICS:85|SCIENCE:84|SOCIAL SCIENCE:76|">
+        <td>2600072</td>
+        <td>SUNNY KUMAR</td>
+        <td>Male</td>
+        <td>SANOJ KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>394</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (78)<br>S.I.L. SANSKRIT (71)<br>ENGLISH (59)<br>MATHEMATICS (85)<br>SCIENCE (84)<br>SOCIAL SCIENCE (76)<br></td>
+    </tr>
+    
+    <tr data-total="438" data-subjects="ENGLISH:58|SOCIAL SCIENCE:85|SCIENCE:92|MATHEMATICS:93|S.I.L. SANSKRIT:81|M.I.L. HINDI:87|">
+        <td>2600073</td>
+        <td>NITIN SHINGHIYA</td>
+        <td>Male</td>
+        <td>SATENDRA KUMAR GUPTA</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>438</td>
+        <td>1st Division</td>
+        <td>ENGLISH (58)<br>SOCIAL SCIENCE (85)<br>SCIENCE (92)<br>MATHEMATICS (93)<br>S.I.L. SANSKRIT (81)<br>M.I.L. HINDI (87)<br></td>
+    </tr>
+    
+    <tr data-total="218" data-subjects="S.I.L. SANSKRIT:36|M.I.L. HINDI:35|ENGLISH:25|SOCIAL SCIENCE:51|MATHEMATICS:30|SCIENCE:66|">
+        <td>2600074</td>
+        <td>ANMOL KUMAR</td>
+        <td>Male</td>
+        <td>MUNNA SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>218</td>
+        <td>3rd Division</td>
+        <td>S.I.L. SANSKRIT (36)<br>M.I.L. HINDI (35)<br>ENGLISH (25)<br>SOCIAL SCIENCE (51)<br>MATHEMATICS (30)<br>SCIENCE (66)<br></td>
+    </tr>
+    
+    <tr data-total="240" data-subjects="SCIENCE:66|MATHEMATICS:30|M.I.L. HINDI:38|S.I.L. SANSKRIT:46|ENGLISH:30|SOCIAL SCIENCE:60|">
+        <td>2600075</td>
+        <td>NAVIN KUMAR</td>
+        <td>Male</td>
+        <td>ANJAN YADAV</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>240</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (66)<br>MATHEMATICS (30)<br>M.I.L. HINDI (38)<br>S.I.L. SANSKRIT (46)<br>ENGLISH (30)<br>SOCIAL SCIENCE (60)<br></td>
+    </tr>
+    
+    <tr data-total="225" data-subjects="SOCIAL SCIENCE:55|S.I.L. SANSKRIT:41|ENGLISH:24|M.I.L. HINDI:34|SCIENCE:60|MATHEMATICS:30|">
+        <td>2600076</td>
+        <td>SUNNY KUMAR</td>
+        <td>Male</td>
+        <td>INDAL PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>225</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (55)<br>S.I.L. SANSKRIT (41)<br>ENGLISH (24)<br>M.I.L. HINDI (34)<br>SCIENCE (60)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="167" data-subjects="MATHEMATICS:18|ENGLISH:19|SOCIAL SCIENCE:50|M.I.L. HINDI:27|S.I.L. SANSKRIT:29|SCIENCE:43|">
+        <td>2600077</td>
+        <td>RAJA BABU KUMAR</td>
+        <td>Male</td>
+        <td>AMOD SAW</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>167</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (18)<br>ENGLISH (19)<br>SOCIAL SCIENCE (50)<br>M.I.L. HINDI (27)<br>S.I.L. SANSKRIT (29)<br>SCIENCE (43)<br></td>
+    </tr>
+    
+    <tr data-total="251" data-subjects="ENGLISH:20|SCIENCE:64|S.I.L. SANSKRIT:52|M.I.L. HINDI:45|MATHEMATICS:30|SOCIAL SCIENCE:60|">
+        <td>2600078</td>
+        <td>RANJIT KUMAR</td>
+        <td>Male</td>
+        <td>AJAY PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>251</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (20)<br>SCIENCE (64)<br>S.I.L. SANSKRIT (52)<br>M.I.L. HINDI (45)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (60)<br></td>
+    </tr>
+    
+    <tr data-total="219" data-subjects="SOCIAL SCIENCE:57|S.I.L. SANSKRIT:37|M.I.L. HINDI:36|MATHEMATICS:30|ENGLISH:30|SCIENCE:59|">
+        <td>2600079</td>
+        <td>DIPANKAR KUMAR</td>
+        <td>Male</td>
+        <td>PAPPU PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>219</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (57)<br>S.I.L. SANSKRIT (37)<br>M.I.L. HINDI (36)<br>MATHEMATICS (30)<br>ENGLISH (30)<br>SCIENCE (59)<br></td>
+    </tr>
+    
+    <tr data-total="189" data-subjects="M.I.L. HINDI:30|ENGLISH:22|SOCIAL SCIENCE:53|SCIENCE:32|S.I.L. SANSKRIT:30|MATHEMATICS:44|">
+        <td>2600080</td>
+        <td>LAKSHMAN KUMAR</td>
+        <td>Male</td>
+        <td>SHIDHI RAVIDAS</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>189</td>
+        <td>3rd Division</td>
+        <td>M.I.L. HINDI (30)<br>ENGLISH (22)<br>SOCIAL SCIENCE (53)<br>SCIENCE (32)<br>S.I.L. SANSKRIT (30)<br>MATHEMATICS (44)<br></td>
+    </tr>
+    
+    <tr data-total="154" data-subjects="M.I.L. HINDI:22|SCIENCE:40|ENGLISH:29|SOCIAL SCIENCE:26|MATHEMATICS:33|S.I.L. SANSKRIT:33|">
+        <td>2600081</td>
+        <td>DILKHUSH KUMAR</td>
+        <td>Male</td>
+        <td>NIRANJAN PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>154</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (22)<br>SCIENCE (40)<br>ENGLISH (29)<br>SOCIAL SCIENCE (26)<br>MATHEMATICS (33)<br>S.I.L. SANSKRIT (33)<br></td>
+    </tr>
+    
+    <tr data-total="374" data-subjects="ENGLISH:50|SOCIAL SCIENCE:64|M.I.L. HINDI:67|MATHEMATICS:93|SCIENCE:83|S.I.L. SANSKRIT:67|">
+        <td>2600082</td>
+        <td>ROHIT KUMAR</td>
+        <td>Male</td>
+        <td>KUMAR RANJAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>374</td>
+        <td>1st Division</td>
+        <td>ENGLISH (50)<br>SOCIAL SCIENCE (64)<br>M.I.L. HINDI (67)<br>MATHEMATICS (93)<br>SCIENCE (83)<br>S.I.L. SANSKRIT (67)<br></td>
+    </tr>
+    
+    <tr data-total="288" data-subjects="M.I.L. HINDI:64|SCIENCE:78|SOCIAL SCIENCE:56|MATHEMATICS:30|ENGLISH:29|S.I.L. SANSKRIT:60|">
+        <td>2600083</td>
+        <td>KISHAN KUMAR</td>
+        <td>Male</td>
+        <td>SURESH KUMAR SAW</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>288</td>
+        <td>2nd Division</td>
+        <td>M.I.L. HINDI (64)<br>SCIENCE (78)<br>SOCIAL SCIENCE (56)<br>MATHEMATICS (30)<br>ENGLISH (29)<br>S.I.L. SANSKRIT (60)<br></td>
+    </tr>
+    
+    <tr data-total="261" data-subjects="S.I.L. SANSKRIT:55|M.I.L. HINDI:66|ENGLISH:55|MATHEMATICS:54|SCIENCE:46|SOCIAL SCIENCE:40|">
+        <td>2600084</td>
+        <td>VISHWENDRA KUMAR</td>
+        <td>Male</td>
+        <td>DHIRENDRA KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>261</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (55)<br>M.I.L. HINDI (66)<br>ENGLISH (55)<br>MATHEMATICS (54)<br>SCIENCE (46)<br>SOCIAL SCIENCE (40)<br></td>
+    </tr>
+    
+    <tr data-total="132" data-subjects="ENGLISH:22|SCIENCE:35|SOCIAL SCIENCE:32|M.I.L. HINDI:14|MATHEMATICS:30|S.I.L. SANSKRIT:21|">
+        <td>2600085</td>
+        <td>SHIVAM KUMAR</td>
+        <td>Male</td>
+        <td>RAJKUMAR PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>132</td>
+        <td>Fail</td>
+        <td>ENGLISH (22)<br>SCIENCE (35)<br>SOCIAL SCIENCE (32)<br>M.I.L. HINDI (14)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (21)<br></td>
+    </tr>
+    
+    <tr data-total="113" data-subjects="SOCIAL SCIENCE:33|S.I.L. SANSKRIT:16|SCIENCE:25|ENGLISH:15|MATHEMATICS:16|M.I.L. HINDI:23|">
+        <td>2600086</td>
+        <td>LAKSHMAN KUMAR</td>
+        <td>Male</td>
+        <td>SUBHASH TIWARI</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>113</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (33)<br>S.I.L. SANSKRIT (16)<br>SCIENCE (25)<br>ENGLISH (15)<br>MATHEMATICS (16)<br>M.I.L. HINDI (23)<br></td>
+    </tr>
+    
+    <tr data-total="195" data-subjects="S.I.L. SANSKRIT:33|SCIENCE:59|MATHEMATICS:30|M.I.L. HINDI:36|ENGLISH:21|SOCIAL SCIENCE:37|">
+        <td>2600087</td>
+        <td>SAHIL KUMAR</td>
+        <td>Male</td>
+        <td>RAMANUJ KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>195</td>
+        <td>3rd Division</td>
+        <td>S.I.L. SANSKRIT (33)<br>SCIENCE (59)<br>MATHEMATICS (30)<br>M.I.L. HINDI (36)<br>ENGLISH (21)<br>SOCIAL SCIENCE (37)<br></td>
+    </tr>
+    
+    <tr data-total="213" data-subjects="SOCIAL SCIENCE:30|ENGLISH:33|SCIENCE:63|S.I.L. SANSKRIT:49|MATHEMATICS:30|M.I.L. HINDI:41|">
+        <td>2600088</td>
+        <td>AJIT KUMAR</td>
+        <td>Male</td>
+        <td>MAHESH DAS</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>213</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (30)<br>ENGLISH (33)<br>SCIENCE (63)<br>S.I.L. SANSKRIT (49)<br>MATHEMATICS (30)<br>M.I.L. HINDI (41)<br></td>
+    </tr>
+    
+    <tr data-total="215" data-subjects="MATHEMATICS:30|S.I.L. SANSKRIT:47|ENGLISH:34|SOCIAL SCIENCE:42|SCIENCE:60|M.I.L. HINDI:36|">
+        <td>2600089</td>
+        <td>KARU KUMAR</td>
+        <td>Male</td>
+        <td>TARUN CHAUDHARY</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>215</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>S.I.L. SANSKRIT (47)<br>ENGLISH (34)<br>SOCIAL SCIENCE (42)<br>SCIENCE (60)<br>M.I.L. HINDI (36)<br></td>
+    </tr>
+    
+    <tr data-total="197" data-subjects="MATHEMATICS:30|SCIENCE:49|ENGLISH:19|SOCIAL SCIENCE:30|M.I.L. HINDI:38|S.I.L. SANSKRIT:50|">
+        <td>2600090</td>
+        <td>KARAN KUMAR</td>
+        <td>Male</td>
+        <td>RAMESH SAHNI</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>197</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>SCIENCE (49)<br>ENGLISH (19)<br>SOCIAL SCIENCE (30)<br>M.I.L. HINDI (38)<br>S.I.L. SANSKRIT (50)<br></td>
+    </tr>
+    
+    <tr data-total="186" data-subjects="M.I.L. HINDI:40|ENGLISH:30|SCIENCE:44|S.I.L. SANSKRIT:42|SOCIAL SCIENCE:30|MATHEMATICS:30|">
+        <td>2600091</td>
+        <td>KISHAN KUMAR</td>
+        <td>Male</td>
+        <td>RAJU MAHTO</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>186</td>
+        <td>3rd Division</td>
+        <td>M.I.L. HINDI (40)<br>ENGLISH (30)<br>SCIENCE (44)<br>S.I.L. SANSKRIT (42)<br>SOCIAL SCIENCE (30)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="139" data-subjects="S.I.L. SANSKRIT:21|ENGLISH:19|M.I.L. HINDI:25|SCIENCE:43|SOCIAL SCIENCE:31|MATHEMATICS:19|">
+        <td>2600092</td>
+        <td>SUNNY KUMAR</td>
+        <td>Male</td>
+        <td>MITHILESH RAVIDAS</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>139</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (21)<br>ENGLISH (19)<br>M.I.L. HINDI (25)<br>SCIENCE (43)<br>SOCIAL SCIENCE (31)<br>MATHEMATICS (19)<br></td>
+    </tr>
+    
+    <tr data-total="385" data-subjects="M.I.L. HINDI:73|SCIENCE:90|ENGLISH:51|S.I.L. SANSKRIT:70|SOCIAL SCIENCE:65|MATHEMATICS:87|">
+        <td>2600093</td>
+        <td>NANDAN KUMAR</td>
+        <td>Male</td>
+        <td>DILIP KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>385</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (73)<br>SCIENCE (90)<br>ENGLISH (51)<br>S.I.L. SANSKRIT (70)<br>SOCIAL SCIENCE (65)<br>MATHEMATICS (87)<br></td>
+    </tr>
+    
+    <tr data-total="300" data-subjects="S.I.L. SANSKRIT:62|SOCIAL SCIENCE:64|SCIENCE:75|MATHEMATICS:31|ENGLISH:44|M.I.L. HINDI:66|">
+        <td>2600094</td>
+        <td>TANISHK KUMAR</td>
+        <td>Male</td>
+        <td>SATENDRA KUMAR GUPTA</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>300</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (62)<br>SOCIAL SCIENCE (64)<br>SCIENCE (75)<br>MATHEMATICS (31)<br>ENGLISH (44)<br>M.I.L. HINDI (66)<br></td>
+    </tr>
+    
+    <tr data-total="316" data-subjects="M.I.L. HINDI:61|SOCIAL SCIENCE:53|MATHEMATICS:66|SCIENCE:71|ENGLISH:44|S.I.L. SANSKRIT:65|">
+        <td>2600095</td>
+        <td>AMIT KUMAR</td>
+        <td>Male</td>
+        <td>BRIJ KISHOR KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>316</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (61)<br>SOCIAL SCIENCE (53)<br>MATHEMATICS (66)<br>SCIENCE (71)<br>ENGLISH (44)<br>S.I.L. SANSKRIT (65)<br></td>
+    </tr>
+    
+    <tr data-total="280" data-subjects="SOCIAL SCIENCE:51|ENGLISH:33|S.I.L. SANSKRIT:65|MATHEMATICS:35|M.I.L. HINDI:65|SCIENCE:64|">
+        <td>2600096</td>
+        <td>SANJEEV KUMAR</td>
+        <td>Male</td>
+        <td>SANOJ PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>280</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (51)<br>ENGLISH (33)<br>S.I.L. SANSKRIT (65)<br>MATHEMATICS (35)<br>M.I.L. HINDI (65)<br>SCIENCE (64)<br></td>
+    </tr>
+    
+    <tr data-total="225" data-subjects="SCIENCE:57|S.I.L. SANSKRIT:40|M.I.L. HINDI:56|ENGLISH:32|MATHEMATICS:30|SOCIAL SCIENCE:42|">
+        <td>2600097</td>
+        <td>SHAHIL RAJ</td>
+        <td>Male</td>
+        <td>RANJAN KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>225</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (57)<br>S.I.L. SANSKRIT (40)<br>M.I.L. HINDI (56)<br>ENGLISH (32)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (42)<br></td>
+    </tr>
+    
+    <tr data-total="433" data-subjects="S.I.L. SANSKRIT:83|M.I.L. HINDI:86|ENGLISH:69|MATHEMATICS:93|SCIENCE:92|SOCIAL SCIENCE:79|">
+        <td>2600098</td>
+        <td>ABHISHEK KUMAR</td>
+        <td>Male</td>
+        <td>DHARMENDRA KEWAT</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>433</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (83)<br>M.I.L. HINDI (86)<br>ENGLISH (69)<br>MATHEMATICS (93)<br>SCIENCE (92)<br>SOCIAL SCIENCE (79)<br></td>
+    </tr>
+    
+    <tr data-total="137" data-subjects="S.I.L. SANSKRIT:35|SCIENCE:27|SOCIAL SCIENCE:27|M.I.L. HINDI:14|MATHEMATICS:34|ENGLISH:14|">
+        <td>2600099</td>
+        <td>GAURI SHANKAR KUMAR</td>
+        <td>Male</td>
+        <td>SHATRUDHAN CHAUDHARY</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>137</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (35)<br>SCIENCE (27)<br>SOCIAL SCIENCE (27)<br>M.I.L. HINDI (14)<br>MATHEMATICS (34)<br>ENGLISH (14)<br></td>
+    </tr>
+    
+    <tr data-total="409" data-subjects="SCIENCE:77|ENGLISH:50|M.I.L. HINDI:88|MATHEMATICS:90|SOCIAL SCIENCE:67|S.I.L. SANSKRIT:87|">
+        <td>2600100</td>
+        <td>RAUSHAN KUMAR</td>
+        <td>Male</td>
+        <td>SANTOSH KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>409</td>
+        <td>1st Division</td>
+        <td>SCIENCE (77)<br>ENGLISH (50)<br>M.I.L. HINDI (88)<br>MATHEMATICS (90)<br>SOCIAL SCIENCE (67)<br>S.I.L. SANSKRIT (87)<br></td>
+    </tr>
+    
+    <tr data-total="286" data-subjects="ENGLISH:45|MATHEMATICS:60|S.I.L. SANSKRIT:57|SOCIAL SCIENCE:51|SCIENCE:64|M.I.L. HINDI:54|">
+        <td>2600101</td>
+        <td>SUGANDH KUMAR</td>
+        <td>Male</td>
+        <td>SHAMBHU SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>286</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (45)<br>MATHEMATICS (60)<br>S.I.L. SANSKRIT (57)<br>SOCIAL SCIENCE (51)<br>SCIENCE (64)<br>M.I.L. HINDI (54)<br></td>
+    </tr>
+    
+    <tr data-total="441" data-subjects="M.I.L. HINDI:83|MATHEMATICS:89|ENGLISH:59|SCIENCE:91|SOCIAL SCIENCE:85|S.I.L. SANSKRIT:93|">
+        <td>2600102</td>
+        <td>SHAURYA RAJ</td>
+        <td>Male</td>
+        <td>PANKAJ KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>441</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (83)<br>MATHEMATICS (89)<br>ENGLISH (59)<br>SCIENCE (91)<br>SOCIAL SCIENCE (85)<br>S.I.L. SANSKRIT (93)<br></td>
+    </tr>
+    
+    <tr data-total="101" data-subjects="MATHEMATICS:15|SOCIAL SCIENCE:26|SCIENCE:28|S.I.L. SANSKRIT:19|ENGLISH:9|M.I.L. HINDI:13|">
+        <td>2600103</td>
+        <td>VISHVKRMA KUMAR</td>
+        <td>Male</td>
+        <td>SANTOSH PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>101</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (15)<br>SOCIAL SCIENCE (26)<br>SCIENCE (28)<br>S.I.L. SANSKRIT (19)<br>ENGLISH (9)<br>M.I.L. HINDI (13)<br></td>
+    </tr>
+    
+    <tr data-total="129" data-subjects="S.I.L. SANSKRIT:25|SCIENCE:29|SOCIAL SCIENCE:31|M.I.L. HINDI:34|MATHEMATICS:10|ENGLISH:18|">
+        <td>2600104</td>
+        <td>PRINCE KUMAR</td>
+        <td>Male</td>
+        <td>PARIMAN RAVIDAS</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>129</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (25)<br>SCIENCE (29)<br>SOCIAL SCIENCE (31)<br>M.I.L. HINDI (34)<br>MATHEMATICS (10)<br>ENGLISH (18)<br></td>
+    </tr>
+    
+    <tr data-total="152" data-subjects="S.I.L. SANSKRIT:30|ENGLISH:18|SOCIAL SCIENCE:32|M.I.L. HINDI:30|SCIENCE:30|MATHEMATICS:30|">
+        <td>2600105</td>
+        <td>PUNIT KUMAR</td>
+        <td>Male</td>
+        <td>PRAMOD DAS</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>152</td>
+        <td>3rd Division</td>
+        <td>S.I.L. SANSKRIT (30)<br>ENGLISH (18)<br>SOCIAL SCIENCE (32)<br>M.I.L. HINDI (30)<br>SCIENCE (30)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="331" data-subjects="SOCIAL SCIENCE:60|S.I.L. SANSKRIT:73|M.I.L. HINDI:65|SCIENCE:65|MATHEMATICS:68|ENGLISH:59|">
+        <td>2600106</td>
+        <td>RISHU RAJ</td>
+        <td>Male</td>
+        <td>ABHAY SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>331</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (60)<br>S.I.L. SANSKRIT (73)<br>M.I.L. HINDI (65)<br>SCIENCE (65)<br>MATHEMATICS (68)<br>ENGLISH (59)<br></td>
+    </tr>
+    
+    <tr data-total="269" data-subjects="SOCIAL SCIENCE:50|SCIENCE:63|M.I.L. HINDI:53|MATHEMATICS:35|ENGLISH:23|S.I.L. SANSKRIT:68|">
+        <td>2600107</td>
+        <td>SUDDU KUMAR</td>
+        <td>Male</td>
+        <td>MASUDAN CHAUDHARI</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>269</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (50)<br>SCIENCE (63)<br>M.I.L. HINDI (53)<br>MATHEMATICS (35)<br>ENGLISH (23)<br>S.I.L. SANSKRIT (68)<br></td>
+    </tr>
+    
+    <tr data-total="300" data-subjects="M.I.L. HINDI:69|SCIENCE:63|MATHEMATICS:56|S.I.L. SANSKRIT:59|ENGLISH:31|SOCIAL SCIENCE:49|">
+        <td>2600108</td>
+        <td>SUNNY KUMAR</td>
+        <td>Male</td>
+        <td>DHARMENDRA KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>300</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (69)<br>SCIENCE (63)<br>MATHEMATICS (56)<br>S.I.L. SANSKRIT (59)<br>ENGLISH (31)<br>SOCIAL SCIENCE (49)<br></td>
+    </tr>
+    
+    <tr data-total="133" data-subjects="S.I.L. SANSKRIT:28|SOCIAL SCIENCE:29|ENGLISH:14|M.I.L. HINDI:30|MATHEMATICS:14|SCIENCE:32|">
+        <td>2600109</td>
+        <td>SAGAR KUMAR</td>
+        <td>Male</td>
+        <td>ANUJ CHAUHAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>133</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (28)<br>SOCIAL SCIENCE (29)<br>ENGLISH (14)<br>M.I.L. HINDI (30)<br>MATHEMATICS (14)<br>SCIENCE (32)<br></td>
+    </tr>
+    
+    <tr data-total="211" data-subjects="S.I.L. SANSKRIT:39|M.I.L. HINDI:47|SOCIAL SCIENCE:46|SCIENCE:49|ENGLISH:23|MATHEMATICS:30|">
+        <td>2600110</td>
+        <td>RISHU KUMAR</td>
+        <td>Male</td>
+        <td>RAJU SINGH</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>211</td>
+        <td>3rd Division</td>
+        <td>S.I.L. SANSKRIT (39)<br>M.I.L. HINDI (47)<br>SOCIAL SCIENCE (46)<br>SCIENCE (49)<br>ENGLISH (23)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="170" data-subjects="MATHEMATICS:30|S.I.L. SANSKRIT:31|ENGLISH:17|SOCIAL SCIENCE:36|SCIENCE:38|M.I.L. HINDI:35|">
+        <td>2600111</td>
+        <td>GULSHAN KUMAR</td>
+        <td>Male</td>
+        <td>SOHAN PASWAN</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>170</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>S.I.L. SANSKRIT (31)<br>ENGLISH (17)<br>SOCIAL SCIENCE (36)<br>SCIENCE (38)<br>M.I.L. HINDI (35)<br></td>
+    </tr>
+    
+    <tr data-total="250" data-subjects="SCIENCE:56|MATHEMATICS:30|M.I.L. HINDI:67|ENGLISH:38|SOCIAL SCIENCE:37|S.I.L. SANSKRIT:60|">
+        <td>2600112</td>
+        <td>AYUSH RAJ</td>
+        <td>Male</td>
+        <td>SUNIL KUMAR</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>250</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (56)<br>MATHEMATICS (30)<br>M.I.L. HINDI (67)<br>ENGLISH (38)<br>SOCIAL SCIENCE (37)<br>S.I.L. SANSKRIT (60)<br></td>
+    </tr>
+    
+    <tr data-total="311" data-subjects="SCIENCE:59|SOCIAL SCIENCE:59|MATHEMATICS:55|S.I.L. SANSKRIT:70|M.I.L. HINDI:68|ENGLISH:37|">
+        <td>2600113</td>
+        <td>ROHIT KUMAR</td>
+        <td>Male</td>
+        <td>RANJIT SAW</td>
+        <td>S L B H/S MAKHDUMPUR PATNA</td>
+        <td>311</td>
+        <td>1st Division</td>
+        <td>SCIENCE (59)<br>SOCIAL SCIENCE (59)<br>MATHEMATICS (55)<br>S.I.L. SANSKRIT (70)<br>M.I.L. HINDI (68)<br>ENGLISH (37)<br></td>
+    </tr>
+    
+</tbody>
+</table>
+
+</div>
+
+<script>
+function getSubjectMarks(subjectsData, subjectName) {
+    let subjects = subjectsData.split("|");
+    for (let s of subjects) {
+        if (!s) continue;
+        let parts = s.split(":");
+        if (parts[0] === subjectName) {
+            return parseInt(parts[1]) || 0;
+        }
+    }
+    return 0;
+}
+
+function applyAll() {
+
+    let search = document.getElementById("search").value.toLowerCase();
+    let division = document.getElementById("divisionFilter").value;
+    let gender = document.getElementById("genderFilter").value;
+    let subject = document.getElementById("subjectFilter").value;
+    let minMarks = document.getElementById("minMarks").value;
+    let maxMarks = document.getElementById("maxMarks").value;
+    let sortOption = document.getElementById("sortOption").value;
+
+    let tbody = document.querySelector("#table tbody");
+    let rows = Array.from(tbody.querySelectorAll("tr"));
+
+    // FILTER
+    rows.forEach(row => {
+        let name = row.cells[1].innerText.toLowerCase();
+        let div = row.cells[6].innerText;
+        let gen = row.cells[2].innerText;
+        let subjectsData = row.getAttribute("data-subjects");
+
+        let show = true;
+
+        if (search && !name.includes(search)) show = false;
+        if (division && div !== division) show = false;
+        if (gender && gen !== gender) show = false;
+
+        if (subject) {
+            let marks = getSubjectMarks(subjectsData, subject);
+            if ((minMarks && marks < minMarks) || (maxMarks && marks > maxMarks)) {
+                show = false;
+            }
+        }
+
+        row.style.display = show ? "" : "none";
+    });
+
+    // SORT
+    let visibleRows = rows.filter(r => r.style.display !== "none");
+
+    visibleRows.sort((a, b) => {
+
+        let totalA = parseInt(a.getAttribute("data-total"));
+        let totalB = parseInt(b.getAttribute("data-total"));
+
+        let subA = a.getAttribute("data-subjects");
+        let subB = b.getAttribute("data-subjects");
+
+        switch(sortOption) {
+
+            case "total_desc": return totalB - totalA;
+            case "total_asc": return totalA - totalB;
+
+            case "math_desc": return getSubjectMarks(subB,"MATHEMATICS") - getSubjectMarks(subA,"MATHEMATICS");
+            case "math_asc": return getSubjectMarks(subA,"MATHEMATICS") - getSubjectMarks(subB,"MATHEMATICS");
+
+            case "eng_desc": return getSubjectMarks(subB,"ENGLISH") - getSubjectMarks(subA,"ENGLISH");
+            case "eng_asc": return getSubjectMarks(subA,"ENGLISH") - getSubjectMarks(subB,"ENGLISH");
+
+            case "sci_desc": return getSubjectMarks(subB,"SCIENCE") - getSubjectMarks(subA,"SCIENCE");
+            case "sci_asc": return getSubjectMarks(subA,"SCIENCE") - getSubjectMarks(subB,"SCIENCE");
+
+            case "sst_desc": return getSubjectMarks(subB,"SOCIAL SCIENCE") - getSubjectMarks(subA,"SOCIAL SCIENCE");
+            case "sst_asc": return getSubjectMarks(subA,"SOCIAL SCIENCE") - getSubjectMarks(subB,"SOCIAL SCIENCE");
+
+            case "hindi_desc": return getSubjectMarks(subB,"M.I.L. HINDI") - getSubjectMarks(subA,"M.I.L. HINDI");
+            case "hindi_asc": return getSubjectMarks(subA,"M.I.L. HINDI") - getSubjectMarks(subB,"M.I.L. HINDI");
+
+            case "sanskrit_desc": return getSubjectMarks(subB,"S.I.L. SANSKRIT") - getSubjectMarks(subA,"S.I.L. SANSKRIT");
+            case "sanskrit_asc": return getSubjectMarks(subA,"S.I.L. SANSKRIT") - getSubjectMarks(subB,"S.I.L. SANSKRIT");
+
+        }
+
+        return 0;
+    });
+
+    visibleRows.forEach(row => tbody.appendChild(row));
+}
+</script>
+
+</body>
+</html>

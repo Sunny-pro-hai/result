@@ -1,0 +1,1078 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ultimate Result Dashboard</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+}
+
+h1 { text-align: center; }
+
+input, select {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    border: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #334155;
+}
+
+th { background: #1e293b; }
+
+tr:hover { background: #1e293b; }
+
+.container { padding: 20px; }
+</style>
+
+</head>
+
+<body>
+
+<h1>🔥 Ultimate Bihar Board Dashboard</h1>
+
+<div class="container">
+
+<input type="text" id="search" placeholder="Search Name..." onkeyup="applyAll()">
+
+<select id="divisionFilter" onchange="applyAll()">
+<option value="">All Division</option>
+<option>1st Division</option>
+<option>2nd Division</option>
+<option>3rd Division</option>
+<option>Fail</option>
+</select>
+
+<select id="genderFilter" onchange="applyAll()">
+<option value="">All Gender</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+
+<select id="subjectFilter" onchange="applyAll()">
+<option value="">All Subjects</option>
+<option value="MATHEMATICS">Mathematics</option>
+<option value="ENGLISH">English</option>
+<option value="SCIENCE">Science</option>
+<option value="SOCIAL SCIENCE">Social Science</option>
+<option value="M.I.L. HINDI">Hindi</option>
+<option value="S.I.L. SANSKRIT">Sanskrit</option>
+</select>
+
+<input type="number" id="minMarks" placeholder="Min Marks" onkeyup="applyAll()">
+<input type="number" id="maxMarks" placeholder="Max Marks" onkeyup="applyAll()">
+
+<!-- 🔥 SORT -->
+<select id="sortOption" onchange="applyAll()">
+<option value="">No Sorting</option>
+
+<option value="total_desc">Total High → Low</option>
+<option value="total_asc">Total Low → High</option>
+
+<option value="math_desc">Math High → Low</option>
+<option value="math_asc">Math Low → High</option>
+
+<option value="eng_desc">English High → Low</option>
+<option value="eng_asc">English Low → High</option>
+
+<option value="sci_desc">Science High → Low</option>
+<option value="sci_asc">Science Low → High</option>
+
+<option value="sst_desc">Social Science High → Low</option>
+<option value="sst_asc">Social Science Low → High</option>
+
+<option value="hindi_desc">Hindi High → Low</option>
+<option value="hindi_asc">Hindi Low → High</option>
+
+<option value="sanskrit_desc">Sanskrit High → Low</option>
+<option value="sanskrit_asc">Sanskrit Low → High</option>
+
+</select>
+
+<table id="table">
+<thead>
+<tr>
+<th>Roll</th>
+<th>Name</th>
+<th>Gender</th>
+<th>Father</th>
+<th>School</th>
+<th>Total</th>
+<th>Division</th>
+<th>Subjects</th>
+</tr>
+</thead>
+
+<tbody>
+
+    <tr data-total="289" data-subjects="ENGLISH:35|S.I.L. SANSKRIT:53|SOCIAL SCIENCE:68|MATHEMATICS:42|M.I.L. HINDI:57|SCIENCE:69|">
+        <td>2600001</td>
+        <td>SUHANI KUMARI</td>
+        <td>Female</td>
+        <td>DHARMENDRA KUMAR CHAUDHARY</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>289</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (35)<br>S.I.L. SANSKRIT (53)<br>SOCIAL SCIENCE (68)<br>MATHEMATICS (42)<br>M.I.L. HINDI (57)<br>SCIENCE (69)<br></td>
+    </tr>
+    
+    <tr data-total="404" data-subjects="SOCIAL SCIENCE:75|MATHEMATICS:82|SCIENCE:86|M.I.L. HINDI:77|ENGLISH:61|S.I.L. SANSKRIT:84|">
+        <td>2600002</td>
+        <td>RAKHI KUMARI</td>
+        <td>Female</td>
+        <td>MUKESH SAW</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>404</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (75)<br>MATHEMATICS (82)<br>SCIENCE (86)<br>M.I.L. HINDI (77)<br>ENGLISH (61)<br>S.I.L. SANSKRIT (84)<br></td>
+    </tr>
+    
+    <tr data-total="223" data-subjects="ENGLISH:38|MATHEMATICS:30|M.I.L. HINDI:48|SCIENCE:56|S.I.L. SANSKRIT:55|SOCIAL SCIENCE:34|">
+        <td>2600003</td>
+        <td>MONI KUMARI</td>
+        <td>Female</td>
+        <td>SUMAN RAM</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>223</td>
+        <td>3rd Division</td>
+        <td>ENGLISH (38)<br>MATHEMATICS (30)<br>M.I.L. HINDI (48)<br>SCIENCE (56)<br>S.I.L. SANSKRIT (55)<br>SOCIAL SCIENCE (34)<br></td>
+    </tr>
+    
+    <tr data-total="138" data-subjects="SOCIAL SCIENCE:31|ENGLISH:29|S.I.L. SANSKRIT:32|M.I.L. HINDI:23|MATHEMATICS:15|SCIENCE:37|">
+        <td>2600004</td>
+        <td>SUMAN RAJ</td>
+        <td>Male</td>
+        <td>RAJESH KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>138</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (31)<br>ENGLISH (29)<br>S.I.L. SANSKRIT (32)<br>M.I.L. HINDI (23)<br>MATHEMATICS (15)<br>SCIENCE (37)<br></td>
+    </tr>
+    
+    <tr data-total="464" data-subjects="S.I.L. SANSKRIT:91|ENGLISH:75|SCIENCE:95|M.I.L. HINDI:92|MATHEMATICS:92|SOCIAL SCIENCE:94|">
+        <td>2600005</td>
+        <td>ROMA KUMARI</td>
+        <td>Female</td>
+        <td>BALIRAM SAW</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>464</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (91)<br>ENGLISH (75)<br>SCIENCE (95)<br>M.I.L. HINDI (92)<br>MATHEMATICS (92)<br>SOCIAL SCIENCE (94)<br></td>
+    </tr>
+    
+    <tr data-total="282" data-subjects="SOCIAL SCIENCE:49|SCIENCE:65|ENGLISH:40|S.I.L. SANSKRIT:65|M.I.L. HINDI:73|MATHEMATICS:30|">
+        <td>2600006</td>
+        <td>NANDANI KUMARI</td>
+        <td>Female</td>
+        <td>MUNNA SAW</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>282</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (49)<br>SCIENCE (65)<br>ENGLISH (40)<br>S.I.L. SANSKRIT (65)<br>M.I.L. HINDI (73)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="266" data-subjects="SCIENCE:51|M.I.L. HINDI:71|ENGLISH:41|S.I.L. SANSKRIT:64|SOCIAL SCIENCE:50|MATHEMATICS:30|">
+        <td>2600007</td>
+        <td>PRITI KUMARI</td>
+        <td>Female</td>
+        <td>MUKESH CHAUDHARY</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>266</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (51)<br>M.I.L. HINDI (71)<br>ENGLISH (41)<br>S.I.L. SANSKRIT (64)<br>SOCIAL SCIENCE (50)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="189" data-subjects="M.I.L. HINDI:39|MATHEMATICS:30|SCIENCE:49|ENGLISH:25|SOCIAL SCIENCE:30|S.I.L. SANSKRIT:41|">
+        <td>2600008</td>
+        <td>PUJA KUMARI</td>
+        <td>Female</td>
+        <td>SATEYANDRA PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>189</td>
+        <td>3rd Division</td>
+        <td>M.I.L. HINDI (39)<br>MATHEMATICS (30)<br>SCIENCE (49)<br>ENGLISH (25)<br>SOCIAL SCIENCE (30)<br>S.I.L. SANSKRIT (41)<br></td>
+    </tr>
+    
+    <tr data-total="230" data-subjects="ENGLISH:26|SOCIAL SCIENCE:40|M.I.L. HINDI:50|SCIENCE:49|MATHEMATICS:33|S.I.L. SANSKRIT:58|">
+        <td>2600009</td>
+        <td>CHANCHAL KUMARI</td>
+        <td>Female</td>
+        <td>MANOJ MISTRI</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>230</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (26)<br>SOCIAL SCIENCE (40)<br>M.I.L. HINDI (50)<br>SCIENCE (49)<br>MATHEMATICS (33)<br>S.I.L. SANSKRIT (58)<br></td>
+    </tr>
+    
+    <tr data-total="183" data-subjects="MATHEMATICS:30|M.I.L. HINDI:46|SOCIAL SCIENCE:32|SCIENCE:36|S.I.L. SANSKRIT:39|ENGLISH:25|">
+        <td>2600010</td>
+        <td>MUSKAN KUMARI</td>
+        <td>Female</td>
+        <td>MUNNA PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>183</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>M.I.L. HINDI (46)<br>SOCIAL SCIENCE (32)<br>SCIENCE (36)<br>S.I.L. SANSKRIT (39)<br>ENGLISH (25)<br></td>
+    </tr>
+    
+    <tr data-total="133" data-subjects="M.I.L. HINDI:14|S.I.L. SANSKRIT:30|ENGLISH:15|SCIENCE:33|SOCIAL SCIENCE:40|MATHEMATICS:16|">
+        <td>2600011</td>
+        <td>PAYAL KUMARI</td>
+        <td>Female</td>
+        <td>PANNU PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>133</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (14)<br>S.I.L. SANSKRIT (30)<br>ENGLISH (15)<br>SCIENCE (33)<br>SOCIAL SCIENCE (40)<br>MATHEMATICS (16)<br></td>
+    </tr>
+    
+    <tr data-total="386" data-subjects="M.I.L. HINDI:73|MATHEMATICS:55|ENGLISH:67|SOCIAL SCIENCE:89|SCIENCE:88|S.I.L. SANSKRIT:81|">
+        <td>2600012</td>
+        <td>RANI</td>
+        <td>Male</td>
+        <td>RAKESH KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>386</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (73)<br>MATHEMATICS (55)<br>ENGLISH (67)<br>SOCIAL SCIENCE (89)<br>SCIENCE (88)<br>S.I.L. SANSKRIT (81)<br></td>
+    </tr>
+    
+    <tr data-total="162" data-subjects="ENGLISH:27|S.I.L. SANSKRIT:44|MATHEMATICS:18|SOCIAL SCIENCE:31|SCIENCE:44|M.I.L. HINDI:25|">
+        <td>2600013</td>
+        <td>RAJMANI KUMARI</td>
+        <td>Female</td>
+        <td>RAMVRIKSH DAS</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>162</td>
+        <td>Fail</td>
+        <td>ENGLISH (27)<br>S.I.L. SANSKRIT (44)<br>MATHEMATICS (18)<br>SOCIAL SCIENCE (31)<br>SCIENCE (44)<br>M.I.L. HINDI (25)<br></td>
+    </tr>
+    
+    <tr data-total="441" data-subjects="M.I.L. HINDI:87|SCIENCE:91|S.I.L. SANSKRIT:77|MATHEMATICS:96|SOCIAL SCIENCE:90|ENGLISH:42|">
+        <td>2600014</td>
+        <td>MENKA KUMARI</td>
+        <td>Female</td>
+        <td>MAHESH PRASAD GUPTA</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>441</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (87)<br>SCIENCE (91)<br>S.I.L. SANSKRIT (77)<br>MATHEMATICS (96)<br>SOCIAL SCIENCE (90)<br>ENGLISH (42)<br></td>
+    </tr>
+    
+    <tr data-total="357" data-subjects="M.I.L. HINDI:62|ENGLISH:49|SCIENCE:81|MATHEMATICS:74|S.I.L. SANSKRIT:73|SOCIAL SCIENCE:67|">
+        <td>2600015</td>
+        <td>MADHURI KUMARI</td>
+        <td>Female</td>
+        <td>MADHURENDU KUMAR CHAUDHARY</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>357</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (62)<br>ENGLISH (49)<br>SCIENCE (81)<br>MATHEMATICS (74)<br>S.I.L. SANSKRIT (73)<br>SOCIAL SCIENCE (67)<br></td>
+    </tr>
+    
+    <tr data-total="325" data-subjects="ENGLISH:45|M.I.L. HINDI:80|SCIENCE:65|SOCIAL SCIENCE:64|MATHEMATICS:46|S.I.L. SANSKRIT:70|">
+        <td>2600016</td>
+        <td>PRIYA KUMARI</td>
+        <td>Female</td>
+        <td>DHARMENDR SINGH</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>325</td>
+        <td>1st Division</td>
+        <td>ENGLISH (45)<br>M.I.L. HINDI (80)<br>SCIENCE (65)<br>SOCIAL SCIENCE (64)<br>MATHEMATICS (46)<br>S.I.L. SANSKRIT (70)<br></td>
+    </tr>
+    
+    <tr data-total="232" data-subjects="SOCIAL SCIENCE:44|MATHEMATICS:30|M.I.L. HINDI:58|ENGLISH:22|SCIENCE:52|S.I.L. SANSKRIT:48|">
+        <td>2600017</td>
+        <td>RUBI KUMARI</td>
+        <td>Female</td>
+        <td>MAJNU DAS</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>232</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (44)<br>MATHEMATICS (30)<br>M.I.L. HINDI (58)<br>ENGLISH (22)<br>SCIENCE (52)<br>S.I.L. SANSKRIT (48)<br></td>
+    </tr>
+    
+    <tr data-total="358" data-subjects="SOCIAL SCIENCE:61|M.I.L. HINDI:72|ENGLISH:66|S.I.L. SANSKRIT:67|SCIENCE:85|MATHEMATICS:73|">
+        <td>2600018</td>
+        <td>GUDIYA KUMARI</td>
+        <td>Female</td>
+        <td>NARESH THAKUR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>358</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (61)<br>M.I.L. HINDI (72)<br>ENGLISH (66)<br>S.I.L. SANSKRIT (67)<br>SCIENCE (85)<br>MATHEMATICS (73)<br></td>
+    </tr>
+    
+    <tr data-total="356" data-subjects="M.I.L. HINDI:81|SCIENCE:81|S.I.L. SANSKRIT:71|MATHEMATICS:75|SOCIAL SCIENCE:48|ENGLISH:34|">
+        <td>2600019</td>
+        <td>SNEHLATA KUMARI</td>
+        <td>Female</td>
+        <td>GAJENDRA PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>356</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (81)<br>SCIENCE (81)<br>S.I.L. SANSKRIT (71)<br>MATHEMATICS (75)<br>SOCIAL SCIENCE (48)<br>ENGLISH (34)<br></td>
+    </tr>
+    
+    <tr data-total="321" data-subjects="S.I.L. SANSKRIT:61|SOCIAL SCIENCE:59|M.I.L. HINDI:60|SCIENCE:74|MATHEMATICS:67|ENGLISH:35|">
+        <td>2600020</td>
+        <td>RENU KUMARI</td>
+        <td>Female</td>
+        <td>SIKANDAR PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>321</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (61)<br>SOCIAL SCIENCE (59)<br>M.I.L. HINDI (60)<br>SCIENCE (74)<br>MATHEMATICS (67)<br>ENGLISH (35)<br></td>
+    </tr>
+    
+    <tr data-total="130" data-subjects="ENGLISH:20|SCIENCE:46|SOCIAL SCIENCE:31|S.I.L. SANSKRIT:23|M.I.L. HINDI:14|MATHEMATICS:16|">
+        <td>2600021</td>
+        <td>ANISHA KUMARI</td>
+        <td>Female</td>
+        <td>JAY KISHOR PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>130</td>
+        <td>Fail</td>
+        <td>ENGLISH (20)<br>SCIENCE (46)<br>SOCIAL SCIENCE (31)<br>S.I.L. SANSKRIT (23)<br>M.I.L. HINDI (14)<br>MATHEMATICS (16)<br></td>
+    </tr>
+    
+    <tr data-total="246" data-subjects="ENGLISH:33|S.I.L. SANSKRIT:60|SOCIAL SCIENCE:58|MATHEMATICS:13|SCIENCE:61|M.I.L. HINDI:54|">
+        <td>2600022</td>
+        <td>KHUSHI KUMARI</td>
+        <td>Female</td>
+        <td>PAPPU RAM</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>246</td>
+        <td>Fail</td>
+        <td>ENGLISH (33)<br>S.I.L. SANSKRIT (60)<br>SOCIAL SCIENCE (58)<br>MATHEMATICS (13)<br>SCIENCE (61)<br>M.I.L. HINDI (54)<br></td>
+    </tr>
+    
+    <tr data-total="263" data-subjects="S.I.L. SANSKRIT:52|ENGLISH:53|MATHEMATICS:33|M.I.L. HINDI:59|SCIENCE:69|SOCIAL SCIENCE:50|">
+        <td>2600023</td>
+        <td>ANJALI KUMARI</td>
+        <td>Female</td>
+        <td>SATENDRA CHAUDHARY</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>263</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (52)<br>ENGLISH (53)<br>MATHEMATICS (33)<br>M.I.L. HINDI (59)<br>SCIENCE (69)<br>SOCIAL SCIENCE (50)<br></td>
+    </tr>
+    
+    <tr data-total="126" data-subjects="S.I.L. SANSKRIT:27|SCIENCE:28|M.I.L. HINDI:30|SOCIAL SCIENCE:25|ENGLISH:25|MATHEMATICS:16|">
+        <td>2600024</td>
+        <td>REKHA KUMARI</td>
+        <td>Female</td>
+        <td>DURGA SAW</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>126</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (27)<br>SCIENCE (28)<br>M.I.L. HINDI (30)<br>SOCIAL SCIENCE (25)<br>ENGLISH (25)<br>MATHEMATICS (16)<br></td>
+    </tr>
+    
+    <tr data-total="282" data-subjects="S.I.L. SANSKRIT:66|SOCIAL SCIENCE:55|M.I.L. HINDI:58|ENGLISH:42|MATHEMATICS:36|SCIENCE:67|">
+        <td>2600025</td>
+        <td>SHALNI KUMARI</td>
+        <td>Female</td>
+        <td>PINTU KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>282</td>
+        <td>2nd Division</td>
+        <td>S.I.L. SANSKRIT (66)<br>SOCIAL SCIENCE (55)<br>M.I.L. HINDI (58)<br>ENGLISH (42)<br>MATHEMATICS (36)<br>SCIENCE (67)<br></td>
+    </tr>
+    
+    <tr data-total="308" data-subjects="M.I.L. HINDI:54|SOCIAL SCIENCE:65|ENGLISH:56|SCIENCE:74|MATHEMATICS:39|S.I.L. SANSKRIT:76|">
+        <td>2600026</td>
+        <td>RIYA KUMARI</td>
+        <td>Female</td>
+        <td>PAPPU PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>308</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (54)<br>SOCIAL SCIENCE (65)<br>ENGLISH (56)<br>SCIENCE (74)<br>MATHEMATICS (39)<br>S.I.L. SANSKRIT (76)<br></td>
+    </tr>
+    
+    <tr data-total="460" data-subjects="SCIENCE:93|S.I.L. SANSKRIT:92|SOCIAL SCIENCE:91|MATHEMATICS:94|ENGLISH:76|M.I.L. HINDI:90|">
+        <td>2600027</td>
+        <td>NEHA KUMARI</td>
+        <td>Female</td>
+        <td>JITENDRA KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>460</td>
+        <td>1st Division</td>
+        <td>SCIENCE (93)<br>S.I.L. SANSKRIT (92)<br>SOCIAL SCIENCE (91)<br>MATHEMATICS (94)<br>ENGLISH (76)<br>M.I.L. HINDI (90)<br></td>
+    </tr>
+    
+    <tr data-total="443" data-subjects="ENGLISH:78|M.I.L. HINDI:71|S.I.L. SANSKRIT:95|SCIENCE:94|SOCIAL SCIENCE:92|MATHEMATICS:91|">
+        <td>2600028</td>
+        <td>SUPRIYA KUMARI</td>
+        <td>Female</td>
+        <td>KUNAL SINGH</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>443</td>
+        <td>1st Division</td>
+        <td>ENGLISH (78)<br>M.I.L. HINDI (71)<br>S.I.L. SANSKRIT (95)<br>SCIENCE (94)<br>SOCIAL SCIENCE (92)<br>MATHEMATICS (91)<br></td>
+    </tr>
+    
+    <tr data-total="320" data-subjects="S.I.L. SANSKRIT:74|MATHEMATICS:37|ENGLISH:50|M.I.L. HINDI:72|SOCIAL SCIENCE:64|SCIENCE:73|">
+        <td>2600029</td>
+        <td>SANUJA KUMARI</td>
+        <td>Female</td>
+        <td>KISHORI PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>320</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (74)<br>MATHEMATICS (37)<br>ENGLISH (50)<br>M.I.L. HINDI (72)<br>SOCIAL SCIENCE (64)<br>SCIENCE (73)<br></td>
+    </tr>
+    
+    <tr data-total="367" data-subjects="S.I.L. SANSKRIT:78|ENGLISH:69|M.I.L. HINDI:78|SOCIAL SCIENCE:77|SCIENCE:81|MATHEMATICS:53|">
+        <td>2600030</td>
+        <td>SURABHI KUMARI</td>
+        <td>Female</td>
+        <td>DILIP SAW</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>367</td>
+        <td>1st Division</td>
+        <td>S.I.L. SANSKRIT (78)<br>ENGLISH (69)<br>M.I.L. HINDI (78)<br>SOCIAL SCIENCE (77)<br>SCIENCE (81)<br>MATHEMATICS (53)<br></td>
+    </tr>
+    
+    <tr data-total="369" data-subjects="ENGLISH:54|MATHEMATICS:68|SCIENCE:75|M.I.L. HINDI:80|SOCIAL SCIENCE:67|S.I.L. SANSKRIT:79|">
+        <td>2600031</td>
+        <td>MUSKAN KUMARI</td>
+        <td>Female</td>
+        <td>SANJAY PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>369</td>
+        <td>1st Division</td>
+        <td>ENGLISH (54)<br>MATHEMATICS (68)<br>SCIENCE (75)<br>M.I.L. HINDI (80)<br>SOCIAL SCIENCE (67)<br>S.I.L. SANSKRIT (79)<br></td>
+    </tr>
+    
+    <tr data-total="237" data-subjects="ENGLISH:40|SOCIAL SCIENCE:37|MATHEMATICS:30|SCIENCE:54|M.I.L. HINDI:54|S.I.L. SANSKRIT:62|">
+        <td>2600032</td>
+        <td>SANSKRITI KUMARI</td>
+        <td>Female</td>
+        <td>SANJAY SINGH</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>237</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (40)<br>SOCIAL SCIENCE (37)<br>MATHEMATICS (30)<br>SCIENCE (54)<br>M.I.L. HINDI (54)<br>S.I.L. SANSKRIT (62)<br></td>
+    </tr>
+    
+    <tr data-total="275" data-subjects="ENGLISH:39|S.I.L. SANSKRIT:66|MATHEMATICS:37|M.I.L. HINDI:67|SOCIAL SCIENCE:40|SCIENCE:65|">
+        <td>2600033</td>
+        <td>RAGINI KUMARI</td>
+        <td>Female</td>
+        <td>RANJIT SAW</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>275</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (39)<br>S.I.L. SANSKRIT (66)<br>MATHEMATICS (37)<br>M.I.L. HINDI (67)<br>SOCIAL SCIENCE (40)<br>SCIENCE (65)<br></td>
+    </tr>
+    
+    <tr data-total="339" data-subjects="SOCIAL SCIENCE:71|M.I.L. HINDI:78|ENGLISH:45|MATHEMATICS:46|SCIENCE:63|S.I.L. SANSKRIT:81|">
+        <td>2600034</td>
+        <td>KHUSHBOO KUMARI</td>
+        <td>Female</td>
+        <td>RAMEKBAL DAS</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>339</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (71)<br>M.I.L. HINDI (78)<br>ENGLISH (45)<br>MATHEMATICS (46)<br>SCIENCE (63)<br>S.I.L. SANSKRIT (81)<br></td>
+    </tr>
+    
+    <tr data-total="428" data-subjects="M.I.L. HINDI:82|SCIENCE:83|ENGLISH:70|S.I.L. SANSKRIT:80|MATHEMATICS:97|SOCIAL SCIENCE:86|">
+        <td>2600035</td>
+        <td>SHIVAM SHARMA</td>
+        <td>Male</td>
+        <td>RABISH SHARMA</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>428</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (82)<br>SCIENCE (83)<br>ENGLISH (70)<br>S.I.L. SANSKRIT (80)<br>MATHEMATICS (97)<br>SOCIAL SCIENCE (86)<br></td>
+    </tr>
+    
+    <tr data-total="139" data-subjects="S.I.L. SANSKRIT:35|M.I.L. HINDI:32|ENGLISH:23|MATHEMATICS:13|SOCIAL SCIENCE:32|SCIENCE:27|">
+        <td>2600036</td>
+        <td>VIKASH KUMAR</td>
+        <td>Male</td>
+        <td>DAYANAND PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>139</td>
+        <td>Fail</td>
+        <td>S.I.L. SANSKRIT (35)<br>M.I.L. HINDI (32)<br>ENGLISH (23)<br>MATHEMATICS (13)<br>SOCIAL SCIENCE (32)<br>SCIENCE (27)<br></td>
+    </tr>
+    
+    <tr data-total="134" data-subjects="MATHEMATICS:18|SCIENCE:29|S.I.L. SANSKRIT:30|SOCIAL SCIENCE:30|M.I.L. HINDI:27|ENGLISH:22|">
+        <td>2600037</td>
+        <td>ANKIT KUMAR</td>
+        <td>Male</td>
+        <td>SAHENDRA KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>134</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (18)<br>SCIENCE (29)<br>S.I.L. SANSKRIT (30)<br>SOCIAL SCIENCE (30)<br>M.I.L. HINDI (27)<br>ENGLISH (22)<br></td>
+    </tr>
+    
+    <tr data-total="115" data-subjects="MATHEMATICS:15|ENGLISH:12|SOCIAL SCIENCE:31|M.I.L. HINDI:18|SCIENCE:32|S.I.L. SANSKRIT:19|">
+        <td>2600038</td>
+        <td>SAHIL KUMAR</td>
+        <td>Male</td>
+        <td>RAJU KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>115</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (15)<br>ENGLISH (12)<br>SOCIAL SCIENCE (31)<br>M.I.L. HINDI (18)<br>SCIENCE (32)<br>S.I.L. SANSKRIT (19)<br></td>
+    </tr>
+    
+    <tr data-total="273" data-subjects="MATHEMATICS:30|SOCIAL SCIENCE:61|ENGLISH:31|S.I.L. SANSKRIT:66|M.I.L. HINDI:55|SCIENCE:61|">
+        <td>2600039</td>
+        <td>SUBHAM KUMAR</td>
+        <td>Male</td>
+        <td>LATTU SAW</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>273</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (30)<br>SOCIAL SCIENCE (61)<br>ENGLISH (31)<br>S.I.L. SANSKRIT (66)<br>M.I.L. HINDI (55)<br>SCIENCE (61)<br></td>
+    </tr>
+    
+    <tr data-total="270" data-subjects="MATHEMATICS:30|ENGLISH:34|SCIENCE:61|SOCIAL SCIENCE:61|M.I.L. HINDI:52|S.I.L. SANSKRIT:66|">
+        <td>2600040</td>
+        <td>SANDEEP KUMAR</td>
+        <td>Male</td>
+        <td>SATISH THAKUR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>270</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (30)<br>ENGLISH (34)<br>SCIENCE (61)<br>SOCIAL SCIENCE (61)<br>M.I.L. HINDI (52)<br>S.I.L. SANSKRIT (66)<br></td>
+    </tr>
+    
+    <tr data-total="145" data-subjects="SCIENCE:27|SOCIAL SCIENCE:28|ENGLISH:23|S.I.L. SANSKRIT:31|MATHEMATICS:12|M.I.L. HINDI:47|">
+        <td>2600041</td>
+        <td>ASHOK KUMAR</td>
+        <td>Male</td>
+        <td>DHANJAY SINGH</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>145</td>
+        <td>Fail</td>
+        <td>SCIENCE (27)<br>SOCIAL SCIENCE (28)<br>ENGLISH (23)<br>S.I.L. SANSKRIT (31)<br>MATHEMATICS (12)<br>M.I.L. HINDI (47)<br></td>
+    </tr>
+    
+    <tr data-total="195" data-subjects="SOCIAL SCIENCE:39|MATHEMATICS:30|S.I.L. SANSKRIT:34|M.I.L. HINDI:42|SCIENCE:50|ENGLISH:60|">
+        <td>2600042</td>
+        <td>MUNNA KUMAR</td>
+        <td>Male</td>
+        <td>PRAMOD CHAUDHARY</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>195</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (39)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (34)<br>M.I.L. HINDI (42)<br>SCIENCE (50)<br>ENGLISH (60)<br></td>
+    </tr>
+    
+    <tr data-total="184" data-subjects="SOCIAL SCIENCE:36|ENGLISH:32|S.I.L. SANSKRIT:34|M.I.L. HINDI:39|MATHEMATICS:30|SCIENCE:45|">
+        <td>2600043</td>
+        <td>NISHANT KUMAR</td>
+        <td>Male</td>
+        <td>DEVART KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>184</td>
+        <td>3rd Division</td>
+        <td>SOCIAL SCIENCE (36)<br>ENGLISH (32)<br>S.I.L. SANSKRIT (34)<br>M.I.L. HINDI (39)<br>MATHEMATICS (30)<br>SCIENCE (45)<br></td>
+    </tr>
+    
+    <tr data-total="138" data-subjects="SOCIAL SCIENCE:33|SCIENCE:34|S.I.L. SANSKRIT:45|MATHEMATICS:14|M.I.L. HINDI:12|ENGLISH:11|">
+        <td>2600044</td>
+        <td>KRISHNA KANHIYA</td>
+        <td>Male</td>
+        <td>SHYAM KISHOR GUPTA</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>138</td>
+        <td>Fail</td>
+        <td>SOCIAL SCIENCE (33)<br>SCIENCE (34)<br>S.I.L. SANSKRIT (45)<br>MATHEMATICS (14)<br>M.I.L. HINDI (12)<br>ENGLISH (11)<br></td>
+    </tr>
+    
+    <tr data-total="165" data-subjects="SCIENCE:40|MATHEMATICS:30|SOCIAL SCIENCE:33|ENGLISH:23|M.I.L. HINDI:30|S.I.L. SANSKRIT:32|">
+        <td>2600045</td>
+        <td>KASHMIR KUMAR</td>
+        <td>Male</td>
+        <td>DINESH PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>165</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (40)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (33)<br>ENGLISH (23)<br>M.I.L. HINDI (30)<br>S.I.L. SANSKRIT (32)<br></td>
+    </tr>
+    
+    <tr data-total="255" data-subjects="M.I.L. HINDI:40|MATHEMATICS:34|ENGLISH:29|SCIENCE:54|SOCIAL SCIENCE:55|S.I.L. SANSKRIT:72|">
+        <td>2600046</td>
+        <td>SAGAR KUMAR</td>
+        <td>Male</td>
+        <td>NAVLESH KUMAR SHARMA</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>255</td>
+        <td>2nd Division</td>
+        <td>M.I.L. HINDI (40)<br>MATHEMATICS (34)<br>ENGLISH (29)<br>SCIENCE (54)<br>SOCIAL SCIENCE (55)<br>S.I.L. SANSKRIT (72)<br></td>
+    </tr>
+    
+    <tr data-total="229" data-subjects="MATHEMATICS:44|M.I.L. HINDI:39|SCIENCE:58|ENGLISH:24|S.I.L. SANSKRIT:41|SOCIAL SCIENCE:47|">
+        <td>2600047</td>
+        <td>SAHIL KUMAR</td>
+        <td>Male</td>
+        <td>LALA SAW</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>229</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (44)<br>M.I.L. HINDI (39)<br>SCIENCE (58)<br>ENGLISH (24)<br>S.I.L. SANSKRIT (41)<br>SOCIAL SCIENCE (47)<br></td>
+    </tr>
+    
+    <tr data-total="318" data-subjects="ENGLISH:41|MATHEMATICS:56|S.I.L. SANSKRIT:72|SCIENCE:70|SOCIAL SCIENCE:56|M.I.L. HINDI:64|">
+        <td>2600048</td>
+        <td>MD RAHMAT</td>
+        <td>Male</td>
+        <td>JUMMAN SAH</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>318</td>
+        <td>1st Division</td>
+        <td>ENGLISH (41)<br>MATHEMATICS (56)<br>S.I.L. SANSKRIT (72)<br>SCIENCE (70)<br>SOCIAL SCIENCE (56)<br>M.I.L. HINDI (64)<br></td>
+    </tr>
+    
+    <tr data-total="225" data-subjects="MATHEMATICS:41|SOCIAL SCIENCE:51|M.I.L. HINDI:30|ENGLISH:31|SCIENCE:52|S.I.L. SANSKRIT:51|">
+        <td>2600049</td>
+        <td>ABHIJIT KUMAR</td>
+        <td>Male</td>
+        <td>RANJEET PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>225</td>
+        <td>2nd Division</td>
+        <td>MATHEMATICS (41)<br>SOCIAL SCIENCE (51)<br>M.I.L. HINDI (30)<br>ENGLISH (31)<br>SCIENCE (52)<br>S.I.L. SANSKRIT (51)<br></td>
+    </tr>
+    
+    <tr data-total="206" data-subjects="SCIENCE:52|M.I.L. HINDI:43|MATHEMATICS:34|ENGLISH:39|SOCIAL SCIENCE:39|S.I.L. SANSKRIT:38|">
+        <td>2600050</td>
+        <td>RAJIV KUMAR</td>
+        <td>Male</td>
+        <td>SANJIV KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>206</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (52)<br>M.I.L. HINDI (43)<br>MATHEMATICS (34)<br>ENGLISH (39)<br>SOCIAL SCIENCE (39)<br>S.I.L. SANSKRIT (38)<br></td>
+    </tr>
+    
+    <tr data-total="188" data-subjects="SCIENCE:41|SOCIAL SCIENCE:44|M.I.L. HINDI:36|MATHEMATICS:30|ENGLISH:25|S.I.L. SANSKRIT:37|">
+        <td>2600051</td>
+        <td>PRIYANSHU RAJ</td>
+        <td>Male</td>
+        <td>TRIBHUVAN PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>188</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (41)<br>SOCIAL SCIENCE (44)<br>M.I.L. HINDI (36)<br>MATHEMATICS (30)<br>ENGLISH (25)<br>S.I.L. SANSKRIT (37)<br></td>
+    </tr>
+    
+    <tr data-total="352" data-subjects="M.I.L. HINDI:74|SOCIAL SCIENCE:72|S.I.L. SANSKRIT:81|MATHEMATICS:54|SCIENCE:71|ENGLISH:31|">
+        <td>2600052</td>
+        <td>AKASH RAJ</td>
+        <td>Male</td>
+        <td>AVINASH SINGH</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>352</td>
+        <td>1st Division</td>
+        <td>M.I.L. HINDI (74)<br>SOCIAL SCIENCE (72)<br>S.I.L. SANSKRIT (81)<br>MATHEMATICS (54)<br>SCIENCE (71)<br>ENGLISH (31)<br></td>
+    </tr>
+    
+    <tr data-total="270" data-subjects="ENGLISH:25|SCIENCE:56|M.I.L. HINDI:57|MATHEMATICS:30|S.I.L. SANSKRIT:62|SOCIAL SCIENCE:65|">
+        <td>2600053</td>
+        <td>MUNNA KUMAR</td>
+        <td>Male</td>
+        <td>RAJU KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>270</td>
+        <td>2nd Division</td>
+        <td>ENGLISH (25)<br>SCIENCE (56)<br>M.I.L. HINDI (57)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (62)<br>SOCIAL SCIENCE (65)<br></td>
+    </tr>
+    
+    <tr data-total="178" data-subjects="MATHEMATICS:30|SCIENCE:42|S.I.L. SANSKRIT:33|SOCIAL SCIENCE:37|ENGLISH:16|M.I.L. HINDI:36|">
+        <td>2600054</td>
+        <td>HEMANT KUMAR</td>
+        <td>Male</td>
+        <td>SHYAM KISHOR PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>178</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>SCIENCE (42)<br>S.I.L. SANSKRIT (33)<br>SOCIAL SCIENCE (37)<br>ENGLISH (16)<br>M.I.L. HINDI (36)<br></td>
+    </tr>
+    
+    <tr data-total="173" data-subjects="SCIENCE:37|SOCIAL SCIENCE:35|MATHEMATICS:30|S.I.L. SANSKRIT:31|ENGLISH:19|M.I.L. HINDI:40|">
+        <td>2600055</td>
+        <td>DHARMVEER KUMAR</td>
+        <td>Male</td>
+        <td>DHARMENDRA MOCHI</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>173</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (37)<br>SOCIAL SCIENCE (35)<br>MATHEMATICS (30)<br>S.I.L. SANSKRIT (31)<br>ENGLISH (19)<br>M.I.L. HINDI (40)<br></td>
+    </tr>
+    
+    <tr data-total="219" data-subjects="ENGLISH:14|S.I.L. SANSKRIT:52|MATHEMATICS:30|SOCIAL SCIENCE:48|M.I.L. HINDI:35|SCIENCE:54|">
+        <td>2600056</td>
+        <td>SHANTANU KUMAR</td>
+        <td>Male</td>
+        <td>MANOHAR DAS</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>219</td>
+        <td>3rd Division</td>
+        <td>ENGLISH (14)<br>S.I.L. SANSKRIT (52)<br>MATHEMATICS (30)<br>SOCIAL SCIENCE (48)<br>M.I.L. HINDI (35)<br>SCIENCE (54)<br></td>
+    </tr>
+    
+    <tr data-total="172" data-subjects="M.I.L. HINDI:30|S.I.L. SANSKRIT:33|SOCIAL SCIENCE:36|ENGLISH:26|MATHEMATICS:30|SCIENCE:43|">
+        <td>2600057</td>
+        <td>SAMIR KUMAR</td>
+        <td>Male</td>
+        <td>SAHENDRA KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>172</td>
+        <td>3rd Division</td>
+        <td>M.I.L. HINDI (30)<br>S.I.L. SANSKRIT (33)<br>SOCIAL SCIENCE (36)<br>ENGLISH (26)<br>MATHEMATICS (30)<br>SCIENCE (43)<br></td>
+    </tr>
+    
+    <tr data-total="163" data-subjects="MATHEMATICS:30|SCIENCE:40|S.I.L. SANSKRIT:27|SOCIAL SCIENCE:50|ENGLISH:26|M.I.L. HINDI:16|">
+        <td>2600058</td>
+        <td>RAVIKANT KUMAR</td>
+        <td>Male</td>
+        <td>SHRAVAN SHARMA</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>163</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (30)<br>SCIENCE (40)<br>S.I.L. SANSKRIT (27)<br>SOCIAL SCIENCE (50)<br>ENGLISH (26)<br>M.I.L. HINDI (16)<br></td>
+    </tr>
+    
+    <tr data-total="99" data-subjects="M.I.L. HINDI:15|S.I.L. SANSKRIT:13|MATHEMATICS:11|SCIENCE:27|ENGLISH:5|SOCIAL SCIENCE:33|">
+        <td>2600059</td>
+        <td>BHOLA KUMAR</td>
+        <td>Male</td>
+        <td>ANIL PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>99</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (15)<br>S.I.L. SANSKRIT (13)<br>MATHEMATICS (11)<br>SCIENCE (27)<br>ENGLISH (5)<br>SOCIAL SCIENCE (33)<br></td>
+    </tr>
+    
+    <tr data-total="339" data-subjects="ENGLISH:48|S.I.L. SANSKRIT:71|M.I.L. HINDI:74|SOCIAL SCIENCE:70|MATHEMATICS:56|SCIENCE:68|">
+        <td>2600060</td>
+        <td>SHAHIL KUMAR</td>
+        <td>Male</td>
+        <td>RANJEET KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>339</td>
+        <td>1st Division</td>
+        <td>ENGLISH (48)<br>S.I.L. SANSKRIT (71)<br>M.I.L. HINDI (74)<br>SOCIAL SCIENCE (70)<br>MATHEMATICS (56)<br>SCIENCE (68)<br></td>
+    </tr>
+    
+    <tr data-total="372" data-subjects="SOCIAL SCIENCE:75|S.I.L. SANSKRIT:71|SCIENCE:79|MATHEMATICS:69|ENGLISH:36|M.I.L. HINDI:78|">
+        <td>2600061</td>
+        <td>SIPU KUMAR</td>
+        <td>Male</td>
+        <td>MUNNA KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>372</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (75)<br>S.I.L. SANSKRIT (71)<br>SCIENCE (79)<br>MATHEMATICS (69)<br>ENGLISH (36)<br>M.I.L. HINDI (78)<br></td>
+    </tr>
+    
+    <tr data-total="251" data-subjects="M.I.L. HINDI:38|MATHEMATICS:47|ENGLISH:39|S.I.L. SANSKRIT:59|SOCIAL SCIENCE:52|SCIENCE:55|">
+        <td>2600062</td>
+        <td>AVINASH KUMAR</td>
+        <td>Male</td>
+        <td>GUDDU RAM</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>251</td>
+        <td>2nd Division</td>
+        <td>M.I.L. HINDI (38)<br>MATHEMATICS (47)<br>ENGLISH (39)<br>S.I.L. SANSKRIT (59)<br>SOCIAL SCIENCE (52)<br>SCIENCE (55)<br></td>
+    </tr>
+    
+    <tr data-total="405" data-subjects="ENGLISH:64|S.I.L. SANSKRIT:78|MATHEMATICS:91|M.I.L. HINDI:82|SOCIAL SCIENCE:76|SCIENCE:78|">
+        <td>2600063</td>
+        <td>AMAN KUMAR</td>
+        <td>Male</td>
+        <td>BUDDHAN RAVIDAS</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>405</td>
+        <td>1st Division</td>
+        <td>ENGLISH (64)<br>S.I.L. SANSKRIT (78)<br>MATHEMATICS (91)<br>M.I.L. HINDI (82)<br>SOCIAL SCIENCE (76)<br>SCIENCE (78)<br></td>
+    </tr>
+    
+    <tr data-total="338" data-subjects="ENGLISH:44|S.I.L. SANSKRIT:81|M.I.L. HINDI:76|SOCIAL SCIENCE:61|SCIENCE:62|MATHEMATICS:58|">
+        <td>2600064</td>
+        <td>SANDEEP RAJ</td>
+        <td>Male</td>
+        <td>SHYAM SUNDAR PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>338</td>
+        <td>1st Division</td>
+        <td>ENGLISH (44)<br>S.I.L. SANSKRIT (81)<br>M.I.L. HINDI (76)<br>SOCIAL SCIENCE (61)<br>SCIENCE (62)<br>MATHEMATICS (58)<br></td>
+    </tr>
+    
+    <tr data-total="355" data-subjects="ENGLISH:42|M.I.L. HINDI:76|SOCIAL SCIENCE:75|SCIENCE:67|MATHEMATICS:59|S.I.L. SANSKRIT:78|">
+        <td>2600065</td>
+        <td>ANKIT RAJ</td>
+        <td>Male</td>
+        <td>BACHANDEV YADAV</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>355</td>
+        <td>1st Division</td>
+        <td>ENGLISH (42)<br>M.I.L. HINDI (76)<br>SOCIAL SCIENCE (75)<br>SCIENCE (67)<br>MATHEMATICS (59)<br>S.I.L. SANSKRIT (78)<br></td>
+    </tr>
+    
+    <tr data-total="292" data-subjects="SCIENCE:68|ENGLISH:42|M.I.L. HINDI:63|S.I.L. SANSKRIT:58|MATHEMATICS:32|SOCIAL SCIENCE:71|">
+        <td>2600066</td>
+        <td>PRIYANSHU KUMAR</td>
+        <td>Male</td>
+        <td>NARENDRA KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>292</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (68)<br>ENGLISH (42)<br>M.I.L. HINDI (63)<br>S.I.L. SANSKRIT (58)<br>MATHEMATICS (32)<br>SOCIAL SCIENCE (71)<br></td>
+    </tr>
+    
+    <tr data-total="128" data-subjects="M.I.L. HINDI:21|ENGLISH:13|S.I.L. SANSKRIT:27|SCIENCE:41|MATHEMATICS:10|SOCIAL SCIENCE:29|">
+        <td>2600067</td>
+        <td>SUNNY KUMAR</td>
+        <td>Male</td>
+        <td>NAGINA PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>128</td>
+        <td>Fail</td>
+        <td>M.I.L. HINDI (21)<br>ENGLISH (13)<br>S.I.L. SANSKRIT (27)<br>SCIENCE (41)<br>MATHEMATICS (10)<br>SOCIAL SCIENCE (29)<br></td>
+    </tr>
+    
+    <tr data-total="300" data-subjects="SCIENCE:64|M.I.L. HINDI:73|MATHEMATICS:31|SOCIAL SCIENCE:70|ENGLISH:39|S.I.L. SANSKRIT:58|">
+        <td>2600068</td>
+        <td>RUPESH KUMAR</td>
+        <td>Male</td>
+        <td>MAHESHWAR PRASAD</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>300</td>
+        <td>1st Division</td>
+        <td>SCIENCE (64)<br>M.I.L. HINDI (73)<br>MATHEMATICS (31)<br>SOCIAL SCIENCE (70)<br>ENGLISH (39)<br>S.I.L. SANSKRIT (58)<br></td>
+    </tr>
+    
+    <tr data-total="185" data-subjects="SCIENCE:44|ENGLISH:17|SOCIAL SCIENCE:37|MATHEMATICS:30|M.I.L. HINDI:41|S.I.L. SANSKRIT:33|">
+        <td>2600069</td>
+        <td>DIPU KUMAR</td>
+        <td>Male</td>
+        <td>RANJEET DAS</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>185</td>
+        <td>3rd Division</td>
+        <td>SCIENCE (44)<br>ENGLISH (17)<br>SOCIAL SCIENCE (37)<br>MATHEMATICS (30)<br>M.I.L. HINDI (41)<br>S.I.L. SANSKRIT (33)<br></td>
+    </tr>
+    
+    <tr data-total="199" data-subjects="MATHEMATICS:30|M.I.L. HINDI:50|SCIENCE:47|SOCIAL SCIENCE:42|ENGLISH:33|S.I.L. SANSKRIT:30|">
+        <td>2600070</td>
+        <td>MOHIT KUMAR</td>
+        <td>Male</td>
+        <td>VIJAY KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>199</td>
+        <td>3rd Division</td>
+        <td>MATHEMATICS (30)<br>M.I.L. HINDI (50)<br>SCIENCE (47)<br>SOCIAL SCIENCE (42)<br>ENGLISH (33)<br>S.I.L. SANSKRIT (30)<br></td>
+    </tr>
+    
+    <tr data-total="261" data-subjects="SCIENCE:55|S.I.L. SANSKRIT:46|ENGLISH:42|M.I.L. HINDI:78|MATHEMATICS:31|SOCIAL SCIENCE:51|">
+        <td>2600071</td>
+        <td>RITESH RANJAN</td>
+        <td>Male</td>
+        <td>SUNEEL KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>261</td>
+        <td>2nd Division</td>
+        <td>SCIENCE (55)<br>S.I.L. SANSKRIT (46)<br>ENGLISH (42)<br>M.I.L. HINDI (78)<br>MATHEMATICS (31)<br>SOCIAL SCIENCE (51)<br></td>
+    </tr>
+    
+    <tr data-total="176" data-subjects="ENGLISH:31|SCIENCE:38|SOCIAL SCIENCE:36|S.I.L. SANSKRIT:38|MATHEMATICS:30|M.I.L. HINDI:34|">
+        <td>2600072</td>
+        <td>AMARNATH KUMAR</td>
+        <td>Male</td>
+        <td>DHARMVIR KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>176</td>
+        <td>3rd Division</td>
+        <td>ENGLISH (31)<br>SCIENCE (38)<br>SOCIAL SCIENCE (36)<br>S.I.L. SANSKRIT (38)<br>MATHEMATICS (30)<br>M.I.L. HINDI (34)<br></td>
+    </tr>
+    
+    <tr data-total="260" data-subjects="SOCIAL SCIENCE:49|S.I.L. SANSKRIT:56|M.I.L. HINDI:68|SCIENCE:57|ENGLISH:40|MATHEMATICS:30|">
+        <td>2600073</td>
+        <td>SHASHI RANJAN KUMAR</td>
+        <td>Male</td>
+        <td>DEV SHAKAL PASWAN</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>260</td>
+        <td>2nd Division</td>
+        <td>SOCIAL SCIENCE (49)<br>S.I.L. SANSKRIT (56)<br>M.I.L. HINDI (68)<br>SCIENCE (57)<br>ENGLISH (40)<br>MATHEMATICS (30)<br></td>
+    </tr>
+    
+    <tr data-total="424" data-subjects="SCIENCE:84|S.I.L. SANSKRIT:81|SOCIAL SCIENCE:79|MATHEMATICS:91|M.I.L. HINDI:89|ENGLISH:51|">
+        <td>2600074</td>
+        <td>MUKUND KUMAR</td>
+        <td>Male</td>
+        <td>MUKESH KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>424</td>
+        <td>1st Division</td>
+        <td>SCIENCE (84)<br>S.I.L. SANSKRIT (81)<br>SOCIAL SCIENCE (79)<br>MATHEMATICS (91)<br>M.I.L. HINDI (89)<br>ENGLISH (51)<br></td>
+    </tr>
+    
+    <tr data-total="426" data-subjects="SCIENCE:85|ENGLISH:53|S.I.L. SANSKRIT:80|MATHEMATICS:97|SOCIAL SCIENCE:79|M.I.L. HINDI:85|">
+        <td>2600075</td>
+        <td>KRISHN DEV SHARMA</td>
+        <td>Male</td>
+        <td>RABISH SHARMA</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>426</td>
+        <td>1st Division</td>
+        <td>SCIENCE (85)<br>ENGLISH (53)<br>S.I.L. SANSKRIT (80)<br>MATHEMATICS (97)<br>SOCIAL SCIENCE (79)<br>M.I.L. HINDI (85)<br></td>
+    </tr>
+    
+    <tr data-total="393" data-subjects="SCIENCE:81|MATHEMATICS:81|M.I.L. HINDI:79|ENGLISH:25|SOCIAL SCIENCE:77|S.I.L. SANSKRIT:75|">
+        <td>2600076</td>
+        <td>SAHIL KUMAR</td>
+        <td>Male</td>
+        <td>SATISH KUMAR</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>393</td>
+        <td>1st Division</td>
+        <td>SCIENCE (81)<br>MATHEMATICS (81)<br>M.I.L. HINDI (79)<br>ENGLISH (25)<br>SOCIAL SCIENCE (77)<br>S.I.L. SANSKRIT (75)<br></td>
+    </tr>
+    
+    <tr data-total="137" data-subjects="MATHEMATICS:12|ENGLISH:37|SOCIAL SCIENCE:33|S.I.L. SANSKRIT:31|M.I.L. HINDI:32|SCIENCE:29|">
+        <td>2600077</td>
+        <td>SURAJ KUMAR</td>
+        <td>Male</td>
+        <td>RAJBALLAM DAS</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>137</td>
+        <td>Fail</td>
+        <td>MATHEMATICS (12)<br>ENGLISH (37)<br>SOCIAL SCIENCE (33)<br>S.I.L. SANSKRIT (31)<br>M.I.L. HINDI (32)<br>SCIENCE (29)<br></td>
+    </tr>
+    
+    <tr data-total="305" data-subjects="SOCIAL SCIENCE:70|ENGLISH:41|M.I.L. HINDI:65|SCIENCE:64|MATHEMATICS:45|S.I.L. SANSKRIT:61|">
+        <td>2600078</td>
+        <td>PRINCE KUMAR</td>
+        <td>Male</td>
+        <td>BABLU GOPE</td>
+        <td>UCHCHA MADHYAMIK VIDHYALAY POTAHI, PUNPUN, PATNA</td>
+        <td>305</td>
+        <td>1st Division</td>
+        <td>SOCIAL SCIENCE (70)<br>ENGLISH (41)<br>M.I.L. HINDI (65)<br>SCIENCE (64)<br>MATHEMATICS (45)<br>S.I.L. SANSKRIT (61)<br></td>
+    </tr>
+    
+</tbody>
+</table>
+
+</div>
+
+<script>
+function getSubjectMarks(subjectsData, subjectName) {
+    let subjects = subjectsData.split("|");
+    for (let s of subjects) {
+        if (!s) continue;
+        let parts = s.split(":");
+        if (parts[0] === subjectName) {
+            return parseInt(parts[1]) || 0;
+        }
+    }
+    return 0;
+}
+
+function applyAll() {
+
+    let search = document.getElementById("search").value.toLowerCase();
+    let division = document.getElementById("divisionFilter").value;
+    let gender = document.getElementById("genderFilter").value;
+    let subject = document.getElementById("subjectFilter").value;
+    let minMarks = document.getElementById("minMarks").value;
+    let maxMarks = document.getElementById("maxMarks").value;
+    let sortOption = document.getElementById("sortOption").value;
+
+    let tbody = document.querySelector("#table tbody");
+    let rows = Array.from(tbody.querySelectorAll("tr"));
+
+    // FILTER
+    rows.forEach(row => {
+        let name = row.cells[1].innerText.toLowerCase();
+        let div = row.cells[6].innerText;
+        let gen = row.cells[2].innerText;
+        let subjectsData = row.getAttribute("data-subjects");
+
+        let show = true;
+
+        if (search && !name.includes(search)) show = false;
+        if (division && div !== division) show = false;
+        if (gender && gen !== gender) show = false;
+
+        if (subject) {
+            let marks = getSubjectMarks(subjectsData, subject);
+            if ((minMarks && marks < minMarks) || (maxMarks && marks > maxMarks)) {
+                show = false;
+            }
+        }
+
+        row.style.display = show ? "" : "none";
+    });
+
+    // SORT
+    let visibleRows = rows.filter(r => r.style.display !== "none");
+
+    visibleRows.sort((a, b) => {
+
+        let totalA = parseInt(a.getAttribute("data-total"));
+        let totalB = parseInt(b.getAttribute("data-total"));
+
+        let subA = a.getAttribute("data-subjects");
+        let subB = b.getAttribute("data-subjects");
+
+        switch(sortOption) {
+
+            case "total_desc": return totalB - totalA;
+            case "total_asc": return totalA - totalB;
+
+            case "math_desc": return getSubjectMarks(subB,"MATHEMATICS") - getSubjectMarks(subA,"MATHEMATICS");
+            case "math_asc": return getSubjectMarks(subA,"MATHEMATICS") - getSubjectMarks(subB,"MATHEMATICS");
+
+            case "eng_desc": return getSubjectMarks(subB,"ENGLISH") - getSubjectMarks(subA,"ENGLISH");
+            case "eng_asc": return getSubjectMarks(subA,"ENGLISH") - getSubjectMarks(subB,"ENGLISH");
+
+            case "sci_desc": return getSubjectMarks(subB,"SCIENCE") - getSubjectMarks(subA,"SCIENCE");
+            case "sci_asc": return getSubjectMarks(subA,"SCIENCE") - getSubjectMarks(subB,"SCIENCE");
+
+            case "sst_desc": return getSubjectMarks(subB,"SOCIAL SCIENCE") - getSubjectMarks(subA,"SOCIAL SCIENCE");
+            case "sst_asc": return getSubjectMarks(subA,"SOCIAL SCIENCE") - getSubjectMarks(subB,"SOCIAL SCIENCE");
+
+            case "hindi_desc": return getSubjectMarks(subB,"M.I.L. HINDI") - getSubjectMarks(subA,"M.I.L. HINDI");
+            case "hindi_asc": return getSubjectMarks(subA,"M.I.L. HINDI") - getSubjectMarks(subB,"M.I.L. HINDI");
+
+            case "sanskrit_desc": return getSubjectMarks(subB,"S.I.L. SANSKRIT") - getSubjectMarks(subA,"S.I.L. SANSKRIT");
+            case "sanskrit_asc": return getSubjectMarks(subA,"S.I.L. SANSKRIT") - getSubjectMarks(subB,"S.I.L. SANSKRIT");
+
+        }
+
+        return 0;
+    });
+
+    visibleRows.forEach(row => tbody.appendChild(row));
+}
+</script>
+
+</body>
+</html>
